@@ -6,12 +6,12 @@ require "vertex_client/version"
 Gem::Specification.new do |spec|
   spec.name          = "vertex_client"
   spec.version       = VertexClient::VERSION
-  spec.authors       = ["Adam Maas"]
-  spec.email         = ["amaas@customink.com"]
+  spec.authors       = ["Custom Ink"]
+  spec.email         = ["technology@customink.com"]
 
-  spec.summary       = %q{TODO: Write a short summary, because RubyGems requires one.}
-  spec.description   = %q{TODO: Write a longer description or delete this line.}
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  spec.summary       = %q{A Ruby Gem to integrate with the Vertex Cloud API}
+  spec.description   = %q{The Vertex Client Ruby Gem provides an interface to integrate with Vertex Cloud's REST API.}
+  spec.homepage      = "https://github.com/customink/vertex_client"
   spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
@@ -20,8 +20,8 @@ Gem::Specification.new do |spec|
     spec.metadata["allowed_push_host"] = "TODO: Set to 'http://mygemserver.com'"
 
     spec.metadata["homepage_uri"] = spec.homepage
-    spec.metadata["source_code_uri"] = "TODO: Put your gem's public repo URL here."
-    spec.metadata["changelog_uri"] = "TODO: Put your gem's CHANGELOG.md URL here."
+    spec.metadata["source_code_uri"] = "https://github.com/customink/vertex_client"
+    spec.metadata["changelog_uri"] = "https://github.com/customink/vertex_client/CHANGELOG.md"
   else
     raise "RubyGems 2.0 or newer is required to protect against " \
       "public gem pushes."
