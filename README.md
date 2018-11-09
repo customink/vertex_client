@@ -20,6 +20,23 @@ Or install it yourself as:
 
     $ gem install vertex_client
 
+## Configuration
+
+Configure the client's connection to Vertex using environment variables or an initializer.
+
+### Environment Variables
+
+```
+VERTEX_TRUSTED_ID=your-trusted-id
+```
+### Initializer
+
+```ruby
+VertexClient.configure do |config|
+  config.trusted_id = 'your-trusted-id'
+end
+```
+
 ## Usage
 
 TODO: Write usage instructions here
