@@ -1,11 +1,17 @@
 require "test_helper"
 
-class VertexClientTest < Minitest::Test
-  def test_that_it_has_a_version_number
+describe VertexClient do
+  it 'has a version number' do
     refute_nil ::VertexClient::VERSION
   end
 
-  def test_it_does_something_useful
-    assert false
+  it 'can be configured with envs' do
+    ENV['VERTEX_TRUSTED_ID'] = 'trusted-id'
+    assert_equal VertexClient.configuration.trusted_id, 'trusted-id'
+  end
+
+  it 'can be configured with a block' do
+    VertexClient.configure { |config| config.trusted_id = 'trusted-id' }
+    assert_equal VertexClient.configuration.trusted_id, 'trusted-id'
   end
 end
