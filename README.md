@@ -73,12 +73,14 @@ Configure the client's connection to Vertex using environment variables or an in
 
 ```
 VERTEX_TRUSTED_ID=your-trusted-id
+VERTEX_SOAP_API=https://vertex-soap-api.com
 ```
 ### Initializer
 
 ```ruby
 VertexClient.configure do |config|
   config.trusted_id = 'your-trusted-id'
+  config.soap_api = 'https://vertex-soap-api.com'
 end
 ```
 
