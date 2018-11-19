@@ -7,39 +7,46 @@ The Vertex Client Ruby Gem provides an interface to integrate with Vertex Cloud'
 ### Quotation
 
 ```ruby
-VertexClient.quotation(
+response = VertexClient.quotation(
+  # The top level transaction date for all line items.
+  date: '2018-11-15',
+  # Overall discount amount for the total price of the quotation.
+  discount: "5.40"
+  # The top level customer for all line items.
   customer: {
     code: "inky@customink.com",
     address_1: "11 Wall Street",
-    address_2: "",
+    address_2: "#300",
     city: "New York",
     state: "NY",
     postal_code: '10005'
   },
+  # The top level seller for all line items.
   seller: {
     company: "CustomInk"
   },
   line_items: [
     {
-      date: '2018-11-15',
       product_code: "t-shirts",
       quantity: 7,
-      price: 35,
-      discount: 0
+      price: "35.50",
     },
     {
-      date: '2018-11-14',
       product_code: "t-shirts"
       quantity: 4,
-      price: 25,
-      discount: 0,
+      price: "25.40",
+      # Optional transaction date override for a line item.
+      date: '2018-11-14',
+      # Optional discount amount for an individual line item.
+      discount: "2.23",
+      # Optional seller override for a line item.
       seller: {
         company: "Custom Ink Stores"
       },
+      # Optional customer override for a line item.
       customer: {
         code: "prez@customink.com",
         address_1: "1600 Pennsylvania Ave NW",
-        address_2: "",
         city: "Washington",
         state: "DC",
         postal_code: '20500'
@@ -47,6 +54,10 @@ VertexClient.quotation(
     }
   ]
 )
+
+response.total_tax #=> Total tax amount
+response.total     #=> Total price plus total tax
+reponse.subtotal   #=> Total price before tax
 ```
 
 ## Installation
