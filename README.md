@@ -2,7 +2,52 @@
 
 The Vertex Client Ruby Gem provides an interface to integrate with Vertex Cloud's REST API.
 
-TODO: Write more introduction after Gem is more built out.
+## Usage
+
+### Quotation
+
+```ruby
+VertexClient.quotation(
+  customer: {
+    code: "inky@customink.com",
+    address_1: "11 Wall Street",
+    address_2: "",
+    city: "New York",
+    state: "NY",
+    postal_code: '10005'
+  },
+  seller: {
+    company: "CustomInk"
+  },
+  line_items: [
+    {
+      date: '2018-11-15',
+      product_code: "t-shirts",
+      quantity: 7,
+      price: 35,
+      discount: 0
+    },
+    {
+      date: '2018-11-14',
+      product_code: "t-shirts"
+      quantity: 4,
+      price: 25,
+      discount: 0,
+      seller: {
+        company: "Custom Ink Stores"
+      },
+      customer: {
+        code: "prez@customink.com",
+        address_1: "1600 Pennsylvania Ave NW",
+        address_2: "",
+        city: "Washington",
+        state: "DC",
+        postal_code: '20500'
+      }
+    }
+  ]
+)
+```
 
 ## Installation
 
