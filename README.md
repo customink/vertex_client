@@ -1,5 +1,7 @@
 # VertexClient
 
+[![Build Status](https://travis-ci.com/customink/vertex_client.svg?token=r6SdMyhouTa8X9zv834g&branch=master)](https://travis-ci.com/customink/vertex_client) [![Maintainability](https://api.codeclimate.com/v1/badges/f5c610d38dca05d7d8b6/maintainability)](https://codeclimate.com/repos/5be4865be81ccf2237014407/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/f5c610d38dca05d7d8b6/test_coverage)](https://codeclimate.com/repos/5be4865be81ccf2237014407/test_coverage)
+
 The Vertex Client Ruby Gem provides an interface to integrate with Vertex Cloud's REST API.
 
 ## Usage
