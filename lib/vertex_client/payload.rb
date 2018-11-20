@@ -30,7 +30,7 @@ module VertexClient
         :'@lineItemNumber' => number,
         date:           line_item[:date] || defaults[:date],
         customer:       transform_customer(line_item[:customer] || defaults[:customer]),
-        seller:         line_item[:seller] || defaults[:default_seller],
+        seller:         line_item[:seller] || defaults[:seller],
         product:        line_item[:product_code],
         quantity:       line_item[:quantity],
         extended_price: line_item[:price],

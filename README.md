@@ -11,7 +11,7 @@ response = VertexClient.quotation(
   # The top level transaction date for all line items.
   date: '2018-11-15',
   # Overall discount amount for the total price of the quotation.
-  discount: "5.40"
+  discount: "5.40",
   # The top level customer for all line items.
   customer: {
     code: "inky@customink.com",
@@ -32,7 +32,7 @@ response = VertexClient.quotation(
       price: "35.50",
     },
     {
-      product_code: "t-shirts"
+      product_code: "t-shirts",
       quantity: 4,
       price: "25.40",
       # Optional transaction date override for a line item.

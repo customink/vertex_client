@@ -1,5 +1,3 @@
-require 'savon'
-
 module VertexClient
   class Connection
 

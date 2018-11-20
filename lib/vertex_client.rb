@@ -1,4 +1,5 @@
 require 'vertex_client/version'
+require 'savon'
 
 module VertexClient
 
@@ -12,6 +13,11 @@ module VertexClient
 
     def configuration
       @configuration ||= Configuration.new
+    end
+
+    def reconfigure!
+      @configuration = Configuration.new
+      yield(@configuration) if block_given?
     end
 
     def configure
