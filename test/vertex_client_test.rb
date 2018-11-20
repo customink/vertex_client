@@ -7,6 +7,7 @@ describe VertexClient do
 
   it 'can be configured with envs' do
     ENV['VERTEX_TRUSTED_ID'] = 'trusted-id'
+    VertexClient.reconfigure!
     assert_equal VertexClient.configuration.trusted_id, 'trusted-id'
   end
 

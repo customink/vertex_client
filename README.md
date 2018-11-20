@@ -2,7 +2,63 @@
 
 The Vertex Client Ruby Gem provides an interface to integrate with Vertex Cloud's REST API.
 
-TODO: Write more introduction after Gem is more built out.
+## Usage
+
+### Quotation
+
+```ruby
+response = VertexClient.quotation(
+  # The top level transaction date for all line items.
+  date: '2018-11-15',
+  # Overall discount amount for the total price of the quotation.
+  discount: "5.40",
+  # The top level customer for all line items.
+  customer: {
+    code: "inky@customink.com",
+    address_1: "11 Wall Street",
+    address_2: "#300",
+    city: "New York",
+    state: "NY",
+    postal_code: '10005'
+  },
+  # The top level seller for all line items.
+  seller: {
+    company: "CustomInk"
+  },
+  line_items: [
+    {
+      product_code: "t-shirts",
+      quantity: 7,
+      price: "35.50",
+    },
+    {
+      product_code: "t-shirts",
+      quantity: 4,
+      price: "25.40",
+      # Optional transaction date override for a line item.
+      date: '2018-11-14',
+      # Optional discount amount for an individual line item.
+      discount: "2.23",
+      # Optional seller override for a line item.
+      seller: {
+        company: "Custom Ink Stores"
+      },
+      # Optional customer override for a line item.
+      customer: {
+        code: "prez@customink.com",
+        address_1: "1600 Pennsylvania Ave NW",
+        city: "Washington",
+        state: "DC",
+        postal_code: '20500'
+      }
+    }
+  ]
+)
+
+response.total_tax #=> Total tax amount
+response.total     #=> Total price plus total tax
+reponse.subtotal   #=> Total price before tax
+```
 
 ## Installation
 
@@ -28,12 +84,14 @@ Configure the client's connection to Vertex using environment variables or an in
 
 ```
 VERTEX_TRUSTED_ID=your-trusted-id
+VERTEX_SOAP_API=https://vertex-soap-api.com
 ```
 ### Initializer
 
 ```ruby
 VertexClient.configure do |config|
   config.trusted_id = 'your-trusted-id'
+  config.soap_api = 'https://vertex-soap-api.com'
 end
 ```
 

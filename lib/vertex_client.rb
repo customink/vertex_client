@@ -1,19 +1,34 @@
-require "vertex_client/version"
+require 'vertex_client/version'
+require 'savon'
 
 module VertexClient
-  class << self
-    attr_accessor :configuration
-  end
 
   autoload :Configuration, 'vertex_client/configuration'
+  autoload :Connection,    'vertex_client/connection'
+  autoload :Payload,       'vertex_client/payload'
+  autoload :Response,      'vertex_client/response'
 
-  def self.configuration
-    @configuration ||= Configuration.new
-  end
+  class << self
+    attr_accessor :configuration
 
-  def self.configure
-    yield(configuration)
+    def configuration
+      @configuration ||= Configuration.new
+    end
+
+    def reconfigure!
+      @configuration = Configuration.new
+      yield(@configuration) if block_given?
+    end
+
+    def configure
+      yield(configuration)
+    end
+
+    def quotation(payload)
+      Connection.new.quotation(payload)
+    end
   end
 
   class Error < StandardError; end
+
 end
