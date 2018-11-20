@@ -14,4 +14,15 @@ if [ -f "Brewfile" ] && [ "$(uname -s)" = "Darwin" ]; then
   }
 fi
 
+
+# echo "2.1.10" > .ruby-version
+# brew bootstrap-rbenv-ruby
+
+echo "2.2.4" > .ruby-version
+brew bootstrap-rbenv-ruby
+
+echo "2.4.1" > .ruby-version
+brew bootstrap-rbenv-ruby
+
+echo "2.5.3" > .ruby-version
 brew bootstrap-rbenv-ruby

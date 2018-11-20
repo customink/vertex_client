@@ -3,7 +3,7 @@ sudo: false
 language: ruby
 cache: bundler
 rvm:
- - 2.1.6
+ # - 2.1.10 # This one may be problematic
  - 2.2.4
  - 2.4.1
  - 2.5.3
@@ -11,6 +11,7 @@ if: branch = master OR type = pull_request
 env:
   global:
     - CC_TEST_REPORTER_ID=54ccd23af92d7903f1aebe01a8b5cbe272d7672fc636d0351527fd123d60f04e
+    - CI=true
 before_install:
   - gem install bundler -v 1.17.1
   - bin/setup
