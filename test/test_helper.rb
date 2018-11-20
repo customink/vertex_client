@@ -1,9 +1,10 @@
 $LOAD_PATH.unshift File.expand_path("../../lib", __FILE__)
-
+require "simplecov"
 require "dotenv/load"
 require "vertex_client"
 require "minitest/autorun"
 require "vcr"
+SimpleCov.start
 
 VertexClient.configuration # make sure the client is configured
 
