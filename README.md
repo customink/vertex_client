@@ -1,5 +1,7 @@
 # VertexClient
 
+[![Build Status](https://travis-ci.com/customink/vertex_client.svg?token=r6SdMyhouTa8X9zv834g&branch=master)](https://travis-ci.com/customink/vertex_client) [![Maintainability](https://api.codeclimate.com/v1/badges/f5c610d38dca05d7d8b6/maintainability)](https://codeclimate.com/repos/5be4865be81ccf2237014407/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/f5c610d38dca05d7d8b6/test_coverage)](https://codeclimate.com/repos/5be4865be81ccf2237014407/test_coverage)
+
 The Vertex Client Ruby Gem provides an interface to integrate with Vertex Cloud's REST API.
 
 ## Usage
@@ -116,3 +118,18 @@ The gem is available as open source under the terms of the [MIT License](https:/
 ## Code of Conduct
 
 Everyone interacting in the VertexClient project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/a-maas/vertex_client/blob/master/CODE_OF_CONDUCT.md).
+
+## Setup
+
+This project supports our [Strap conventions][strap]. After cloning the app, 
+run the following:
+
+    bin/bootstrap
+    bin/setup
+    bin/test
+
+After pulling down changes, run the following:
+
+    bin/update
+
+[strap]: https://github.com/customink/strap

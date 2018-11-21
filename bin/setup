@@ -1,8 +1,11 @@
 #!/usr/bin/env bash
-set -euo pipefail
-IFS=$'\n\t'
-set -vx
+set -e
+cd "$(dirname "$0")/.."
 
-bundle install
-
-# Do any other automated setup that you need to do here
+if [[ -z "$CI" ]]; then
+  # Bundle each ruby version
+  rm -rf Gemfile.lock
+  wwtd --only-bundle
+else
+  bundle --quiet
+fi

@@ -1,0 +1,23 @@
+#!/bin/sh
+
+# script/bootstrap: Resolve all dependencies that the application requires to
+# run.
+
+set -e
+
+cd "$(dirname "$0")/.."
+
+if [ -f "Brewfile" ] && [ "$(uname -s)" = "Darwin" ]; then
+  brew bundle check || {
+    echo "==> Installing Homebrew dependencies..."
+    brew bundle
+  }
+fi
+
+RUBIES=(2.1.10 2.2.4 2.4.1 2.5.3)
+for VERSION in "${RUBIES[@]}"
+do
+  echo "Setting up ruby version $VERSION..."
+  echo $VERSION > .ruby-version
+  brew bootstrap-rbenv-ruby
+done
