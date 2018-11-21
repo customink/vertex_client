@@ -5,17 +5,17 @@ describe VertexClient::Response do
     @response = VertexClient::Response.new(
       vertex_envelope: {
         quotation_response: {
-          total_tax: 6,
-          total: 106,
-          sub_total: 100
+          total_tax: '6.0',
+          total: '106.0',
+          sub_total: '100.0'
         }
       }
     )
   end
 
   it 'has attributes' do
-    assert_equal @response.total_tax, 6
-    assert_equal @response.total, 106
-    assert_equal @response.subtotal, 100
+    assert_equal @response.total_tax, BigDecimal.new('6.0')
+    assert_equal @response.total, BigDecimal.new('106.0')
+    assert_equal @response.subtotal, BigDecimal.new('100.0')
   end
 end

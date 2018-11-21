@@ -5,9 +5,9 @@ module VertexClient
 
     def initialize(response)
       @body      = response[:vertex_envelope][:quotation_response]
-      @total_tax = @body[:total_tax]
-      @total     = @body[:total]
-      @subtotal  = @body[:sub_total]
+      @total_tax = BigDecimal.new(@body[:total_tax])
+      @total     = BigDecimal.new(@body[:total])
+      @subtotal  = BigDecimal.new(@body[:sub_total])
     end
   end
 end
