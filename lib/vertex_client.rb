@@ -27,6 +27,14 @@ module VertexClient
     def quotation(payload)
       Connection.new.quotation(payload)
     end
+
+    def circuit
+      return unless configuration.circuit_config
+      Circuitbox.circuit(
+        Configuration::CIRCUIT_NAME,
+        configuration.circuit_config
+      )
+    end
   end
 
   class Error < StandardError; end
