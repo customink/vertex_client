@@ -1,0 +1,59 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: "{VERTEX_SOAP_API}"
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0" encoding="UTF-8"?><soapenv:Envelope xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:urn="urn:vertexinc:o-series:tps:7:0"
+        xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"><soapenv:Body><urn:VertexEnvelope><Login><TrustedId>{VERTEX_TRUSTED_ID}</TrustedId></Login><QuotationRequest
+        transactionType="SALE"><LineItem lineItemNumber="0"><Date>2018-11-15</Date><Customer><Destination><StreetAddress1>11
+        Wall Street</StreetAddress1><City>New York</City><MainDivision>NY</MainDivision><PostalCode>10005</PostalCode></Destination></Customer><Seller><Company>CustomInk</Company></Seller><Product>t-shirts</Product><Quantity>7</Quantity><ExtendedPrice>35.50</ExtendedPrice></LineItem><LineItem
+        lineItemNumber="1"><Date>2018-11-14</Date><Customer><Destination><StreetAddress1>1600
+        Pennsylvania Ave NW</StreetAddress1><City>Washington</City><MainDivision>DC</MainDivision><PostalCode>20500</PostalCode></Destination></Customer><Seller><Company>CustomInkStores</Company></Seller><Product>t-shirts</Product><Quantity>4</Quantity><ExtendedPrice>25.40</ExtendedPrice><Discount><DiscountAmount>2.23</DiscountAmount></Discount></LineItem><Discount><DiscountAmount>5.40</DiscountAmount></Discount></QuotationRequest></urn:VertexEnvelope></soapenv:Body></soapenv:Envelope>
+    headers:
+      Soapaction:
+      - '"VertexEnvelope"'
+      Content-Type:
+      - text/xml;charset=UTF-8
+      Content-Length:
+      - '1321'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 500
+      message: ''
+    headers:
+      Date:
+      - Tue, 27 Nov 2018 15:32:19 GMT
+      Content-Type:
+      - text/xml;charset=UTF-8
+      Content-Length:
+      - '835'
+      Connection:
+      - keep-alive
+      Soapaction:
+      - '"VertexEnvelope"'
+      Server:
+      - ''
+    body:
+      encoding: UTF-8
+      string: "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\">\r\n
+        \  <soapenv:Body>\r\n      <soapenv:Fault>\r\n         <faultcode>soapenv:Client</faultcode>\r\n
+        \        <faultstring xml:lang=\"en\">The Trusted ID could not be resolved,
+        please check your connector configuration. Note that Trusted IDs and Company
+        Codes are case sensitive.</faultstring>\r\n         <detail>\r\n            <ns2:VertexException
+        xmlns:ns2=\"urn:vertexinc:oseries:exception:1:0\">\r\n               <exceptionType>VertexApplicationException</exceptionType>\r\n
+        \              <rootCause>The Trusted ID could not be resolved, please check
+        your connector configuration. Note that Trusted IDs and Company Codes are
+        case sensitive.</rootCause>\r\n            </ns2:VertexException>\r\n         </detail>\r\n
+        \     </soapenv:Fault>\r\n   </soapenv:Body>\r\n</soapenv:Envelope>"
+    http_version: 
+  recorded_at: Tue, 27 Nov 2018 15:32:19 GMT
+recorded_with: VCR 4.0.0

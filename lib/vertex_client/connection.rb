@@ -10,7 +10,7 @@ module VertexClient
           message: payload(:quotation_request, input)
         )
       end
-      Response.new(response.body)
+      Response.new(response.body) if response
     end
 
     def payload(request_type, input)

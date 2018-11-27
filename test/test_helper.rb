@@ -15,6 +15,11 @@ VCR.configure do |config|
   config.filter_sensitive_data('{VERTEX_SOAP_API}')   { VertexClient.configuration.soap_api }
 end
 
+class FakeLogger
+  def debug(_)
+  end
+end
+
 
 module TestInput
   def self.included(base)
