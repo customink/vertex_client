@@ -1,6 +1,7 @@
 require 'vertex_client/version'
 require 'vertex_client/railtie' if defined?(Rails)
 
+require 'active_support/all'
 require 'savon'
 
 module VertexClient
