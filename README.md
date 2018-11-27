@@ -12,8 +12,6 @@ The Vertex Client Ruby Gem provides an interface to integrate with Vertex Cloud'
 response = VertexClient.quotation(
   # The top level transaction date for all line items.
   date: '2018-11-15',
-  # Overall discount amount for the total price of the quotation.
-  discount: "5.40",
   # The top level customer for all line items.
   customer: {
     code: "inky@customink.com",
@@ -39,8 +37,6 @@ response = VertexClient.quotation(
       price: "25.40",
       # Optional transaction date override for a line item.
       date: '2018-11-14',
-      # Optional discount amount for an individual line item.
-      discount: "2.23",
       # Optional seller override for a line item.
       seller: {
         company: "Custom Ink Stores"
@@ -60,6 +56,20 @@ response = VertexClient.quotation(
 response.total_tax #=> Total tax amount
 response.total     #=> Total price plus total tax
 reponse.subtotal   #=> Total price before tax
+```
+
+### Invoice
+
+Invoice is the same payload as quotation, but with one added identifier.
+
+```ruby
+VertexClient.invoice(
+  # Vertex's Document Number is a unique referencial identifier for this invoice.
+  document_number: "unique-identifier-1a43b",
+  
+  # ... All of the of the payload from quotation here ...
+)
+
 ```
 
 ## Installation

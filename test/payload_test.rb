@@ -3,8 +3,30 @@ require "test_helper"
 describe VertexClient::Payload do
   include TestInput
 
-  it 'transforms the input hash' do
-    assert_equal VertexClient::Payload.new(working_quote_params).transform.output, expected_output
+  it 'transforms the input hash for quotation' do
+    assert_equal(VertexClient::QuotationPayload.new(working_quote_params).transform.output, expected_output)
+  end
+
+  it 'includes the date and document number for invoice' do
+    output = VertexClient::InvoicePayload.new(working_quote_params).transform.output
+    assert_equal output[:'@documentNumber'], 'test123'
+    assert_equal output[:'@documentDate'],   '2018-11-15'
+  end
+
+  it 'raises if the document_number is not included for invoice' do
+    assert_raises VertexClient::Error do
+      input = working_quote_params
+      input.delete(:document_number)
+      VertexClient::InvoicePayload.new(input).transform
+    end
+  end
+
+  it 'raises if the document_number is too long' do
+    assert_raises VertexClient::Error do
+      input = working_quote_params
+      input[:document_number] = 'a-document-number-that-is-too-many-characters'
+      VertexClient::InvoicePayload.new(input).transform
+    end
   end
 
   def expected_output
@@ -12,8 +34,8 @@ describe VertexClient::Payload do
       :@transactionType=>"SALE",
       :line_item=> [
         {
-          :@lineItemNumber=>0,
-          :date=>"2018-11-15",
+          :@lineItemNumber=>1,
+          :@taxDate=>"2018-11-15",
           :customer=> {
             :destination=> {
               :street_address_1=>"11 Wall Street",
@@ -30,8 +52,8 @@ describe VertexClient::Payload do
           :extended_price=>"35.50"
         },
         {
-          :@lineItemNumber=>1,
-          :date=>"2018-11-14",
+          :@lineItemNumber=>2,
+          :@taxDate=>"2018-11-14",
           :customer=> {
             :destination=> {
               :street_address_1=>"1600 Pennsylvania Ave NW",
@@ -41,19 +63,13 @@ describe VertexClient::Payload do
             }
           },
           :seller=> {
-            :company=>"CustomInkStores"
+            :company=>"CustomInk"
           },
           :product=>"t-shirts",
           :quantity=>4,
-          :extended_price=>"25.40",
-          :discount=> {
-            :discount_amount=>"2.23"
-          }
+          :extended_price=>"25.40"
         }
-      ],
-      :discount=> {
-        :discount_amount=>"5.40"
-      }
+      ]
     }
   end
 end

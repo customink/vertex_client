@@ -22,4 +22,10 @@ describe VertexClient::Connection do
       VertexClient.quotation(working_quote_params)
     end
   end
+
+  it 'does an invoice' do
+    VCR.use_cassette("invoice", :match_requests_on => []) do
+      VertexClient.invoice(working_quote_params)
+    end
+  end
 end
