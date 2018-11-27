@@ -5,13 +5,12 @@ require 'savon'
 
 module VertexClient
 
-  QUOTATION = 'quotation'.freeze
-  INVOICE =   'invoice'.freeze
-
-  autoload :Configuration, 'vertex_client/configuration'
-  autoload :Connection,    'vertex_client/connection'
-  autoload :Payload,       'vertex_client/payload'
-  autoload :Response,      'vertex_client/response'
+  autoload :Configuration,    'vertex_client/configuration'
+  autoload :Connection,       'vertex_client/connection'
+  autoload :InvoicePayload,   'vertex_client/invoice_payload'
+  autoload :Payload,          'vertex_client/payload'
+  autoload :Response,         'vertex_client/response'
+  autoload :QuotationPayload, 'vertex_client/quotation_payload'
 
   class << self
 
@@ -31,11 +30,11 @@ module VertexClient
     end
 
     def quotation(payload)
-      Connection.new.request(QUOTATION, payload)
+      Connection.new.request(QuotationPayload.new(payload))
     end
 
     def invoice(payload)
-      Connection.new.request(INVOICE, payload)
+      Connection.new.request(InvoicePayload.new(payload))
     end
 
     def circuit

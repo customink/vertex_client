@@ -5,14 +5,12 @@ module VertexClient
 
     attr_reader :output
 
-    def initialize(input, request_type)
+    def initialize(input)
       @input = input.dup
-      @request_type = request_type
       @output = {}
     end
 
     def transform
-      validate!
       line_items = @input.delete(:line_items)
       @output = init_hash
       defaults = @input
@@ -22,35 +20,25 @@ module VertexClient
       self
     end
 
+    def request_key
+      "#{payload_name}_request".to_sym
+    end
+
+    def response_key
+      "#{payload_name}_response".to_sym
+    end
+
     private
 
-    def validate!
-      raise VertexClient::Error.new('document_number is required for invoice') if document_number_missing?
-      raise VertexClient::Error.new('document_number must be less than or equal to 40 characters') if document_number_too_long?
-    end
-
-    def invoice?
-      @request_type == VertexClient::INVOICE
-    end
-
-    def document_number_missing?
-      invoice? && @input[:document_number].to_s.empty?
-    end
-
-    def document_number_too_long?
-      invoice? && @input[:document_number].to_s.length > 40
+    def payload_name
+      "#{self.class::NAME}"
     end
 
     def init_hash
-      hash = {
+      {
         :'@transactionType' => SALE,
         line_item: []
       }
-      if invoice?
-        hash[:'@documentNumber'] = @input.delete(:document_number)
-        hash[:'@documentDate']   = @input[:date]
-      end
-      hash
     end
 
     def transform_line_item(line_item, number, defaults)

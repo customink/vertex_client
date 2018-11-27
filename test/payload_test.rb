@@ -3,18 +3,12 @@ require "test_helper"
 describe VertexClient::Payload do
   include TestInput
 
-  it 'transforms the input hash for invoice' do
-    assert_equal(VertexClient::Payload.new(
-      working_quote_params,
-      VertexClient::QUOTATION
-    ).transform.output, expected_output)
+  it 'transforms the input hash for quotation' do
+    assert_equal(VertexClient::QuotationPayload.new(working_quote_params).transform.output, expected_output)
   end
 
   it 'includes the date and document number for invoice' do
-    output = VertexClient::Payload.new(
-      working_quote_params,
-      VertexClient::INVOICE
-    ).transform.output
+    output = VertexClient::InvoicePayload.new(working_quote_params).transform.output
     assert_equal output[:'@documentNumber'], 'test123'
     assert_equal output[:'@documentDate'],   '2018-11-15'
   end
@@ -23,7 +17,7 @@ describe VertexClient::Payload do
     assert_raises VertexClient::Error do
       input = working_quote_params
       input.delete(:document_number)
-      VertexClient::Payload.new(input, VertexClient::INVOICE).transform
+      VertexClient::InvoicePayload.new(input).transform
     end
   end
 
@@ -31,7 +25,7 @@ describe VertexClient::Payload do
     assert_raises VertexClient::Error do
       input = working_quote_params
       input[:document_number] = 'a-document-number-that-is-too-many-characters'
-      VertexClient::Payload.new(input, VertexClient::INVOICE).transform
+      VertexClient::InvoicePayload.new(input).transform
     end
   end
 

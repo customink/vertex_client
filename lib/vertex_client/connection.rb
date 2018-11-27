@@ -3,20 +3,20 @@ module VertexClient
 
     VERTEX_NAMESPACE = "urn:vertexinc:o-series:tps:7:0".freeze
 
-    def request(type, input)
+    def request(payload_object)
       response = call_with_circuit_if_available do
         client.call(
           :vertex_envelope,
-          message: payload(type, input)
+          message: payload(payload_object)
         )
       end
-      Response.new(response.body) if response
+      Response.new(response.body, payload_object.response_key) if response
     end
 
-    def payload(request_type, input)
+    def payload(payload_object)
       payload_hash = shell_with_auth
-      transform_payload = Payload.new(input, request_type).transform
-      payload_hash["#{request_type}_request".to_sym] = transform_payload.output
+      transform_payload = payload_object.transform
+      payload_hash[payload_object.request_key] = transform_payload.output
       payload_hash
     end
 
