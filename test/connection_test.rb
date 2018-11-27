@@ -28,4 +28,15 @@ describe VertexClient::Connection do
       VertexClient.invoice(working_quote_params)
     end
   end
+
+  it 'does distribute_tax' do
+    input = working_quote_params
+    input[:line_items].each do |line_item|
+      line_item.delete(:price)
+      line_item[:total_tax] = "5.00"
+    end
+    VCR.use_cassette("distribute_tax", :match_requests_on => []) do
+      VertexClient.distribute_tax(input)
+    end
+  end
 end
