@@ -4,7 +4,7 @@ describe VertexClient::Payload do
   include TestInput
 
   it 'transforms the input hash' do
-    assert_equal VertexClient::Payload.new(test_input).transform.output, expected_output
+    assert_equal VertexClient::Payload.new(working_quote_params).transform.output, expected_output
   end
 
   def expected_output

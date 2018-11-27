@@ -12,14 +12,14 @@ describe VertexClient::Connection do
 
   it 'does a quotation' do
     VCR.use_cassette("quotation", :match_requests_on => []) do
-      VertexClient.quotation(test_input)
+      VertexClient.quotation(working_quote_params)
     end
   end
 
   it 'uses circuit if it is available' do
     VertexClient.configuration.circuit_config = {}
     VCR.use_cassette("quotation", :match_requests_on => []) do
-      VertexClient.quotation(test_input)
+      VertexClient.quotation(working_quote_params)
     end
   end
 end
