@@ -6,7 +6,7 @@ module VertexClient
     attr_reader :output
 
     def initialize(input)
-      @input = input.dup
+      @input = input.dup.deep_symbolize_keys!
       @output = {}
     end
 

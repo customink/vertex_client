@@ -36,7 +36,7 @@ module TestInput
             postal_code: '10005'
           },
           seller: {
-            company: "CustomInk"
+            "company" => "CustomInk"
           },
           line_items: [
             {
