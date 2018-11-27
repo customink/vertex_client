@@ -6,7 +6,7 @@ module VertexClient
     attr_reader :output
 
     def initialize(input)
-      @input = input.dup
+      @input = input.dup.with_indifferent_access
       @output = {}
     end
 
@@ -46,7 +46,7 @@ module VertexClient
         :'@lineItemNumber' => number+1,
         :'@taxDate' =>  line_item[:date] || defaults[:date],
         customer:       transform_customer(line_item[:customer] || defaults[:customer]),
-        seller:         line_item[:seller] || defaults[:seller],
+        seller:         transform_seller(line_item[:seller] || defaults[:seller]),
         product:        line_item[:product_code],
         quantity:       line_item[:quantity],
         extended_price: line_item[:price],
@@ -62,6 +62,12 @@ module VertexClient
           main_division:    customer[:state],
           postal_code:      customer[:postal_code]
         })
+      }
+    end
+
+    def transform_seller(seller)
+      {
+        company: seller[:company]
       }
     end
 
