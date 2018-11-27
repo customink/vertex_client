@@ -1,14 +1,17 @@
 require "test_helper"
 
 describe VertexClient::Configuration do
+
   it 'has a trusted id' do
     VertexClient.configuration.trusted_id = 'trusted-id'
     assert_equal VertexClient.configuration.trusted_id, 'trusted-id'
+    VertexClient.reconfigure!
   end
 
   it 'has a soap_api' do
     VertexClient.configuration.soap_api = 'http://service.example.com'
     assert_equal VertexClient.configuration.soap_api, 'http://service.example.com'
+    VertexClient.reconfigure!
   end
 
   describe 'circuit_config' do

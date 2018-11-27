@@ -26,8 +26,8 @@ module TestInput
     base.class_eval do
       let(:working_quote_params) do
         {
+          document_number: 'test123',
           date: '2018-11-15',
-          discount: "5.40",
           customer: {
             code: "inky@customink.com",
             address_1: "11 Wall Street",
@@ -49,9 +49,8 @@ module TestInput
               quantity: 4,
               price: "25.40",
               date: '2018-11-14',
-              discount: "2.23",
               seller: {
-                company: "CustomInkStores"
+                company: "CustomInk"
               },
               customer: {
                 code: "prez@customink.com",

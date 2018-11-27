@@ -9,14 +9,14 @@ describe VertexClient do
   end
 
   it 'can be configured with envs' do
-    ENV['VERTEX_TRUSTED_ID'] = 'trusted-id'
-    VertexClient.reconfigure!
-    assert_equal VertexClient.configuration.trusted_id, 'trusted-id'
+    refute_nil ENV['VERTEX_TRUSTED_ID']
+    assert_equal VertexClient.configuration.trusted_id, ENV['VERTEX_TRUSTED_ID']
   end
 
   it 'can be configured with a block' do
     VertexClient.configure { |config| config.trusted_id = 'trusted-id' }
     assert_equal VertexClient.configuration.trusted_id, 'trusted-id'
+    VertexClient.reconfigure!
   end
 
   describe 'circuit' do
