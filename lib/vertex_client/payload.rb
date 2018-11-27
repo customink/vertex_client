@@ -4,7 +4,7 @@ module VertexClient
     attr_reader :output
 
     def initialize(input)
-      @input = input
+      @input = input.dup
       @output = {}
     end
 

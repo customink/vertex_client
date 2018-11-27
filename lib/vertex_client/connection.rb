@@ -4,11 +4,13 @@ module VertexClient
     VERTEX_NAMESPACE = "urn:vertexinc:o-series:tps:7:0".freeze
 
     def quotation(input)
-      response = client.call(
-        :vertex_envelope,
-        message: payload(:quotation_request, input)
-      )
-      Response.new(response.body)
+      response = call_with_circuit_if_available do
+        client.call(
+          :vertex_envelope,
+          message: payload(:quotation_request, input)
+        )
+      end
+      Response.new(response.body) if response
     end
 
     def payload(request_type, input)
@@ -19,6 +21,10 @@ module VertexClient
     end
 
     private
+
+    def call_with_circuit_if_available
+      VertexClient.circuit ? VertexClient.circuit.run{ yield } : yield
+    end
 
     def shell_with_auth
       {

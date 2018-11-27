@@ -1,0 +1,17 @@
+VertexClient.configure do |config|
+  config.trusted_id = ENV.fetch('VERTEX_TRUSTED_ID')
+  config.soap_api = ENV.fetch('VERTEX_SOAP_API')
+
+  # Circuitbox configuration.
+  # https://github.com/yammer/circuitbox#per-circuit-configuration
+  config.circuit_config = {
+    sleep_window: 300,
+    time_window: 60,
+    error_threshold: 50,
+    cache: Rails.cache,
+    logger: Rails.logger,
+    exceptions: [
+      Savon::Error
+    ]
+  }
+end

@@ -1,4 +1,6 @@
 require 'vertex_client/version'
+require 'vertex_client/railtie' if defined?(Rails)
+
 require 'savon'
 
 module VertexClient
@@ -26,6 +28,14 @@ module VertexClient
 
     def quotation(payload)
       Connection.new.quotation(payload)
+    end
+
+    def circuit
+      return unless configuration.circuit_config
+      Circuitbox.circuit(
+        Configuration::CIRCUIT_NAME,
+        configuration.circuit_config
+      )
     end
   end
 
