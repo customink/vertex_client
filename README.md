@@ -74,7 +74,7 @@ VertexClient.invoice(
 
 ### Distribute Tax
 
-Distribute Tax is the same payload as Invoice, but instead of price, pass `total_tax`. The `product_code` and `quantity` are optional.
+Distribute Tax is the same payload as Invoice, but you pass `total_tax` on each line item. The `product_code` and `quantity` are optional.
 
 ```ruby
 VertexClient.distribute_tax(
@@ -83,6 +83,7 @@ VertexClient.distribute_tax(
   
   line_items: [
     {
+      price: "100.00",
       total_tax: "6.00",
     }
   ]

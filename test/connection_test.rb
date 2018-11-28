@@ -33,7 +33,6 @@ describe VertexClient::Connection do
     input = working_quote_params
     input[:line_items].shift # remove the first one
     input[:line_items].each do |line_item|
-      line_item.delete(:price)
       line_item[:total_tax] = "5.00"
       line_item[:customer] = {
         address_1: "2910 District Ave #300",
@@ -42,7 +41,6 @@ describe VertexClient::Connection do
         postal_code: "22031"
       }
     end
-    p input
     VCR.use_cassette("distribute_tax", :match_requests_on => []) do
       VertexClient.distribute_tax(input)
     end
