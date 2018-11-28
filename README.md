@@ -72,6 +72,26 @@ VertexClient.invoice(
 
 ```
 
+### Distribute Tax
+
+Distribute Tax is the same payload as Invoice, but you pass `total_tax` on each line item. The `product_code` and `quantity` are optional.
+
+```ruby
+VertexClient.distribute_tax(
+  
+  # ...
+  
+  line_items: [
+    {
+      price: "100.00",
+      total_tax: "6.00",
+    }
+  ]
+
+)
+
+
+
 ## Installation
 
 Add this line to your application's Gemfile:

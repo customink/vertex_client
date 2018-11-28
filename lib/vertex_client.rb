@@ -6,12 +6,13 @@ require 'savon'
 
 module VertexClient
 
-  autoload :Configuration,    'vertex_client/configuration'
-  autoload :Connection,       'vertex_client/connection'
-  autoload :InvoicePayload,   'vertex_client/invoice_payload'
-  autoload :Payload,          'vertex_client/payload'
-  autoload :Response,         'vertex_client/response'
-  autoload :QuotationPayload, 'vertex_client/quotation_payload'
+  autoload :Configuration,        'vertex_client/configuration'
+  autoload :Connection,           'vertex_client/connection'
+  autoload :DistributeTaxPayload, 'vertex_client/distribute_tax_payload'
+  autoload :InvoicePayload,       'vertex_client/invoice_payload'
+  autoload :Payload,              'vertex_client/payload'
+  autoload :Response,             'vertex_client/response'
+  autoload :QuotationPayload,     'vertex_client/quotation_payload'
 
   class << self
 
@@ -36,6 +37,10 @@ module VertexClient
 
     def invoice(payload)
       Connection.new.request(InvoicePayload.new(payload))
+    end
+
+    def distribute_tax(payload)
+      Connection.new.request(DistributeTaxPayload.new(payload))
     end
 
     def circuit
