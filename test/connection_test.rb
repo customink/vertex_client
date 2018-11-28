@@ -31,10 +31,18 @@ describe VertexClient::Connection do
 
   it 'does distribute_tax' do
     input = working_quote_params
+    input[:line_items].shift # remove the first one
     input[:line_items].each do |line_item|
       line_item.delete(:price)
       line_item[:total_tax] = "5.00"
+      line_item[:customer] = {
+        address_1: "2910 District Ave #300",
+        city: "Fairfax",
+        state: "VA",
+        postal_code: "22031"
+      }
     end
+    p input
     VCR.use_cassette("distribute_tax", :match_requests_on => []) do
       VertexClient.distribute_tax(input)
     end
