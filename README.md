@@ -55,7 +55,7 @@ response = VertexClient.quotation(
 
 response.total_tax #=> Total tax amount
 response.total     #=> Total price plus total tax
-reponse.subtotal   #=> Total price before tax
+response.subtotal  #=> Total price before tax
 ```
 
 ### Invoice
