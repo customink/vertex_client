@@ -11,17 +11,17 @@ http_interactions:
         transactionType="SALE" documentNumber="test123" documentDate="2018-11-15"><LineItem
         lineItemNumber="1" taxDate="2018-11-15"><Customer><Destination><StreetAddress1>11
         Wall Street</StreetAddress1><City>New York</City><MainDivision>NY</MainDivision><PostalCode>10005</PostalCode></Destination></Customer><Seller><Company>CustomInk</Company></Seller><Product
-        productClass="53103000"></Product><Quantity>7</Quantity><ExtendedPrice>35.50</ExtendedPrice></LineItem><LineItem
+        productClass="53103000">4600</Product><Quantity>7</Quantity><ExtendedPrice>35.50</ExtendedPrice></LineItem><LineItem
         lineItemNumber="2" taxDate="2018-11-14"><Customer><Destination><StreetAddress1>2910
         District Ave #300</StreetAddress1><City>Fairfax</City><MainDivision>VA</MainDivision><PostalCode>22031</PostalCode></Destination></Customer><Seller><Company>CustomInk</Company></Seller><Product
-        productClass="53103000"></Product><Quantity>4</Quantity><ExtendedPrice>25.40</ExtendedPrice></LineItem></InvoiceRequest></urn:VertexEnvelope></soapenv:Body></soapenv:Envelope>'
+        productClass="53103000">5300</Product><Quantity>4</Quantity><ExtendedPrice>25.40</ExtendedPrice></LineItem></InvoiceRequest></urn:VertexEnvelope></soapenv:Body></soapenv:Envelope>'
     headers:
       Soapaction:
       - '"VertexEnvelope"'
       Content-Type:
       - text/xml;charset=UTF-8
       Content-Length:
-      - '1281'
+      - '1289'
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Accept:
@@ -34,7 +34,7 @@ http_interactions:
       message: ''
     headers:
       Date:
-      - Thu, 29 Nov 2018 15:27:29 GMT
+      - Thu, 29 Nov 2018 19:32:08 GMT
       Content-Type:
       - text/xml;charset=UTF-8
       Transfer-Encoding:
@@ -63,7 +63,7 @@ http_interactions:
         <PostalCode>10005</PostalCode>
         </Destination>
         </Customer>
-        <Product productClass="53103000"></Product>
+        <Product productClass="53103000">4600</Product>
         <Quantity>7.0</Quantity>
         <FairMarketValue>35.5</FairMarketValue>
         <ExtendedPrice>35.5</ExtendedPrice>
@@ -98,7 +98,7 @@ http_interactions:
         <PostalCode>22031</PostalCode>
         </Destination>
         </Customer>
-        <Product productClass="53103000"></Product>
+        <Product productClass="53103000">5300</Product>
         <Quantity>4.0</Quantity>
         <FairMarketValue>25.4</FairMarketValue>
         <ExtendedPrice>25.4</ExtendedPrice>
@@ -129,9 +129,9 @@ http_interactions:
         <TotalTax>1.52</TotalTax>
         </LineItem>
         </InvoiceResponse>
-        <ApplicationData><ResponseTimeMS>13.2</ResponseTimeMS>
+        <ApplicationData><ResponseTimeMS>39.7</ResponseTimeMS>
         </ApplicationData>
         </VertexEnvelope></soapenv:Body></soapenv:Envelope>
     http_version: 
-  recorded_at: Thu, 29 Nov 2018 15:27:29 GMT
+  recorded_at: Thu, 29 Nov 2018 19:32:08 GMT
 recorded_with: VCR 4.0.0

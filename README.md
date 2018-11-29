@@ -27,19 +27,24 @@ response = VertexClient.quotation(
   },
   line_items: [
     {
-      product_code: "t-shirts",
+      # Internal product ID or code
+      product_code: "4600",
+      # Mapped product class, or "commodity code", in Vertex Cloud
+      product_class: "123456"
       quantity: 7,
+      # Total price of this line item
       price: "35.50",
     },
     {
-      product_code: "t-shirts",
+      product_code: "5200",
+      product_class: "123456"
       quantity: 4,
       price: "25.40",
       # Optional transaction date override for a line item.
       date: '2018-11-14',
       # Optional seller override for a line item.
       seller: {
-        company: "Custom Ink Stores"
+        company: "CustomInkStores"
       },
       # Optional customer override for a line item.
       customer: {

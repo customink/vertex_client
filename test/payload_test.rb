@@ -48,7 +48,8 @@ describe VertexClient::Payload do
             company: "CustomInk"
           },
           :product=> {
-            :@productClass=>"53103000"
+            :@productClass=>"53103000",
+            content!: "4600"
           },
           :quantity=>7,
           :extended_price=>"35.50"
@@ -68,7 +69,8 @@ describe VertexClient::Payload do
             :company=>"CustomInk"
           },
           :product=> {
-            :@productClass=>"53103000"
+            :@productClass=>"53103000",
+            content!: "5300"
           },
           :quantity=>4,
           :extended_price=>"25.40"
