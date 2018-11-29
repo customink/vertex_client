@@ -66,7 +66,7 @@ Invoice is the same payload as quotation, but with one added identifier.
 VertexClient.invoice(
   # Vertex's Document Number is a unique referencial identifier for this invoice.
   document_number: "unique-identifier-1a43b",
-  
+
   # ... All of the of the payload from quotation here ...
 )
 
@@ -78,9 +78,9 @@ Distribute Tax is the same payload as Invoice, but you pass `total_tax` on each 
 
 ```ruby
 VertexClient.distribute_tax(
-  
+
   # ...
-  
+
   line_items: [
     {
       price: "100.00",
@@ -169,7 +169,7 @@ Everyone interacting in the VertexClient project’s codebases, issue trackers, 
 
 ## Setup
 
-This project supports our [Strap conventions][strap]. After cloning the app, 
+This project supports our [Strap conventions][strap]. After cloning the app,
 run the following:
 
     bin/bootstrap
