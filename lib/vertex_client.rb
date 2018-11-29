@@ -44,7 +44,7 @@ module VertexClient
     end
 
     def circuit
-      return unless configuration.circuit_config
+      return unless configuration.circuit_config && defined?(Circuitbox)
       Circuitbox.circuit(
         Configuration::CIRCUIT_NAME,
         configuration.circuit_config
