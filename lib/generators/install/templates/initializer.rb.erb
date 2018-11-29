@@ -1,17 +1,27 @@
+# Uncomment the next line if you want to use circuitbox with VertexClient.
+# require "circuitbox"
 VertexClient.configure do |config|
   config.trusted_id = ENV.fetch('VERTEX_TRUSTED_ID')
   config.soap_api = ENV.fetch('VERTEX_SOAP_API')
 
   # Circuitbox configuration.
   # https://github.com/yammer/circuitbox#per-circuit-configuration
-  config.circuit_config = {
-    sleep_window: 300,
-    time_window: 60,
-    error_threshold: 50,
-    cache: Rails.cache,
-    logger: Rails.logger,
-    exceptions: [
-      Savon::Error
-    ]
-  }
+  # config.circuit_config = {
+  #   sleep_window: 300,
+  #   time_window: 60,
+  #   error_threshold: 50,
+  #   logger: Rails.logger,
+  #   exceptions: [
+  #     Savon::Error
+  #   ]
+  # }
+
+  # Optional circuitbox store configuration:
+  #   config.circuit_config[:cache] can be set to any moneta-backed store:
+  # see: https://github.com/minad/moneta fore more information.
+  #
+  # Example - Using your Rails.cache's configured dalli store:
+  # backend = Rails.cache.instance_variable_get(:@data)
+  # config.circuit_config[:cache] = Moneta::Adapters::MemcachedDalli.new backend: backend
+
 end

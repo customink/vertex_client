@@ -1,4 +1,3 @@
-require 'circuitbox'
 module VertexClient
   class Configuration
 
