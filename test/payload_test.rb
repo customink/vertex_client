@@ -47,7 +47,9 @@ describe VertexClient::Payload do
           seller: {
             company: "CustomInk"
           },
-          :product=>"t-shirts",
+          :product=> {
+            :@productClass=>"53103000"
+          },
           :quantity=>7,
           :extended_price=>"35.50"
         },
@@ -56,16 +58,18 @@ describe VertexClient::Payload do
           :@taxDate=>"2018-11-14",
           :customer=> {
             :destination=> {
-              :street_address_1=>"1600 Pennsylvania Ave NW",
-              :city=>"Washington",
-              :main_division=>"DC",
-              :postal_code=>"20500"
+              :street_address_1=>"2910 District Ave #300",
+              :city=>"Fairfax",
+              :main_division=>"VA",
+              :postal_code=>"22031"
             }
           },
           :seller=> {
             :company=>"CustomInk"
           },
-          :product=>"t-shirts",
+          :product=> {
+            :@productClass=>"53103000"
+          },
           :quantity=>4,
           :extended_price=>"25.40"
         }
