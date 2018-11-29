@@ -89,8 +89,7 @@ VertexClient.distribute_tax(
   ]
 
 )
-
-
+```
 
 ## Installation
 
