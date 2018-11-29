@@ -29,7 +29,6 @@ module TestInput
           document_number: 'test123',
           date: '2018-11-15',
           customer: {
-            code: "inky@customink.com",
             address_1: "11 Wall Street",
             city: "New York",
             state: "NY",
@@ -40,12 +39,14 @@ module TestInput
           },
           line_items: [
             {
-              product_code: "t-shirts",
+              product_code: "4600",
+              product_class: "53103000",
               quantity: 7,
               price: "35.50",
             },
             {
-              product_code: "t-shirts",
+              product_code: "5300",
+              product_class: "53103000",
               quantity: 4,
               price: "25.40",
               date: '2018-11-14',
@@ -53,11 +54,10 @@ module TestInput
                 company: "CustomInk"
               },
               customer: {
-                code: "prez@customink.com",
-                address_1: "1600 Pennsylvania Ave NW",
-                city: "Washington",
-                state: "DC",
-                postal_code: '20500'
+                address_1: "2910 District Ave #300",
+                city: "Fairfax",
+                state: "VA",
+                postal_code: '22031'
               }
             }
           ]

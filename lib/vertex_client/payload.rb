@@ -47,10 +47,17 @@ module VertexClient
         :'@taxDate' =>  line_item[:date] || defaults[:date],
         customer:       transform_customer(line_item[:customer] || defaults[:customer]),
         seller:         transform_seller(line_item[:seller] || defaults[:seller]),
-        product:        line_item[:product_code],
+        product:        transform_product(line_item),
         quantity:       line_item[:quantity],
         extended_price: line_item[:price],
       })
+    end
+
+    def transform_product(line_item)
+      {
+        :'@productClass' => line_item[:product_class],
+        :content! => line_item[:product_code]
+      }
     end
 
     def transform_customer(customer)
