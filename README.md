@@ -19,7 +19,9 @@ response = VertexClient.quotation(
     address_2: "#300",
     city: "New York",
     state: "NY",
-    postal_code: '10005'
+    postal_code: '10005',
+    # Optional tax_exempt status for customer
+    is_tax_exempt: true
   },
   # The top level seller for all line items.
   seller: {

@@ -29,6 +29,12 @@ describe VertexClient::Payload do
     end
   end
 
+  it 'supports sending is_tax_exempt to customer' do
+    working_quote_params[:customer][:is_tax_exempt] = true
+    output = VertexClient::InvoicePayload.new(working_quote_params).transform.output
+    assert output[:line_item][0][:customer][:@isTaxExempt]
+  end
+
   def expected_output
     {
       :@transactionType=>"SALE",
