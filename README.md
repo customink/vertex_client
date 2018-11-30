@@ -114,12 +114,6 @@ Or install it yourself as:
 
     $ gem install vertex_client
 
-
-If you are using Rails, take advantage of the included generator:
-
-    $ bundle exec rails g vertex_client:install
-
-
 ## Configuration
 
 Configure the client's connection to Vertex using environment variables or an initializer.
@@ -132,29 +126,12 @@ VERTEX_SOAP_API=https://vertex-soap-api.com
 ```
 ### Initializer
 
-```ruby
-VertexClient.configure do |config|
-  config.trusted_id = ENV.fetch('VERTEX_TRUSTED_ID')
-  config.soap_api = ENV.fetch('VERTEX_SOAP_API', 'https://vertex-soap-api.com')
+If you are using Rails, take advantage of the included generator:
 
-  # Circuitbox configuration.
-  # https://github.com/yammer/circuitbox#per-circuit-configuration
-  config.circuit_config = {
-    sleep_window: 300,
-    time_window: 60,
-    error_threshold: 50,
-    cache: Rails.cache,
-    logger: Rails.logger,
-    exceptions: [
-      Savon::Error
-    ]
-  }
-end
-```
+    $ bundle exec rails g vertex_client:install
 
-## Usage
+Otherwise reference our [initializer template](https://github.com/customink/vertex_client/blob/master/lib/generators/install/templates/initializer.rb.erb)
 
-TODO: Write usage instructions here
 
 ## Development
 
