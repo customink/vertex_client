@@ -4,6 +4,7 @@ require "dotenv/load"
 require "vertex_client"
 require "minitest/autorun"
 require "vcr"
+require 'byebug'
 SimpleCov.start
 
 VertexClient.configuration # make sure the client is configured
