@@ -100,5 +100,57 @@ describe VertexClient::Connection do
         assert_equal response.total, 50.0
       end
     end
+
+    describe 'supports location_code' do
+      let(:location_enabled_params) do
+        {
+          customer: {
+            address_1: "11 Wall Street",
+            city: "New York",
+            state: "NY",
+            postal_code: '10005'
+          },
+          date: '2018-11-30',
+          document_number:  'location-code-1',
+          location_code:    'store_25',
+          line_items: [
+            {
+              product_code:   '4600',
+              product_class:  '53103000',
+              quantitiy:      10,
+              price:          '50.00'
+            }
+          ],
+          seller: {
+            company: "CustomInkStores"
+          },
+        }
+      end
+
+      it 'does a location_code quote' do
+        VCR.use_cassette('location_code/quotation', :match_requests_on => []) do
+          response = VertexClient.quotation(location_enabled_params)
+          assert_equal response.total_tax, 0.0
+          assert_equal response.total, 50.0
+        end
+      end
+
+      it 'does a locaiton_code invoice' do
+        VCR.use_cassette('location_code/invoice', :match_requests_on => []) do
+          response = VertexClient.invoice(location_enabled_params)
+          assert_equal response.total_tax, 0.0
+          assert_equal response.total, 50.0
+        end
+      end
+
+      it 'does a location_code distribute_tax' do
+        VCR.use_cassette('tax_exempt/distribute_tax', :match_requests_on => []) do
+          tax_exempt_params[:line_items][0][:total_tax] = '0.00'
+          response = VertexClient.distribute_tax(location_enabled_params)
+          assert_equal response.total_tax, 0.0
+          assert_equal response.total, 50.0
+        end
+      end
+    end
   end
 end

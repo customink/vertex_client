@@ -45,6 +45,7 @@ module VertexClient
       remove_nils({
         :'@lineItemNumber' => number+1,
         :'@taxDate' =>  line_item[:date] || defaults[:date],
+        :'@locationCode' => line_item[:location_code] || defaults[:location_code],
         customer:       transform_customer(line_item[:customer] || defaults[:customer]),
         seller:         transform_seller(line_item[:seller] || defaults[:seller]),
         product:        transform_product(line_item),
