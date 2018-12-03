@@ -13,6 +13,7 @@ module VertexClient
   autoload :FallbackResponse,     'vertex_client/fallback_response'
   autoload :InvoicePayload,       'vertex_client/invoice_payload'
   autoload :Payload,              'vertex_client/payload'
+  autoload :PayloadValidator,     'vertex_client/payload_validator'
   autoload :Response,             'vertex_client/response'
   autoload :ResponseLineItem,     'vertex_client/response_line_item'
   autoload :QuotationPayload,     'vertex_client/quotation_payload'

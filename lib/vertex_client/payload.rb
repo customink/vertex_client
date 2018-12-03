@@ -2,8 +2,9 @@ module VertexClient
   class Payload
 
     SALE = 'SALE'.freeze
+    VALIDATIONS = [:location].freeze
 
-    attr_reader :output
+    attr_reader :output, :input
 
     def initialize(input)
       @input = input.dup.with_indifferent_access
@@ -11,7 +12,7 @@ module VertexClient
     end
 
     def transform
-      line_items = @input.delete(:line_items)
+      PayloadValidator.new(self, validations).validate!
       dup_input = @input.dup
       line_items = dup_input.delete(:line_items)
       @output = init_hash
@@ -30,10 +31,18 @@ module VertexClient
       "#{payload_name}_response".to_sym
     end
 
+    def all_customer_lines
+      [@input[:customer], @input[:line_items].map { |li| li[:customer]}].flatten.compact
+    end
+
     private
 
     def payload_name
       "#{self.class::NAME}"
+    end
+
+    def validations
+      self.class::VALIDATIONS
     end
 
     def init_hash
