@@ -10,7 +10,11 @@ module VertexClient
           message: payload(payload_object)
         )
       end
-      Response.new(response.body, payload_object.response_key) if response
+      if response
+        Response.new(response.body, payload_object.response_key)
+      else
+        FallbackResponse.new(payload_object)
+      end
     end
 
     def payload(payload_object)

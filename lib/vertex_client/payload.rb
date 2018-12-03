@@ -12,8 +12,10 @@ module VertexClient
 
     def transform
       line_items = @input.delete(:line_items)
+      dup_input = @input.dup
+      line_items = dup_input.delete(:line_items)
       @output = init_hash
-      defaults = @input
+      defaults = dup_input
       line_items.each_with_index do |line_item, number|
         @output[:line_item] << transform_line_item(line_item, number, defaults)
       end

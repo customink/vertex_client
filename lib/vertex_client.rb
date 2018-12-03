@@ -9,6 +9,8 @@ module VertexClient
   autoload :Configuration,        'vertex_client/configuration'
   autoload :Connection,           'vertex_client/connection'
   autoload :DistributeTaxPayload, 'vertex_client/distribute_tax_payload'
+  autoload :Fallbacks,            'vertex_client/fallbacks'
+  autoload :FallbackResponse,     'vertex_client/fallback_response'
   autoload :InvoicePayload,       'vertex_client/invoice_payload'
   autoload :Payload,              'vertex_client/payload'
   autoload :Response,             'vertex_client/response'
@@ -54,5 +56,7 @@ module VertexClient
   end
 
   class Error < StandardError; end
+  class PayloadValidationError < Error; end
+  class ServerValidationError < Error; end
 
 end
