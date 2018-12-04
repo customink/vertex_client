@@ -12,6 +12,7 @@ module VertexClient
   autoload :InvoicePayload,       'vertex_client/invoice_payload'
   autoload :Payload,              'vertex_client/payload'
   autoload :Response,             'vertex_client/response'
+  autoload :ResponseLineItem,     'vertex_client/response_line_item'
   autoload :QuotationPayload,     'vertex_client/quotation_payload'
 
   class << self
