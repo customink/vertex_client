@@ -1,5 +1,8 @@
 module VertexClient
   class PayloadValidator
+
+    DOCUMENT_NUMBER_LIMIT = 40
+
     def initialize(payload, validations=[])
       @payload = payload
       @validations = validations
@@ -17,7 +20,7 @@ module VertexClient
 
     def document_number
       raise VertexClient::PayloadValidationError.new('document_number is required for invoice') if document_number_missing?
-      raise VertexClient::PayloadValidationError.new('document_number must be less than or equal to 40 characters') if document_number_too_long?
+      raise VertexClient::PayloadValidationError.new("document_number must be less than or equal to #{DOCUMENT_NUMBER_LIMIT} characters") if document_number_too_long?
     end
 
     def customer_missing_location?
@@ -33,7 +36,7 @@ module VertexClient
     end
 
     def document_number_too_long?
-      @payload.input[:document_number].to_s.length > 40
+      @payload.input[:document_number].to_s.length > DOCUMENT_NUMBER_LIMIT
     end
   end
 end
