@@ -9,8 +9,11 @@ module VertexClient
   autoload :Configuration,        'vertex_client/configuration'
   autoload :Connection,           'vertex_client/connection'
   autoload :DistributeTaxPayload, 'vertex_client/distribute_tax_payload'
+  autoload :Fallbacks,            'vertex_client/fallbacks'
+  autoload :FallbackResponse,     'vertex_client/fallback_response'
   autoload :InvoicePayload,       'vertex_client/invoice_payload'
   autoload :Payload,              'vertex_client/payload'
+  autoload :PayloadValidator,     'vertex_client/payload_validator'
   autoload :Response,             'vertex_client/response'
   autoload :ResponseLineItem,     'vertex_client/response_line_item'
   autoload :QuotationPayload,     'vertex_client/quotation_payload'
@@ -33,15 +36,15 @@ module VertexClient
     end
 
     def quotation(payload)
-      Connection.new.request(QuotationPayload.new(payload))
+      Connection.new(QuotationPayload.new(payload)).request
     end
 
     def invoice(payload)
-      Connection.new.request(InvoicePayload.new(payload))
+      Connection.new(InvoicePayload.new(payload)).request
     end
 
     def distribute_tax(payload)
-      Connection.new.request(DistributeTaxPayload.new(payload))
+      Connection.new(DistributeTaxPayload.new(payload)).request
     end
 
     def circuit
@@ -54,5 +57,7 @@ module VertexClient
   end
 
   class Error < StandardError; end
+  class PayloadValidationError < Error; end
+  class RemoteServerError < Error; end
 
 end

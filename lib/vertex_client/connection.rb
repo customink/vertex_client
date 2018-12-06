@@ -2,28 +2,52 @@ module VertexClient
   class Connection
 
     VERTEX_NAMESPACE = "urn:vertexinc:o-series:tps:7:0".freeze
+    ERROR_MESSAGE = 'The Vertex API returned an error or is unavailable'.freeze
 
-    def request(payload_object)
+    def initialize(payload)
+      @payload = payload
+    end
+
+    def request
       response = call_with_circuit_if_available do
         client.call(
           :vertex_envelope,
-          message: payload(payload_object)
+          message: transform_payload
         )
       end
-      Response.new(response.body, payload_object.response_key) if response
+      handle_response(response)
     end
 
-    def payload(payload_object)
+    def transform_payload
       payload_hash = shell_with_auth
-      transform_payload = payload_object.transform
-      payload_hash[payload_object.request_key] = transform_payload.output
+      transform_payload = @payload.transform
+      payload_hash[@payload.request_key] = transform_payload.output
       payload_hash
     end
 
     private
 
+    # TODO Consider removing this conditional to make this more robust
+    def handle_response(response)
+      if response
+        Response.new(response.body, @payload.response_key)
+      elsif @payload.quotation?
+        FallbackResponse.new(@payload)
+      else
+        raise RemoteServerError.new(ERROR_MESSAGE)
+      end
+    end
+
     def call_with_circuit_if_available
-      VertexClient.circuit ? VertexClient.circuit.run{ yield } : yield
+      if VertexClient.circuit
+        VertexClient.circuit.run { yield }
+      else
+        begin
+          yield
+        rescue => _e
+          nil
+        end
+      end
     end
 
     def shell_with_auth

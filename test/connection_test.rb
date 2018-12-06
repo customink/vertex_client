@@ -2,6 +2,7 @@ require "test_helper"
 
 describe VertexClient::Connection do
   include TestInput
+
   before do
     VertexClient.reconfigure!
   end
@@ -150,6 +151,53 @@ describe VertexClient::Connection do
           assert_equal response.total_tax, 0.0
           assert_equal response.total, 50.0
         end
+      end
+    end
+  end
+
+  it 'creates a fallback response for quotation when the circuit is open' do
+    VertexClient.configuration.circuit_config = {}
+    VertexClient.circuit.send(:open!)
+    assert_kind_of VertexClient::FallbackResponse,
+      VertexClient.quotation(working_quote_params)
+  end
+
+  it 'creates a fallback response for quotation when Vertex returns an error' do
+    VCR.use_cassette('circuit_breaker') do
+      assert_kind_of VertexClient::FallbackResponse,
+        VertexClient.quotation(working_quote_params)
+    end
+  end
+
+  it 'raises if the circuit is open on invoice' do
+    VertexClient.configuration.circuit_config = {}
+    VertexClient.circuit.send(:open!)
+    assert_raises VertexClient::RemoteServerError do
+      VertexClient.invoice(working_quote_params)
+    end
+  end
+
+  it 'raises if theres an error on invoice and the circuit is closed' do
+    VertexClient.configuration.circuit_config = {}
+    VertexClient.circuit.send(:close!)
+    connection = VertexClient::Connection.new(
+      VertexClient::InvoicePayload.new(working_quote_params))
+    raises_expection = -> { raise Savon::Error.new('something went wrong') }
+    connection.stub :client, raises_expection do
+      assert_raises VertexClient::RemoteServerError do
+        connection.request
+      end
+    end
+  end
+
+  it 'raises if theres an error on invoice and the circuit is missing' do
+    assert_nil VertexClient.circuit
+    connection = VertexClient::Connection.new(
+      VertexClient::InvoicePayload.new(working_quote_params))
+    raises_expection = -> { raise Savon::Error.new('something went wrong') }
+    connection.stub :client, raises_expection do
+      assert_raises VertexClient::RemoteServerError do
+        connection.request
       end
     end
   end

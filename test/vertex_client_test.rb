@@ -66,7 +66,7 @@ describe VertexClient do
         threads.each(&:join)
 
         assert VertexClient.circuit.open?
-        assert_nil VertexClient.quotation(working_quote_params)
+        assert_kind_of VertexClient::FallbackResponse, VertexClient.quotation(working_quote_params)
       end
     end
   end

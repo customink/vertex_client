@@ -14,17 +14,9 @@ describe VertexClient::Payload do
   end
 
   it 'raises if the document_number is not included for invoice' do
-    assert_raises VertexClient::Error do
+    assert_raises VertexClient::PayloadValidationError do
       input = working_quote_params
       input.delete(:document_number)
-      VertexClient::InvoicePayload.new(input).transform
-    end
-  end
-
-  it 'raises if the document_number is too long' do
-    assert_raises VertexClient::Error do
-      input = working_quote_params
-      input[:document_number] = 'a-document-number-that-is-too-many-characters'
       VertexClient::InvoicePayload.new(input).transform
     end
   end
@@ -33,6 +25,19 @@ describe VertexClient::Payload do
     working_quote_params[:customer][:is_tax_exempt] = true
     output = VertexClient::InvoicePayload.new(working_quote_params).transform.output
     assert output[:line_item][0][:customer][:@isTaxExempt]
+  end
+
+  it 'raises if state and zip code are missing' do
+    params = working_quote_params
+    params[:customer].delete(:postal_code)
+    params[:customer].delete(:state)
+    assert_raises VertexClient::PayloadValidationError do
+      VertexClient::QuotationPayload.new(params).transform
+    end
+  end
+
+  it 'returns all customer lines' do
+    assert_equal 2, VertexClient::Payload.new(working_quote_params).all_customer_lines.count
   end
 
   def expected_output
