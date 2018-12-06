@@ -36,15 +36,15 @@ module VertexClient
     end
 
     def quotation(payload)
-      Connection.new.request(QuotationPayload.new(payload))
+      Connection.new(QuotationPayload.new(payload)).request
     end
 
     def invoice(payload)
-      Connection.new.request(InvoicePayload.new(payload))
+      Connection.new(InvoicePayload.new(payload)).request
     end
 
     def distribute_tax(payload)
-      Connection.new.request(DistributeTaxPayload.new(payload))
+      Connection.new(DistributeTaxPayload.new(payload)).request
     end
 
     def circuit
@@ -58,6 +58,6 @@ module VertexClient
 
   class Error < StandardError; end
   class PayloadValidationError < Error; end
-  class ServerValidationError < Error; end
+  class RemoteServerError < Error; end
 
 end

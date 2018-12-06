@@ -35,6 +35,10 @@ module VertexClient
       [@input[:customer], @input[:line_items].map { |li| li[:customer]}].flatten.compact
     end
 
+    def quotation?
+      payload_name == QuotationPayload::NAME
+    end
+
     private
 
     def payload_name

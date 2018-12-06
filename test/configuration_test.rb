@@ -1,7 +1,6 @@
 require "test_helper"
 
 describe VertexClient::Configuration do
-
   it 'has a trusted id' do
     VertexClient.configuration.trusted_id = 'trusted-id'
     assert_equal VertexClient.configuration.trusted_id, 'trusted-id'
@@ -15,6 +14,10 @@ describe VertexClient::Configuration do
   end
 
   describe 'circuit_config' do
+    before do
+      VertexClient.reconfigure!
+    end
+
     it 'is an accessible attribute' do
       VertexClient.configuration.circuit_config = { test: :ok }
       assert_equal VertexClient.configuration.circuit_config[:test], :ok
