@@ -5,6 +5,9 @@ require 'active_support/all'
 require 'savon'
 
 module VertexClient
+  module Utils
+    autoload :AdjustmentAllocator, 'vertex_client/utils/adjustment_allocator'
+  end
 
   autoload :Configuration,        'vertex_client/configuration'
   autoload :Connection,           'vertex_client/connection'
@@ -59,5 +62,5 @@ module VertexClient
   class Error < StandardError; end
   class PayloadValidationError < Error; end
   class RemoteServerError < Error; end
-
+  class UtilsValidationError < Error; end
 end

@@ -98,6 +98,18 @@ VertexClient.distribute_tax(
 )
 ```
 
+### Adjustment Allocator
+
+Allocates a given monetary adjustment, such as a service charge or a discount, across a given array of weights, such as line items. The `adjustment` parameter must be passed in as a positive or negative numeric dollar amount, such as `-0.56`, `7.00` or `12.34`, and the `weights` parameter must be passed in as an array of non-negative numeric values, such as `[1.23, 4.56, 7.89]` or `[1, 2, 3, 4]`, which can represent prices or ratios.
+
+```ruby
+VertexClient::Utils::AdjustmentAllocator.new(1234.56, [310.00, 350.00, 200.00, 140.00]).allocate
+#=> [#<BigDecimal:7fa6bba053c0,'0.38271E3',18(36)>,
+     #<BigDecimal:7fa6bba0fcd0,'0.4321E3',18(36)>,
+     #<BigDecimal:7fa6bba0dfc0,'0.24691E3',18(36)>,
+     #<BigDecimal:7fa6bba17b88,'0.17284E3',18(36)>]
+```
+
 ## Installation
 
 Add this line to your application's Gemfile:
