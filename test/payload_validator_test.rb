@@ -13,6 +13,20 @@ describe VertexClient::PayloadValidator do
     end
   end
 
+  it 'allows just a state' do
+    payload = working_quote_params
+    payload[:customer].delete(:postal_code)
+    payload = VertexClient::QuotationPayload.new(payload)
+    VertexClient::PayloadValidator.new(payload, [:location]).validate!
+  end
+
+  it 'allows just a postal code' do
+    payload = working_quote_params
+    payload[:customer].delete(:state)
+    payload = VertexClient::QuotationPayload.new(payload)
+    VertexClient::PayloadValidator.new(payload, [:location]).validate!
+  end
+
   it 'raises if the document_number is not included' do
     payload = working_quote_params
     payload.delete(:document_number)

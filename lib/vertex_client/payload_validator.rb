@@ -28,7 +28,7 @@ module VertexClient
     end
 
     def state_or_postal_code?(customer)
-      customer[:state].present? && customer[:postal_code].present?
+      customer[:state].present? || customer[:postal_code].present?
     end
 
     def document_number_missing?
