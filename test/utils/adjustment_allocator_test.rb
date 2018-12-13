@@ -9,19 +9,19 @@ describe VertexClient::Utils::AdjustmentAllocator do
   describe '#allocate' do
     describe 'adjustment validation' do
       it 'raises if adjustment is a string' do
-        assert_raises VertexClient::UtilsValidationError do
+        assert_raises VertexClient::ValidationError do
           VertexClient::Utils::AdjustmentAllocator.new(adjustment.to_s, weights_as_prices).allocate
         end
       end
 
       it 'raises if adjustment is an integer' do
-        assert_raises VertexClient::UtilsValidationError do
+        assert_raises VertexClient::ValidationError do
           VertexClient::Utils::AdjustmentAllocator.new(adjustment.to_i, weights_as_prices).allocate
         end
       end
 
       it 'raises if adjustment has more than two decimal places' do
-        assert_raises VertexClient::UtilsValidationError do
+        assert_raises VertexClient::ValidationError do
           VertexClient::Utils::AdjustmentAllocator.new(1234.56789, weights_as_prices).allocate
         end
       end
@@ -29,24 +29,24 @@ describe VertexClient::Utils::AdjustmentAllocator do
 
     describe 'weights validation' do
       it 'raises if any of the weights is negative' do
-        assert_raises VertexClient::UtilsValidationError do
+        assert_raises VertexClient::ValidationError do
           VertexClient::Utils::AdjustmentAllocator.new(adjustment, [-1.0, 2.0, 3.0]).allocate
         end
       end
 
       it 'raises if the weights total to zero' do
-        assert_raises VertexClient::UtilsValidationError do
+        assert_raises VertexClient::ValidationError do
           VertexClient::Utils::AdjustmentAllocator.new(adjustment, [0, 0, 0]).allocate
         end
       end
 
       it 'raises if any of the weights is a string' do
-        assert_raises VertexClient::UtilsValidationError do
+        assert_raises VertexClient::ValidationError do
           VertexClient::Utils::AdjustmentAllocator.new(adjustment, [1.0, 2.0, '3']).allocate
         end
       end
     end
-    
+
     it 'properly allocates a postive adjustment (ie: service charge)' do
       assert_equal expected_allocation, VertexClient::Utils::AdjustmentAllocator.new(adjustment, weights_as_prices).allocate
     end

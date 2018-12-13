@@ -60,7 +60,6 @@ module VertexClient
   end
 
   class Error < StandardError; end
-  class PayloadValidationError < Error; end
-  class RemoteServerError < Error; end
-  class UtilsValidationError < Error; end
+  class ValidationError < Error; end
+  class ServerError < Error; end
 end

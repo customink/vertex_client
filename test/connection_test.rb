@@ -172,7 +172,7 @@ describe VertexClient::Connection do
   it 'raises if the circuit is open on invoice' do
     VertexClient.configuration.circuit_config = {}
     VertexClient.circuit.send(:open!)
-    assert_raises VertexClient::RemoteServerError do
+    assert_raises VertexClient::ServerError do
       VertexClient.invoice(working_quote_params)
     end
   end
@@ -184,7 +184,7 @@ describe VertexClient::Connection do
       VertexClient::InvoicePayload.new(working_quote_params))
     raises_expection = -> { raise Savon::Error.new('something went wrong') }
     connection.stub :client, raises_expection do
-      assert_raises VertexClient::RemoteServerError do
+      assert_raises VertexClient::ServerError do
         connection.request
       end
     end
@@ -196,7 +196,7 @@ describe VertexClient::Connection do
       VertexClient::InvoicePayload.new(working_quote_params))
     raises_expection = -> { raise Savon::Error.new('something went wrong') }
     connection.stub :client, raises_expection do
-      assert_raises VertexClient::RemoteServerError do
+      assert_raises VertexClient::ServerError do
         connection.request
       end
     end

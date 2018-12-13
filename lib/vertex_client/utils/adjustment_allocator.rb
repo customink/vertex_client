@@ -42,8 +42,8 @@ module VertexClient
       end
 
       def validate!
-        raise VertexClient::UtilsValidationError.new(ADJUSTMENT_ERROR) unless adjustment_format_valid?
-        raise VertexClient::UtilsValidationError.new(WEIGHTS_ERROR) unless weights_format_valid?
+        raise VertexClient::ValidationError.new(ADJUSTMENT_ERROR) unless adjustment_format_valid?
+        raise VertexClient::ValidationError.new(WEIGHTS_ERROR) unless weights_format_valid?
       end
 
       def weights_format_valid?

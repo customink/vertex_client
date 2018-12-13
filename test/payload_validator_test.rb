@@ -8,7 +8,7 @@ describe VertexClient::PayloadValidator do
     payload[:customer].delete(:postal_code)
     payload[:customer].delete(:state)
     payload = VertexClient::QuotationPayload.new(payload)
-    assert_raises VertexClient::PayloadValidationError do
+    assert_raises VertexClient::ValidationError do
       VertexClient::PayloadValidator.new(payload, [:location]).validate!
     end
   end
@@ -17,7 +17,7 @@ describe VertexClient::PayloadValidator do
     payload = working_quote_params
     payload.delete(:document_number)
     payload = VertexClient::QuotationPayload.new(payload)
-    assert_raises VertexClient::PayloadValidationError do
+    assert_raises VertexClient::ValidationError do
       VertexClient::PayloadValidator.new(payload, [:document_number]).validate!
     end
   end
@@ -26,7 +26,7 @@ describe VertexClient::PayloadValidator do
     payload = working_quote_params
     payload[:document_number] = 'a-document-number-that-is-too-many-characters'
     payload = VertexClient::QuotationPayload.new(payload)
-    assert_raises VertexClient::PayloadValidationError do
+    assert_raises VertexClient::ValidationError do
       VertexClient::PayloadValidator.new(payload, [:document_number]).validate!
     end
   end
