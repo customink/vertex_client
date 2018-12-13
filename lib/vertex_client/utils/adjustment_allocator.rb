@@ -20,7 +20,7 @@ module VertexClient
       WEIGHTS_ERROR    = 'all weights must be a non-negative integer or float, and must not total zero'.freeze
 
       def adjustment_format_valid?
-        adjustment.is_a?(Numeric) && /^-?\d+\.\d{2}$/.match(adjustment.to_s)
+        adjustment.is_a?(Numeric) && /^-?\d+\.\d{1,2}$/.match(adjustment.to_s)
       end
 
       def adjustment_in_cents
