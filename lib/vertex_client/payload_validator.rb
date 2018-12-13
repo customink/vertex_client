@@ -15,12 +15,12 @@ module VertexClient
     private
 
     def location
-      raise VertexClient::PayloadValidationError.new('customer requires a state or postal_code') if customer_missing_location?
+      raise VertexClient::ValidationError.new('customer requires a state or postal_code') if customer_missing_location?
     end
 
     def document_number
-      raise VertexClient::PayloadValidationError.new('document_number is required for invoice') if document_number_missing?
-      raise VertexClient::PayloadValidationError.new("document_number must be less than or equal to #{DOCUMENT_NUMBER_LIMIT} characters") if document_number_too_long?
+      raise VertexClient::ValidationError.new('document_number is required for invoice') if document_number_missing?
+      raise VertexClient::ValidationError.new("document_number must be less than or equal to #{DOCUMENT_NUMBER_LIMIT} characters") if document_number_too_long?
     end
 
     def customer_missing_location?

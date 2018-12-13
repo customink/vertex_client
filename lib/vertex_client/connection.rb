@@ -34,7 +34,7 @@ module VertexClient
       elsif @payload.quotation?
         FallbackResponse.new(@payload)
       else
-        raise RemoteServerError.new(ERROR_MESSAGE)
+        raise ServerError.new(ERROR_MESSAGE)
       end
     end
 

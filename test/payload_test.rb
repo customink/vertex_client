@@ -14,7 +14,7 @@ describe VertexClient::Payload do
   end
 
   it 'raises if the document_number is not included for invoice' do
-    assert_raises VertexClient::PayloadValidationError do
+    assert_raises VertexClient::ValidationError do
       input = working_quote_params
       input.delete(:document_number)
       VertexClient::InvoicePayload.new(input).transform
@@ -31,7 +31,7 @@ describe VertexClient::Payload do
     params = working_quote_params
     params[:customer].delete(:postal_code)
     params[:customer].delete(:state)
-    assert_raises VertexClient::PayloadValidationError do
+    assert_raises VertexClient::ValidationError do
       VertexClient::QuotationPayload.new(params).transform
     end
   end
