@@ -31,7 +31,7 @@ http_interactions:
       message: ''
     headers:
       Date:
-      - Fri, 30 Nov 2018 15:49:43 GMT
+      - Mon, 17 Dec 2018 19:19:49 GMT
       Content-Type:
       - text/xml;charset=UTF-8
       Transfer-Encoding:
@@ -49,10 +49,10 @@ http_interactions:
       string: |-
         <?xml version="1.0" encoding="UTF-8"?><soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"><soapenv:Header></soapenv:Header><soapenv:Body><VertexEnvelope xmlns="urn:vertexinc:o-series:tps:7:0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><Login><TrustedId></TrustedId>
         </Login>
-        <QuotationResponse documentDate="2018-11-30" transactionType="SALE"><SubTotal>50.0</SubTotal>
+        <QuotationResponse documentDate="2018-12-17" transactionType="SALE"><SubTotal>50.0</SubTotal>
         <Total>50.0</Total>
         <TotalTax>0.0</TotalTax>
-        <LineItem lineItemNumber="1"><Seller><Company>CustomInk</Company>
+        <LineItem lineItemNumber="1" taxDate="2018-11-30"><Seller><Company>CustomInk</Company>
         </Seller>
         <Customer><Destination taxAreaId="470590000"><StreetAddress1>2910 District Ave</StreetAddress1>
         <StreetAddress2>Ste. 300</StreetAddress2>
@@ -94,9 +94,9 @@ http_interactions:
         </AssistedParameters>
         </LineItem>
         </QuotationResponse>
-        <ApplicationData><ResponseTimeMS>4.8</ResponseTimeMS>
+        <ApplicationData><ResponseTimeMS>4</ResponseTimeMS>
         </ApplicationData>
         </VertexEnvelope></soapenv:Body></soapenv:Envelope>
     http_version: 
-  recorded_at: Fri, 30 Nov 2018 15:49:43 GMT
+  recorded_at: Mon, 17 Dec 2018 19:19:49 GMT
 recorded_with: VCR 4.0.0

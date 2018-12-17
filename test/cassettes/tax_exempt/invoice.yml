@@ -31,7 +31,7 @@ http_interactions:
       message: ''
     headers:
       Date:
-      - Fri, 30 Nov 2018 15:49:43 GMT
+      - Mon, 17 Dec 2018 19:19:49 GMT
       Content-Type:
       - text/xml;charset=UTF-8
       Transfer-Encoding:
@@ -94,9 +94,9 @@ http_interactions:
         </AssistedParameters>
         </LineItem>
         </InvoiceResponse>
-        <ApplicationData><ResponseTimeMS>17.1</ResponseTimeMS>
+        <ApplicationData><ResponseTimeMS>22.1</ResponseTimeMS>
         </ApplicationData>
         </VertexEnvelope></soapenv:Body></soapenv:Envelope>
     http_version: 
-  recorded_at: Fri, 30 Nov 2018 15:49:43 GMT
+  recorded_at: Mon, 17 Dec 2018 19:19:49 GMT
 recorded_with: VCR 4.0.0

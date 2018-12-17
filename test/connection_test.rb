@@ -136,7 +136,7 @@ describe VertexClient::Connection do
         end
       end
 
-      it 'does a locaiton_code invoice' do
+      it 'does a location_code invoice' do
         VCR.use_cassette('location_code/invoice', :match_requests_on => []) do
           response = VertexClient.invoice(location_enabled_params)
           assert_equal response.total_tax, 0.0
@@ -145,8 +145,8 @@ describe VertexClient::Connection do
       end
 
       it 'does a location_code distribute_tax' do
-        VCR.use_cassette('tax_exempt/distribute_tax', :match_requests_on => []) do
-          tax_exempt_params[:line_items][0][:total_tax] = '0.00'
+        VCR.use_cassette('location_code/distribute_tax', :match_requests_on => []) do
+          location_enabled_params[:line_items][0][:total_tax] = '0.00'
           response = VertexClient.distribute_tax(location_enabled_params)
           assert_equal response.total_tax, 0.0
           assert_equal response.total, 50.0
