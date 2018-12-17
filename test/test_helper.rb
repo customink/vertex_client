@@ -33,7 +33,8 @@ module TestInput
             address_1: "11 Wall Street",
             city: "New York",
             state: "NY",
-            postal_code: '10005'
+            postal_code: '10005',
+            country: 'US'
           },
           seller: {
             company: "CustomInk"
@@ -58,7 +59,8 @@ module TestInput
                 address_1: "2910 District Ave #300",
                 city: "Fairfax",
                 state: "VA",
-                postal_code: '22031'
+                postal_code: '22031',
+                country: 'US'
               }
             }
           ]

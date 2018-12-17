@@ -52,7 +52,8 @@ describe VertexClient::Payload do
               :street_address_1=>"11 Wall Street",
               :city=>"New York",
               :main_division=>"NY",
-              :postal_code=>"10005"
+              :postal_code=>"10005",
+              :country=>"US"
             }
           },
           seller: {
@@ -73,7 +74,8 @@ describe VertexClient::Payload do
               :street_address_1=>"2910 District Ave #300",
               :city=>"Fairfax",
               :main_division=>"VA",
-              :postal_code=>"22031"
+              :postal_code=>"22031",
+              :country=>"US"
             }
           },
           :seller=> {
