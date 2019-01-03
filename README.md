@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.com/customink/vertex_client.svg?token=r6SdMyhouTa8X9zv834g&branch=master)](https://travis-ci.com/customink/vertex_client) [![Maintainability](https://api.codeclimate.com/v1/badges/f5c610d38dca05d7d8b6/maintainability)](https://codeclimate.com/repos/5be4865be81ccf2237014407/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/f5c610d38dca05d7d8b6/test_coverage)](https://codeclimate.com/repos/5be4865be81ccf2237014407/test_coverage)
 
-The Vertex Client Ruby Gem provides an interface to integrate with Vertex Cloud's REST API.
+The Vertex Client Ruby Gem provides an interface to integrate with _Vertex SMB_ which is also known as [Vertex Cloud Indirect Tax](https://www.vertexinc.com/solutions/products/vertex-cloud-indirect-tax).
 
 ## Usage
 
@@ -131,10 +131,11 @@ Or install it yourself as:
 Configure the client's connection to Vertex using environment variables or an initializer.
 
 ### Environment Variables
+The following environment variables are used to configure the client.
 
 ```
 VERTEX_TRUSTED_ID=your-trusted-id
-VERTEX_SOAP_API=https://vertex-soap-api.com
+VERTEX_SOAP_API=https://connect.vertexsmb.com/vertex-ws/services/CalculateTax70
 ```
 ### Initializer
 
@@ -165,7 +166,7 @@ Everyone interacting in the VertexClient project’s codebases, issue trackers, 
 
 ## Setup
 
-This project supports our [Strap conventions][strap]. After cloning the app,
+This project follows Github's [Scripts to rule them all conventions][scripts-to-rule-them-all]. After cloning the app,
 run the following:
 
     bin/bootstrap
@@ -176,4 +177,4 @@ After pulling down changes, run the following:
 
     bin/update
 
-[strap]: https://github.com/customink/strap
+[scripts-to-rule-them-all]: https://github.com/github/scripts-to-rule-them-all
