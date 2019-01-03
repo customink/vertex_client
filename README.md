@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.com/customink/vertex_client.svg?token=r6SdMyhouTa8X9zv834g&branch=master)](https://travis-ci.com/customink/vertex_client) [![Maintainability](https://api.codeclimate.com/v1/badges/f5c610d38dca05d7d8b6/maintainability)](https://codeclimate.com/repos/5be4865be81ccf2237014407/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/f5c610d38dca05d7d8b6/test_coverage)](https://codeclimate.com/repos/5be4865be81ccf2237014407/test_coverage)
 
-The Vertex Client Ruby Gem provides an interface to integrate with Vertex Cloud's REST API.
+The Vertex Client Ruby Gem provides an interface to integrate with _Vertex SMB_ which is also known as [Vertex Cloud Indirect Tax](https://www.vertexinc.com/solutions/products/vertex-cloud-indirect-tax).
 
 ## Usage
 
@@ -131,10 +131,11 @@ Or install it yourself as:
 Configure the client's connection to Vertex using environment variables or an initializer.
 
 ### Environment Variables
+The following environment variables are used to configure the client.
 
 ```
 VERTEX_TRUSTED_ID=your-trusted-id
-VERTEX_SOAP_API=https://vertex-soap-api.com
+VERTEX_SOAP_API=https://connect.vertexsmb.com/vertex-ws/services/CalculateTax70
 ```
 ### Initializer
 
@@ -146,6 +147,17 @@ Otherwise reference our [initializer template](https://github.com/customink/vert
 
 
 ## Development
+
+This project follows Github's [Scripts to rule them all conventions][scripts-to-rule-them-all]. After cloning the app,
+run the following:
+
+    bin/bootstrap
+    bin/setup
+    bin/test
+
+After pulling down changes, run the following:
+
+    bin/update
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `bin/test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
 
@@ -163,17 +175,4 @@ The gem is available as open source under the terms of the [MIT License](https:/
 
 Everyone interacting in the VertexClient project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/customink/vertex_client/blob/master/CODE_OF_CONDUCT.md).
 
-## Setup
-
-This project supports our [Strap conventions][strap]. After cloning the app,
-run the following:
-
-    bin/bootstrap
-    bin/setup
-    bin/test
-
-After pulling down changes, run the following:
-
-    bin/update
-
-[strap]: https://github.com/customink/strap
+[scripts-to-rule-them-all]: https://github.com/github/scripts-to-rule-them-all
