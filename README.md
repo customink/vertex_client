@@ -1,6 +1,6 @@
 # VertexClient
 
-[![Build Status](https://travis-ci.com/customink/vertex_client.svg?token=r6SdMyhouTa8X9zv834g&branch=master)](https://travis-ci.com/customink/vertex_client) [![Maintainability](https://api.codeclimate.com/v1/badges/f5c610d38dca05d7d8b6/maintainability)](https://codeclimate.com/repos/5be4865be81ccf2237014407/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/f5c610d38dca05d7d8b6/test_coverage)](https://codeclimate.com/repos/5be4865be81ccf2237014407/test_coverage)
+[![Build Status](https://travis-ci.org/customink/vertex_client.svg?branch=master)](https://travis-ci.org/customink/vertex_client) [![Maintainability](https://api.codeclimate.com/v1/badges/5f18a48fa18ddfb942f4/maintainability)](https://codeclimate.com/github/customink/vertex_client/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/5f18a48fa18ddfb942f4/test_coverage)](https://codeclimate.com/github/customink/vertex_client/test_coverage)
 
 The Vertex Client Ruby Gem provides an interface to integrate with _Vertex SMB_ which is also known as [Vertex Cloud Indirect Tax](https://www.vertexinc.com/solutions/products/vertex-cloud-indirect-tax).
 

@@ -10,7 +10,7 @@ rvm:
 if: branch = master OR type = pull_request
 env:
   global:
-    - CC_TEST_REPORTER_ID=54ccd23af92d7903f1aebe01a8b5cbe272d7672fc636d0351527fd123d60f04e
+    - CC_TEST_REPORTER_ID=88a7fd75659a6698f28c8c4c6b60c20f902e26733691b2fe449a65474f22b618
     - CI=true
 before_install:
   - gem install bundler -v 1.17.3
