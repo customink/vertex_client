@@ -14,10 +14,8 @@ describe VertexClient::Utils::AdjustmentAllocator do
         end
       end
 
-      it 'raises if adjustment is an integer' do
-        assert_raises VertexClient::ValidationError do
-          VertexClient::Utils::AdjustmentAllocator.new(adjustment.to_i, weights_as_prices).allocate
-        end
+      it 'allows an integer adjustment' do
+        assert_equal [0, 0, 0, 0], VertexClient::Utils::AdjustmentAllocator.new(0, weights_as_prices).allocate
       end
 
       it 'raises if adjustment has more than two decimal places' do
