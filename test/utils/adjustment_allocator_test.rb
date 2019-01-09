@@ -1,10 +1,10 @@
 require 'test_helper'
 
 describe VertexClient::Utils::AdjustmentAllocator do
-  let(:adjustment)          { 1234.56 }
-  let(:weights_as_prices)   { [310.00, 350.00, 200.00, 140.00] }
+  let(:adjustment)          { '1234.56'.to_d }
+  let(:weights_as_prices)   { ['310'.to_d, '350'.to_d, '200'.to_d, '140'.to_d] }
   let(:weights_as_ratios)   { [31, 35, 20, 14] }
-  let(:expected_allocation) { [382.71.to_d, 432.10.to_d, 246.91.to_d, 172.84.to_d] }
+  let(:expected_allocation) { ['382.71'.to_d, '432.1'.to_d, '246.91'.to_d, '172.84'.to_d] }
 
   describe '#allocate' do
     describe 'adjustment validation' do
@@ -16,7 +16,7 @@ describe VertexClient::Utils::AdjustmentAllocator do
 
       it 'raises if adjustment has more than two decimal places' do
         assert_raises VertexClient::ValidationError do
-          VertexClient::Utils::AdjustmentAllocator.new(1234.56789, weights_as_prices).allocate
+          VertexClient::Utils::AdjustmentAllocator.new('1234.567'.to_d, weights_as_prices).allocate
         end
       end
     end
