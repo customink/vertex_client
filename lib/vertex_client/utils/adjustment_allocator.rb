@@ -17,7 +17,7 @@ module VertexClient
       private
 
       ADJUSTMENT_ERROR = 'adjustment must not be more precise than two decimal places (eg: 2.14 or 0.05)'.freeze
-      WEIGHTS_ERROR    = 'all weights must be a non-negative integer or float, and must not total zero'.freeze
+      WEIGHTS_ERROR    = 'all weights must be a non-negative number, and must not total zero'.freeze
 
       def adjustment_format_valid?
         adjustment.is_a?(Numeric) && (dollars_to_cents(adjustment) == adjustment * 100)
@@ -47,7 +47,7 @@ module VertexClient
       end
 
       def weights_format_valid?
-        weights.all? { |weight| weight.is_a?(Numeric) && weight >= 0 && /^\d+(?:\.\d+)?$/.match(weight.to_s) } && !weights_total.zero?
+        weights.all? { |weight| weight.is_a?(Numeric) && weight >= 0 } && !weights_total.zero?
       end
 
       def weights_total
