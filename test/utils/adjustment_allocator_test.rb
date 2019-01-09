@@ -56,5 +56,9 @@ describe VertexClient::Utils::AdjustmentAllocator do
       ratio_allocation = VertexClient::Utils::AdjustmentAllocator.new(adjustment, weights_as_ratios).allocate
       assert_equal price_allocation, ratio_allocation
     end
+
+    it "handles an empty array of weights if the adjustment amount is 0" do
+      assert_equal [], VertexClient::Utils::AdjustmentAllocator.new(0, []).allocate
+    end
   end
 end

@@ -7,6 +7,7 @@ module VertexClient
       end
 
       def allocate
+        return [] if weights.empty? && @adjustment.zero?
         validate!
         allocations, remainders = allocations_with_remainders.transpose
         remaining_adjustment    = adjustment_in_cents - allocations.sum
