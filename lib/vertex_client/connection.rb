@@ -41,7 +41,7 @@ module VertexClient
 
     def shell_with_auth
       {
-        login: { trusted_id: @config.trusted_id }
+        login: { trusted_id: config.trusted_id }
       }
     end
 
