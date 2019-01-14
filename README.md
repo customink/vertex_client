@@ -22,6 +22,9 @@ response = VertexClient.quotation(
     postal_code: '10005',
     # Optional tax_exempt status for customer
     is_tax_exempt: true
+
+    # Optional tax_area_id for customer location
+    tax_area_id: '330612010'
   },
   # The top level seller for all line items.
   seller: {
@@ -96,6 +99,20 @@ VertexClient.distribute_tax(
   ]
 
 )
+```
+
+### Tax Area
+Look up the internal Vertex location identifier for a given address. Including  `tax_area_id` as part of the customer information in calls to `invoice` and `quotation` should improve performance, especially in situations where there are many destination addresses.
+
+```ruby
+response = VertexClient.tax_area(
+  address_1: "11 Wall Street",
+  address_2: "#300",
+  city: "New York",
+  state: "NY",
+  postal_code: '10005'
+)
+response.tax_area_id # => '330612010'
 ```
 
 ### Adjustment Allocator
