@@ -42,6 +42,18 @@ describe VertexClient::Connection do
     end
   end
 
+  it 'does tax_area' do
+    params = {
+      address_1: "2910 District Ave #300",
+      city: "Fairfax",
+      state: "VA",
+      postal_code: "22031"
+    }
+    VCR.use_cassette("tax_area", :match_requests_on => []) do
+      assert_equal "470590000", VertexClient.tax_area(params).tax_area_id
+    end
+  end
+
   it 'uses circuit if it is available' do
     VertexClient.configuration.circuit_config = {}
     VCR.use_cassette("quotation", :match_requests_on => []) do

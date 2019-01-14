@@ -20,6 +20,9 @@ module VertexClient
   autoload :Response,             'vertex_client/response'
   autoload :ResponseLineItem,     'vertex_client/response_line_item'
   autoload :QuotationPayload,     'vertex_client/quotation_payload'
+  autoload :TaxAreaPayload,       'vertex_client/tax_area_payload'
+  autoload :TaxAreaResponse,      'vertex_client/tax_area_response'
+
 
   class << self
 
@@ -48,6 +51,10 @@ module VertexClient
 
     def distribute_tax(payload)
       Connection.new(DistributeTaxPayload.new(payload)).request
+    end
+
+    def tax_area(payload)
+      Connection.new(TaxAreaPayload.new(payload)).request
     end
 
     def circuit

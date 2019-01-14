@@ -30,8 +30,9 @@ module VertexClient
     # TODO Consider removing this conditional to make this more robust
     def handle_response(response)
       if response
+        return TaxAreaResponse.new(response, @payload.response_key) if @payload.is_a?(TaxAreaPayload)
         Response.new(response.body, @payload.response_key)
-      elsif @payload.quotation?
+      elsif @payload.quotation? || @payload.is_a?(TaxAreaPayload)
         FallbackResponse.new(@payload)
       else
         raise ServerError.new(ERROR_MESSAGE)
@@ -60,9 +61,13 @@ module VertexClient
       @config ||= VertexClient.configuration
     end
 
+    def url
+      URI.join config.soap_api, @payload.endpoint
+    end
+
     def client
       @client ||= Savon.client do |globals|
-        globals.endpoint config.soap_api
+        globals.endpoint url
         globals.namespace VERTEX_NAMESPACE
         globals.convert_request_keys_to :camelcase
         globals.env_namespace :soapenv
