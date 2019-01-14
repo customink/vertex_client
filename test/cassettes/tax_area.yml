@@ -1,0 +1,68 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: "{VERTEX_SOAP_API}LookupTaxAreas70"
+    body:
+      encoding: UTF-8
+      string: '<?xml version="1.0" encoding="UTF-8"?><soapenv:Envelope xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:urn="urn:vertexinc:o-series:tps:7:0"
+        xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"><soapenv:Body><urn:VertexEnvelope><Login><TrustedId>{VERTEX_TRUSTED_ID}</TrustedId></Login><TaxAreaRequest><TaxAreaLookup><PostalAddress><StreetAddress1>2910
+        District Ave #300</StreetAddress1><City>Fairfax</City><MainDivision>VA</MainDivision><PostalCode>22031</PostalCode></PostalAddress></TaxAreaLookup></TaxAreaRequest></urn:VertexEnvelope></soapenv:Body></soapenv:Envelope>'
+    headers:
+      Soapaction:
+      - '"VertexEnvelope"'
+      Content-Type:
+      - text/xml;charset=UTF-8
+      Content-Length:
+      - '630'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Date:
+      - Fri, 11 Jan 2019 16:19:47 GMT
+      Content-Type:
+      - text/xml;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Vary:
+      - Accept-Encoding
+      Soapaction:
+      - '""'
+      Server:
+      - ''
+    body:
+      encoding: ASCII-8BIT
+      string: |-
+        <?xml version="1.0" encoding="UTF-8"?><soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"><soapenv:Header></soapenv:Header><soapenv:Body><VertexEnvelope xmlns="urn:vertexinc:o-series:tps:7:0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><Login><TrustedId></TrustedId>
+        </Login>
+        <TaxAreaResponse><TaxAreaResult taxAreaId="470590000" confidenceIndicator="100"><Jurisdiction jurisdictionLevel="COUNTRY" effectiveDate="1900-01-01" expirationDate="9999-12-31" jurisdictionId="1">UNITED STATES</Jurisdiction>
+        <Jurisdiction jurisdictionLevel="STATE" effectiveDate="1900-01-01" expirationDate="9999-12-31" jurisdictionId="39067">VIRGINIA</Jurisdiction>
+        <Jurisdiction jurisdictionLevel="COUNTY" effectiveDate="1900-01-01" expirationDate="9999-12-31" jurisdictionId="39378">FAIRFAX</Jurisdiction>
+        <Jurisdiction jurisdictionLevel="DISTRICT" effectiveDate="2013-07-01" expirationDate="9999-12-31" jurisdictionId="97100">REGIONAL TRANSPORTATION DISTRICT</Jurisdiction>
+        <PostalAddress><StreetAddress1>2910 District Ave Ste 300</StreetAddress1>
+        <City>Fairfax</City>
+        <MainDivision>VA</MainDivision>
+        <SubDivision>Fairfax</SubDivision>
+        <PostalCode>22031-2284</PostalCode>
+        <Country>USA</Country>
+        </PostalAddress>
+        <Status lookupResult="NORMAL"></Status>
+        </TaxAreaResult>
+        </TaxAreaResponse>
+        <ApplicationData><ResponseTimeMS>27.8</ResponseTimeMS>
+        </ApplicationData>
+        </VertexEnvelope></soapenv:Body></soapenv:Envelope>
+    http_version: 
+  recorded_at: Fri, 11 Jan 2019 16:19:47 GMT
+recorded_with: VCR 4.0.0

@@ -30,6 +30,7 @@ module VertexClient
     # TODO Consider removing this conditional to make this more robust
     def handle_response(response)
       if response
+        return TaxAreaResponse.new(response, @payload.response_key) if @payload.is_a? TaxAreaPayload
         Response.new(response.body, @payload.response_key)
       elsif @payload.quotation?
         FallbackResponse.new(@payload)

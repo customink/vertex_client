@@ -90,7 +90,8 @@ module VertexClient
           city:             customer[:city],
           main_division:    customer[:state],
           postal_code:      customer[:postal_code],
-          country:          customer[:country]
+          country:          customer[:country],
+          tax_area_id:      customer[:tax_area_id]
         })
       })
     end
