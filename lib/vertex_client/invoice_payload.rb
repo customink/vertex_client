@@ -11,5 +11,8 @@ module VertexClient
       })
     end
 
+    def fallback_response
+      false
+    end
   end
 end

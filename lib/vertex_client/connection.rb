@@ -15,7 +15,7 @@ module VertexClient
           message: transform_payload
         )
       end
-      handle_response(response)
+      @payload.handle_response(response) || raise(ServerError, ERROR_MESSAGE)
     end
 
     def transform_payload
@@ -26,18 +26,6 @@ module VertexClient
     end
 
     private
-
-    # TODO Consider removing this conditional to make this more robust
-    def handle_response(response)
-      if response
-        return TaxAreaResponse.new(response, @payload.response_key) if @payload.is_a?(TaxAreaPayload)
-        Response.new(response.body, @payload.response_key)
-      elsif @payload.quotation? || @payload.is_a?(TaxAreaPayload)
-        FallbackResponse.new(@payload)
-      else
-        raise ServerError.new(ERROR_MESSAGE)
-      end
-    end
 
     def call_with_circuit_if_available
       if VertexClient.circuit

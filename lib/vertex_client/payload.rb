@@ -4,6 +4,7 @@ module VertexClient
     ENDPOINT = 'CalculateTax70'.freeze
     SALE = 'SALE'.freeze
     VALIDATIONS = [:location].freeze
+    RESPONSE_TYPE = Response
 
     attr_reader :output, :input
 
@@ -36,8 +37,16 @@ module VertexClient
       [@input[:customer], @input[:line_items].map { |li| li[:customer]}].flatten.compact
     end
 
-    def quotation?
-      payload_name == QuotationPayload::NAME
+    def handle_response(vertex_response)
+      vertex_response ? new_response_object(vertex_response) : fallback_response
+    end
+
+    def fallback_response
+      FallbackResponse.new(self)
+    end
+
+    def new_response_object(vertex_response)
+      response_type.new(vertex_response.body[:vertex_envelope][response_key])
     end
 
     def endpoint
@@ -45,6 +54,10 @@ module VertexClient
     end
 
     private
+
+    def response_type
+      self.class::RESPONSE_TYPE
+    end
 
     def payload_name
       "#{self.class::NAME}"

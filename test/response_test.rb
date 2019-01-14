@@ -3,18 +3,14 @@ require "test_helper"
 describe VertexClient::Response do
   before do
     @response = VertexClient::Response.new({
-      vertex_envelope: {
-        quotation_response: {
-          total_tax: '6.0',
-          total: '106.0',
-          sub_total: '100.0',
-          line_item: {
-            total_tax: '6.0',
-            product: '4600'
-          }
-        }
-      }},
-      :quotation_response)
+      total_tax: '6.0',
+      total: '106.0',
+      sub_total: '100.0',
+      line_item: {
+        total_tax: '6.0',
+        product: '4600'
+      }
+    })
   end
 
   it 'has attributes' do
