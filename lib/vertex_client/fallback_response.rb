@@ -4,6 +4,9 @@ module VertexClient
 
     attr_reader :body, :total_tax, :total, :subtotal, :line_items
 
+    # Temporary hack for tax_area_lookup
+    attr_reader :tax_area_id
+
     def initialize(payload)
       @payload = payload.transform
       @body = @payload.output
