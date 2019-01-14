@@ -1,6 +1,7 @@
 module VertexClient
   class Payload
 
+    ENDPOINT = 'CalculateTax70'.freeze
     SALE = 'SALE'.freeze
     VALIDATIONS = [:location].freeze
 
@@ -37,6 +38,10 @@ module VertexClient
 
     def quotation?
       payload_name == QuotationPayload::NAME
+    end
+
+    def endpoint
+      self.class::ENDPOINT
     end
 
     private

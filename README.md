@@ -135,7 +135,7 @@ The following environment variables are used to configure the client.
 
 ```
 VERTEX_TRUSTED_ID=your-trusted-id
-VERTEX_SOAP_API=https://connect.vertexsmb.com/vertex-ws/services/CalculateTax70
+VERTEX_SOAP_API=https://connect.vertexsmb.com/vertex-ws/services/
 ```
 ### Initializer
 

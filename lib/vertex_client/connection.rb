@@ -60,9 +60,13 @@ module VertexClient
       @config ||= VertexClient.configuration
     end
 
+    def url
+      URI.join config.soap_api, @payload.endpoint
+    end
+
     def client
       @client ||= Savon.client do |globals|
-        globals.endpoint config.soap_api
+        globals.endpoint url
         globals.namespace VERTEX_NAMESPACE
         globals.convert_request_keys_to :camelcase
         globals.env_namespace :soapenv
