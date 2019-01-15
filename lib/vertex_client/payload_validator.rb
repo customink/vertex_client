@@ -24,10 +24,11 @@ module VertexClient
     end
 
     def customer_missing_location?
-      !@payload.all_customer_lines.all? { |customer| state_or_postal_code?(customer) }
+      !@payload.all_customer_lines.all? { |customer| customer_location?(customer) }
     end
 
-    def state_or_postal_code?(customer)
+    def customer_location?(customer)
+      return true if customer[:tax_area_id].present?
       customer[:state].present? && customer[:postal_code].present?
     end
 
