@@ -49,6 +49,7 @@ describe VertexClient::Payload do
           :@taxDate=>"2018-11-15",
           :customer=> {
             :destination=> {
+              :@taxAreaId => 330612010,
               :street_address_1=>"11 Wall Street",
               :city=>"New York",
               :main_division=>"NY",

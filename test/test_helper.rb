@@ -30,6 +30,7 @@ module TestInput
           document_number: 'test123',
           date: '2018-11-15',
           customer: {
+            tax_area_id: 330612010,
             address_1: "11 Wall Street",
             city: "New York",
             state: "NY",
