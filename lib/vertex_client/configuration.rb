@@ -23,5 +23,13 @@ module VertexClient
     def circuit_config
       CIRCUIT_CONFIG.merge(@circuit_config) if @circuit_config
     end
+
+    def soap_api
+      @soap_api.gsub(/\/+$/ ,'') + '/'
+    end
+
+    def fallback_rates
+      RATES
+    end
   end
 end
