@@ -4,11 +4,11 @@ describe VertexClient::Payload do
   include TestInput
 
   it 'transforms the input hash for quotation' do
-    assert_equal(VertexClient::QuotationPayload.new(working_quote_params).transform.output, expected_output)
+    assert_equal(VertexClient::Payload::Quotation.new(working_quote_params).body, expected_output)
   end
 
   it 'includes the date and document number for invoice' do
-    output = VertexClient::InvoicePayload.new(working_quote_params).transform.output
+    output =  VertexClient::Payload::Invoice.new(working_quote_params).body
     assert_equal output[:'@documentNumber'], 'test123'
     assert_equal output[:'@documentDate'],   '2018-11-15'
   end
@@ -17,13 +17,13 @@ describe VertexClient::Payload do
     assert_raises VertexClient::ValidationError do
       input = working_quote_params
       input.delete(:document_number)
-      VertexClient::InvoicePayload.new(input).transform
+      VertexClient::Payload::Invoice.new(input).transform
     end
   end
 
   it 'supports sending is_tax_exempt to customer' do
     working_quote_params[:customer][:is_tax_exempt] = true
-    output = VertexClient::InvoicePayload.new(working_quote_params).transform.output
+    output = VertexClient::Payload::Invoice.new(working_quote_params).body
     assert output[:line_item][0][:customer][:@isTaxExempt]
   end
 
@@ -32,12 +32,8 @@ describe VertexClient::Payload do
     params[:customer].delete(:postal_code)
     params[:customer].delete(:state)
     assert_raises VertexClient::ValidationError do
-      VertexClient::QuotationPayload.new(params).transform
+      VertexClient::Payload::Quotation.new(params).body
     end
-  end
-
-  it 'returns all customer lines' do
-    assert_equal 2, VertexClient::Payload.new(working_quote_params).all_customer_lines.count
   end
 
   def expected_output

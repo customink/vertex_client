@@ -1,9 +1,7 @@
-require 'byebug'
+require 'active_support'
 module VertexClient
   module Resource
     class Base
-
-      include Utils::StringUtils
 
       def initialize(params)
         @payload = payload_type.new(params)
@@ -36,9 +34,8 @@ module VertexClient
       end
 
       def demodulized_class_name
-        demodulize(self.class.name)
+        self.class.name.demodulize
       end
-
     end
   end
 end

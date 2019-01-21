@@ -170,13 +170,13 @@ describe VertexClient::Connection do
   it 'creates a fallback response for quotation when the circuit is open' do
     VertexClient.configuration.circuit_config = {}
     VertexClient.circuit.send(:open!)
-    assert_kind_of VertexClient::FallbackResponse,
+     assert_kind_of VertexClient::Response::QuotationFallback,
       VertexClient.quotation(working_quote_params)
   end
 
   it 'creates a fallback response for quotation when Vertex returns an error' do
     VCR.use_cassette('circuit_breaker') do
-      assert_kind_of VertexClient::FallbackResponse,
+      assert_kind_of VertexClient::Response::QuotationFallback,
         VertexClient.quotation(working_quote_params)
     end
   end
@@ -191,25 +191,22 @@ describe VertexClient::Connection do
 
   it 'raises if theres an error on invoice and the circuit is closed' do
     VertexClient.configuration.circuit_config = {}
-    VertexClient.circuit.send(:close!)
-    connection = VertexClient::Connection.new(
-      VertexClient::InvoicePayload.new(working_quote_params))
-    raises_expection = -> { raise Savon::Error.new('something went wrong') }
-    connection.stub :client, raises_expection do
+    resource = VertexClient::Resource::Invoice.new( working_quote_params )
+    raises_expection = proc { raise Savon::Error.new('something went wrong') }
+    resource.send(:connection).send(:client).stub(:call, raises_expection) do
       assert_raises VertexClient::ServerError do
-        connection.request
+        resource.result
       end
     end
   end
 
   it 'raises if theres an error on invoice and the circuit is missing' do
     assert_nil VertexClient.circuit
-    connection = VertexClient::Connection.new(
-      VertexClient::InvoicePayload.new(working_quote_params))
-    raises_expection = -> { raise Savon::Error.new('something went wrong') }
-    connection.stub :client, raises_expection do
+    resource = VertexClient::Resource::Invoice.new( working_quote_params )
+    raises_expection = proc { raise Savon::Error.new('something went wrong') }
+    resource.send(:connection).send(:client).stub(:call, raises_expection) do
       assert_raises VertexClient::ServerError do
-        connection.request
+        resource.result
       end
     end
   end

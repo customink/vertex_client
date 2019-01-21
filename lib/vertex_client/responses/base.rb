@@ -1,7 +1,7 @@
+require 'active_support'
 module VertexClient
   module Response
     class Base
-      include Utils::StringUtils
 
       def initialize(vertex_response)
         @body = vertex_response.body[:vertex_envelope][response_key].with_indifferent_access

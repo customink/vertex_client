@@ -17,7 +17,7 @@ module VertexClient
       def line_items
         @line_items ||= @body[:line_item].flatten.map do |line_item|
           LineItem.new(
-            product_code:   product_for_line_item(line_item),
+            product:        product_for_line_item(line_item),
             quantity:       line_item[:quantity],
             price:          line_item[:extended_price],
             total_tax:      tax_for_line_item(line_item)

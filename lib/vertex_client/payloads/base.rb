@@ -1,3 +1,4 @@
+require 'active_support'
 module VertexClient
   module Payload
     class Base

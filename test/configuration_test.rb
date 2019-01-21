@@ -7,9 +7,9 @@ describe VertexClient::Configuration do
     VertexClient.reconfigure!
   end
 
-  it 'has a soap_api' do
+  it 'has a soap_api, and adds a trailing slash to it' do
     VertexClient.configuration.soap_api = 'http://service.example.com'
-    assert_equal VertexClient.configuration.soap_api, 'http://service.example.com'
+    assert_equal VertexClient.configuration.soap_api, 'http://service.example.com/'
     VertexClient.reconfigure!
   end
 

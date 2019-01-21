@@ -1,13 +1,13 @@
 require "test_helper"
 
-describe VertexClient::FallbackResponse do
+describe VertexClient::Response::QuotationFallback do
   include TestInput
 
   before do
     params = working_quote_params
     params[:line_items].last[:price] = "100.00"
-    payload = VertexClient::QuotationPayload.new(working_quote_params)
-    @response = VertexClient::FallbackResponse.new(payload)
+    payload = VertexClient::Payload::Quotation.new(working_quote_params)
+    @response = VertexClient::Response::QuotationFallback.new(payload)
   end
 
   it 'calculates tax on the fallback response' do

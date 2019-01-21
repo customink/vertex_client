@@ -11,7 +11,6 @@ module VertexClient
 
   module Utils
     autoload :AdjustmentAllocator, 'vertex_client/utils/adjustment_allocator'
-    autoload :StringUtils,         'vertex_client/utils/string_utils'
   end
 
   module Payload

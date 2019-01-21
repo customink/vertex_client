@@ -1,20 +1,20 @@
 require "test_helper"
 
-describe VertexClient::ResponseLineItem do
-  let(:reponse_line_item) do
+describe VertexClient::Response::LineItem do
+  let(:response_line_item) do
     {
       total_tax: '6.0',
       product: '4600',
       quantity: '1',
-      extended_price: '100'
+      price: '100'
     }
   end
 
   it 'initializes from the response hash' do
-    item = VertexClient::ResponseLineItem.init_from_hash(reponse_line_item)
-    assert_equal BigDecimal.new('6.0'), item.total_tax
-    assert_equal reponse_line_item[:product], item.product_code
-    assert_equal reponse_line_item[:quantity], item.quantity
-    assert_equal reponse_line_item[:extended_price], item.price
+    item = VertexClient::Response::LineItem.new(response_line_item)
+    assert_equal response_line_item[:total_tax].to_d, item.total_tax
+    assert_equal response_line_item[:product], item.product
+    assert_equal response_line_item[:quantity].to_f, item.quantity
+    assert_equal response_line_item[:price].to_d, item.price
   end
 end
