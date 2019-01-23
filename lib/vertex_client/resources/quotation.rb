@@ -4,7 +4,8 @@ module VertexClient
       ENDPOINT = 'CalculateTax70'.freeze
 
       def fallback_response
-        Response::QuotationFallback.new(@payload)
+        fallback_payload = Payload::QuotationFallback.new(@payload.params)
+        Response::QuotationFallback.new(fallback_payload)
       end
     end
   end

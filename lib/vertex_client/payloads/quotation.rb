@@ -20,15 +20,23 @@ module VertexClient
       private
 
       def customer_missing_location?
-        !customer_lines(params).all? { |customer| state_or_postal_code?(customer) }
+        !customer_lines(params).all? { |customer| customer_destination_present?(customer) }
+      end
+
+      def transform_customer(customer_params)
+        super(customer_params).tap do |customer|
+          if customer_params[:tax_area_id].present?
+            customer[:destination] = { :@taxAreaId => customer_params[:tax_area_id]}
+          end
+        end
       end
 
       def customer_lines(params)
         [params[:customer], params[:line_items].map { |li| li[:customer]}].flatten.compact
       end
 
-      def state_or_postal_code?(customer)
-        (customer[:state].present? && customer[:postal_code].present?)
+      def customer_destination_present?(customer)
+        customer[:state].present? && customer[:postal_code].present?
       end
 
       def transform_line_item(line_item, number, defaults)

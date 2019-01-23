@@ -18,6 +18,7 @@ module VertexClient
     autoload :DistributeTax,        'vertex_client/payloads/distribute_tax'
     autoload :Invoice,              'vertex_client/payloads/invoice'
     autoload :Quotation,            'vertex_client/payloads/quotation'
+    autoload :QuotationFallback,    'vertex_client/payloads/quotation_fallback'
     autoload :TaxArea,              'vertex_client/payloads/tax_area'
   end
 

@@ -26,7 +26,6 @@ module VertexClient
         remove_nils({
           :@isTaxExempt =>  customer[:is_tax_exempt],
           destination: remove_nils({
-            :@taxAreaId =>    customer[:tax_area_id],
             street_address_1: customer[:address_1],
             street_address_2: customer[:address_2],
             city:             customer[:city],
