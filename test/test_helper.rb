@@ -68,6 +68,59 @@ module TestInput
           ]
         }
       end
+
+      let(:expected_payload_output) do
+        {
+          :@transactionType=>"SALE",
+          :line_item=> [
+            {
+              :@lineItemNumber=>1,
+              :@taxDate=>"2018-11-15",
+              :customer=> {
+                :destination=> {
+                  # :@taxAreaId => 330612010,
+                  :street_address_1=>"11 Wall Street",
+                  :city=>"New York",
+                  :main_division=>"NY",
+                  :postal_code=>"10005",
+                  :country=>"US"
+                }
+              },
+              seller: {
+                company: "CustomInk"
+              },
+              :product=> {
+                :@productClass=>"53103000",
+                content!: "4600"
+              },
+              :quantity=>7,
+              :extended_price=>"35.50"
+            },
+            {
+              :@lineItemNumber=>2,
+              :@taxDate=>"2018-11-14",
+              :customer=> {
+                :destination=> {
+                  :street_address_1=>"2910 District Ave #300",
+                  :city=>"Fairfax",
+                  :main_division=>"VA",
+                  :postal_code=>"22031",
+                  :country=>"US"
+                }
+              },
+              :seller=> {
+                :company=>"CustomInk"
+              },
+              :product=> {
+                :@productClass=>"53103000",
+                content!: "5300"
+              },
+              :quantity=>4,
+              :extended_price=>"25.40"
+            }
+          ]
+        }
+      end
     end
   end
 end
