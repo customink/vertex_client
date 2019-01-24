@@ -24,9 +24,9 @@ describe VertexClient::Response::Quotation do
   let(:response) { VertexClient::Response::Quotation.new(vertex_quotation_response) }
 
   it 'has attributes' do
-    assert_equal response.total_tax, BigDecimal.new('6.0')
-    assert_equal response.total, BigDecimal.new('106.0')
-    assert_equal response.subtotal, BigDecimal.new('100.0')
+    assert_equal 6.0,   response.total_tax.to_f
+    assert_equal 106.0, response.total.to_f
+    assert_equal 100.0, response.subtotal.to_f
     assert_kind_of VertexClient::Response::LineItem, response.line_items.first
   end
 end
