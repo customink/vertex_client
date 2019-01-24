@@ -1,8 +1,8 @@
 require "test_helper"
 
 describe VertexClient::Response::Quotation do
-  before do
-    @vertex_response = OpenStruct.new(:body => {
+  let(:vertex_quotation_response) do
+    OpenStruct.new(body: {
       vertex_envelope: {
         quotation_response: {
           total_tax: '6.0',
@@ -10,6 +10,8 @@ describe VertexClient::Response::Quotation do
           sub_total: '100.0',
           line_item: [
             {
+              quantity: '1',
+              price: '100',
               total_tax: '6.0',
               product: '4600'
             }
@@ -17,13 +19,14 @@ describe VertexClient::Response::Quotation do
         }
       }
     })
-    @response = VertexClient::Response::Quotation.new(@vertex_response)
   end
 
+  let(:response) { VertexClient::Response::Quotation.new(vertex_quotation_response) }
+
   it 'has attributes' do
-    assert_equal @response.total_tax, BigDecimal.new('6.0')
-    assert_equal @response.total, BigDecimal.new('106.0')
-    assert_equal @response.subtotal, BigDecimal.new('100.0')
-    assert_kind_of VertexClient::Response::LineItem, @response.line_items.first
+    assert_equal response.total_tax, BigDecimal.new('6.0')
+    assert_equal response.total, BigDecimal.new('106.0')
+    assert_equal response.subtotal, BigDecimal.new('100.0')
+    assert_kind_of VertexClient::Response::LineItem, response.line_items.first
   end
 end
