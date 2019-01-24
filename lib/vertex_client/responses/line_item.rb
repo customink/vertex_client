@@ -6,9 +6,9 @@ module VertexClient
 
       def initialize(params={})
         @product        = params[:product]
-        @quantity       = params[:quantity]   && params[:quantity].to_i
-        @price          = params[:price]      && BigDecimal.new(params[:price])
-        @total_tax      = params[:total_tax]  && BigDecimal.new(params[:total_tax])
+        @quantity       = params[:quantity] ? params[:quantity].to_i : 0
+        @price          = BigDecimal.new(params[:price] || 0)
+        @total_tax      = BigDecimal.new(params[:total_tax] || 0)
       end
     end
   end
