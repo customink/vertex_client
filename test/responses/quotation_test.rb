@@ -11,7 +11,7 @@ describe VertexClient::Response::Quotation do
           line_item: [
             {
               quantity: '1',
-              price: '100',
+              extended_price: '100',
               total_tax: '6.0',
               product: '4600'
             }
@@ -28,5 +28,15 @@ describe VertexClient::Response::Quotation do
     assert_equal 106.0, response.total.to_f
     assert_equal 100.0, response.subtotal.to_f
     assert_kind_of VertexClient::Response::LineItem, response.line_items.first
+  end
+
+  describe 'line_items' do
+    it 'is a collection of Response::LineItem' do
+      assert_equal 1,       response.line_items.size
+      assert_equal '4600',  response.line_items.first.product
+      assert_equal 1,       response.line_items.first.quantity
+      assert_equal 100.0,   response.line_items.first.price.to_f
+      assert_equal 6.0,     response.line_items.first.total_tax.to_f
+    end
   end
 end
