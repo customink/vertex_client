@@ -5,6 +5,7 @@ require "vertex_client"
 require "minitest/autorun"
 require "vcr"
 require 'byebug'
+require "mocha/minitest"
 SimpleCov.start
 
 VertexClient.configuration # make sure the client is configured

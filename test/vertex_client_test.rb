@@ -8,15 +8,38 @@ describe VertexClient do
     refute_nil ::VertexClient::VERSION
   end
 
-  it 'can be configured with envs' do
-    refute_nil ENV['VERTEX_TRUSTED_ID']
-    assert_equal VertexClient.configuration.trusted_id, ENV['VERTEX_TRUSTED_ID']
-  end
-
   it 'can be configured with a block' do
     VertexClient.configure { |config| config.trusted_id = 'trusted-id' }
     assert_equal VertexClient.configuration.trusted_id, 'trusted-id'
     VertexClient.reconfigure!
+  end
+
+  it 'does a quotation' do
+    VertexClient::Resource::Quotation.expects(:new)
+      .with(working_quote_params)
+      .returns(stub(result: true))
+    assert VertexClient.quotation(working_quote_params)
+  end
+
+  it 'does invoice' do
+    VertexClient::Resource::Invoice.expects(:new)
+      .with(working_quote_params)
+      .returns(stub(result: true))
+    assert VertexClient.invoice(working_quote_params)
+  end
+
+  it 'does distribute_tax' do
+    VertexClient::Resource::DistributeTax.expects(:new)
+      .with(working_quote_params)
+      .returns(stub(result: true))
+    assert VertexClient.distribute_tax(working_quote_params)
+  end
+
+  it 'does tax_area' do
+    VertexClient::Resource::TaxArea.expects(:new)
+      .with(working_quote_params)
+      .returns(stub(result: true))
+    assert VertexClient.tax_area(working_quote_params)
   end
 
   describe 'circuit' do
