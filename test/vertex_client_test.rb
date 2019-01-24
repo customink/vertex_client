@@ -10,7 +10,7 @@ describe VertexClient do
 
   it 'can be configured with a block' do
     VertexClient.configure { |config| config.trusted_id = 'trusted-id' }
-    assert_equal VertexClient.configuration.trusted_id, 'trusted-id'
+    assert_equal 'trusted-id', VertexClient.configuration.trusted_id
     VertexClient.reconfigure!
   end
 
@@ -66,7 +66,7 @@ describe VertexClient do
       VertexClient.configure do |c|
         c.circuit_config = { logger: logger }
       end
-      assert_equal VertexClient.circuit.circuit_options[:logger], logger
+      assert_equal logger, VertexClient.circuit.circuit_options[:logger]
     end
 
     it 'opens the circuit' do
