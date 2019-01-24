@@ -6,25 +6,29 @@ describe VertexClient::Response::QuotationFallback do
   let(:payload) { VertexClient::Payload::QuotationFallback.new(working_quote_params) }
   let(:response) { VertexClient::Response::QuotationFallback.new(payload) }
 
+  before do
+    working_quote_params[:line_items].last[:price] = '100.0'
+  end
+
   it 'initializes @body with payload.body' do
     assert_equal payload.body, response.instance_variable_get(:@body)
   end
 
   describe 'subtotal' do
     it 'is the sum of price from line_items' do
-      assert_equal 60.9, response.subtotal.to_f
+      assert_equal 135.5, response.subtotal.to_f
     end
   end
 
   describe 'total_tax' do
     it 'is the sum of total_tax from line_items' do
-      assert_equal  1.77, response.total_tax.to_f
+      assert_equal  7.0, response.total_tax.to_f
     end
   end
 
   describe 'total' do
     it 'is the sum of subtotal and total_tax' do
-      assert_equal 62.67, response.total.to_f
+      assert_equal 142.5, response.total.to_f
     end
   end
 
