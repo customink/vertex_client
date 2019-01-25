@@ -8,13 +8,13 @@ describe VertexClient::Configuration do
 
   it 'has a trusted id' do
     VertexClient.configuration.trusted_id = 'trusted-id'
-    assert_equal VertexClient.configuration.trusted_id, 'trusted-id'
+    assert_equal 'trusted-id', VertexClient.configuration.trusted_id
     VertexClient.reconfigure!
   end
 
   it 'has a soap_api, and adds a trailing slash to it' do
     VertexClient.configuration.soap_api = 'http://service.example.com'
-    assert_equal VertexClient.configuration.soap_api, 'http://service.example.com/'
+    assert_equal 'http://service.example.com/', VertexClient.configuration.soap_api
     VertexClient.reconfigure!
   end
 
@@ -25,7 +25,7 @@ describe VertexClient::Configuration do
 
     it 'is an accessible attribute' do
       VertexClient.configuration.circuit_config = { test: :ok }
-      assert_equal VertexClient.configuration.circuit_config[:test], :ok
+      assert_equal :ok, VertexClient.configuration.circuit_config[:test]
     end
 
     it 'is nil if nothing is provided' do
