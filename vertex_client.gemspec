@@ -8,9 +8,9 @@ Gem::Specification.new do |spec|
   spec.version       = VertexClient::VERSION
   spec.authors       = ["Custom Ink"]
   spec.email         = ["technology@customink.com"]
-
+  spec.required_ruby_version = '>= 2.1'
   spec.summary       = %q{A Ruby Gem to integrate with the Vertex Cloud API}
-  spec.description   = %q{The Vertex Client Ruby Gem provides an interface to integrate with Vertex Cloud's REST API.}
+  spec.description   = %q{The Vertex Client Ruby Gem provides an interface to integrate with Vertex Cloud's SOAP API.}
   spec.homepage      = "https://github.com/customink/vertex_client"
   spec.license       = "MIT"
 
