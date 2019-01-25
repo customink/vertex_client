@@ -13,6 +13,11 @@ describe VertexClient::Payload::Invoice do
     }), payload.body
   end
 
+  it 'supports sending is_tax_exempt to customer' do
+    working_quote_params[:customer][:is_tax_exempt] = true
+    assert payload.body[:line_item][0][:customer][:@isTaxExempt]
+  end
+
   describe 'validate!' do
     it 'raises if the document_number is not included' do
       assert_raises VertexClient::ValidationError do

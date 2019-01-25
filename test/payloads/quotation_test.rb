@@ -10,6 +10,11 @@ describe VertexClient::Payload::Quotation do
     assert_equal expected_payload_output, payload.body
   end
 
+  it 'supports sending is_tax_exempt to customer' do
+    working_quote_params[:customer][:is_tax_exempt] = true
+    assert payload.body[:line_item][0][:customer][:@isTaxExempt]
+  end
+
   describe 'validate!' do
     it 'is happy if state and postal_code are present on customer' do
       VertexClient::Payload::Quotation.new(working_quote_params).validate!
