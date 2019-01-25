@@ -1,5 +1,4 @@
 require "test_helper"
-require 'byebug'
 
 describe VertexClient::Payload::DistributeTax do
   include TestInput
