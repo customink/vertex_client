@@ -69,6 +69,20 @@ module TestInput
         }
       end
 
+      let(:distribute_tax_params) do
+        params = working_quote_params.dup
+        line_item = params[:line_items][1]
+        line_item[:total_tax] = "5.00"
+        line_item[:customer] = {
+          address_1: "2910 District Ave #300",
+          city: "Fairfax",
+          state: "VA",
+          postal_code: "22031"
+        }
+        params[:line_items] = [line_item]
+        params
+      end
+
       let(:expected_payload_output) do
         {
           :@transactionType=>"SALE",

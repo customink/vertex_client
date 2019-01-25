@@ -2,8 +2,7 @@ require "test_helper"
 
 describe VertexClient::Resource::DistributeTax do
   include TestInput
-
-  let(:resource){ VertexClient::Resource::DistributeTax.new(working_quote_params) }
+  let(:resource){ VertexClient::Resource::DistributeTax.new(distribute_tax_params) }
 
   it 'has an ENDPOINT' do
     assert_equal 'CalculateTax70', VertexClient::Resource::DistributeTax::ENDPOINT
