@@ -1,4 +1,3 @@
-require 'byebug'
 module VertexClient
   class Connection
 
@@ -16,6 +15,20 @@ module VertexClient
           message: shell_with_auth.merge(payload)
         )
       end
+    end
+
+    def client
+      @client ||= Savon.client do |globals|
+        globals.endpoint clean_endpoint
+        globals.namespace VERTEX_NAMESPACE
+        globals.convert_request_keys_to :camelcase
+        globals.env_namespace :soapenv
+        globals.namespace_identifier :urn
+      end
+    end
+
+    def config
+      @config ||= VertexClient.configuration
     end
 
     private
@@ -38,23 +51,8 @@ module VertexClient
       }
     end
 
-    def config
-      @config ||= VertexClient.configuration
-    end
-
-
     def clean_endpoint
       URI.join(config.soap_api, @endpoint).to_s
-    end
-
-    def client
-      @client ||= Savon.client do |globals|
-        globals.endpoint clean_endpoint
-        globals.namespace VERTEX_NAMESPACE
-        globals.convert_request_keys_to :camelcase
-        globals.env_namespace :soapenv
-        globals.namespace_identifier :urn
-      end
     end
   end
 end
