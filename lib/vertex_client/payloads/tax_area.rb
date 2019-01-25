@@ -14,8 +14,6 @@ module VertexClient
         }
       end
 
-      private
-
       def values_empty?
         params.values.all?(&:empty?)
       end

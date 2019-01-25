@@ -91,6 +91,15 @@ module TestInput
         params
       end
 
+      let(:tax_area_params) do
+        {
+          address_1: '2910 District Ave #300',
+          city: 'Fairfax',
+          state: 'VA',
+          postal_code: '22031'
+        }
+      end
+
       let(:expected_payload_output) do
         {
           :@transactionType=>"SALE",
