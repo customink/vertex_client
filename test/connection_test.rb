@@ -26,31 +26,14 @@ describe VertexClient::Connection do
   end
 
   it 'does distribute_tax' do
-    input = working_quote_params
-    input[:line_items].shift # remove the first one
-    input[:line_items].each do |line_item|
-      line_item[:total_tax] = "5.00"
-      line_item[:customer] = {
-        address_1: "2910 District Ave #300",
-        city: "Fairfax",
-        state: "VA",
-        postal_code: "22031"
-      }
-    end
     VCR.use_cassette("distribute_tax", :match_requests_on => []) do
-      VertexClient.distribute_tax(input)
+      VertexClient.distribute_tax(distribute_tax_params)
     end
   end
 
   it 'does tax_area' do
-    params = {
-      address_1: "2910 District Ave #300",
-      city: "Fairfax",
-      state: "VA",
-      postal_code: "22031"
-    }
     VCR.use_cassette("tax_area", :match_requests_on => []) do
-      assert_equal "470590000", VertexClient.tax_area(params).tax_area_id
+      assert_equal "470590000", VertexClient.tax_area(tax_area_params).tax_area_id
     end
   end
 
@@ -62,32 +45,6 @@ describe VertexClient::Connection do
   end
 
   describe 'supports is_tax_exempt on customer' do
-    let(:tax_exempt_params) do
-      {
-        customer: {
-          is_tax_exempt:  true,
-          address_1:      '2910 District Ave',
-          address_2:      'Ste. 300',
-          city:           'Fairfax',
-          state:          'VA',
-          postal_code:    '22031'
-        },
-        date: '2018-11-30',
-        document_number: 'tax-exempt-31337',
-        line_items: [
-          {
-            product_code:   '4600',
-            product_class:  '53103000',
-            quantitiy:      10,
-            price:          '50.00'
-          }
-        ],
-        seller: {
-          company: "CustomInk"
-        },
-      }
-    end
-
     it 'does a tax_exempt quote' do
       VCR.use_cassette('tax_exempt/quotation', :match_requests_on => []) do
         response = VertexClient.quotation(tax_exempt_params)
@@ -115,34 +72,9 @@ describe VertexClient::Connection do
     end
 
     describe 'supports location_code' do
-      let(:location_enabled_params) do
-        {
-          customer: {
-            address_1: "11 Wall Street",
-            city: "New York",
-            state: "NY",
-            postal_code: '10005'
-          },
-          date: '2018-11-30',
-          document_number:  'location-code-1',
-          location_code:    'store_25',
-          line_items: [
-            {
-              product_code:   '4600',
-              product_class:  '53103000',
-              quantitiy:      10,
-              price:          '50.00'
-            }
-          ],
-          seller: {
-            company: "CustomInkStores"
-          },
-        }
-      end
-
       it 'does a location_code quote' do
         VCR.use_cassette('location_code/quotation', :match_requests_on => []) do
-          response = VertexClient.quotation(location_enabled_params)
+          response = VertexClient.quotation(quotation_with_location_code_params)
           assert_equal response.total_tax, 0.0
           assert_equal response.total, 50.0
         end
@@ -150,7 +82,7 @@ describe VertexClient::Connection do
 
       it 'does a location_code invoice' do
         VCR.use_cassette('location_code/invoice', :match_requests_on => []) do
-          response = VertexClient.invoice(location_enabled_params)
+          response = VertexClient.invoice(quotation_with_location_code_params)
           assert_equal response.total_tax, 0.0
           assert_equal response.total, 50.0
         end
@@ -158,8 +90,8 @@ describe VertexClient::Connection do
 
       it 'does a location_code distribute_tax' do
         VCR.use_cassette('location_code/distribute_tax', :match_requests_on => []) do
-          location_enabled_params[:line_items][0][:total_tax] = '0.00'
-          response = VertexClient.distribute_tax(location_enabled_params)
+          quotation_with_location_code_params[:line_items][0][:total_tax] = '0.00'
+          response = VertexClient.distribute_tax(quotation_with_location_code_params)
           assert_equal response.total_tax, 0.0
           assert_equal response.total, 50.0
         end
