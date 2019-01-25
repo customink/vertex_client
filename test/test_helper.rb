@@ -83,6 +83,14 @@ module TestInput
         params
       end
 
+      let(:quotation_fallback_params) do
+        params = working_quote_params.dup
+        line_item = params[:line_items].first
+        params[:line_items] = [line_item]
+        params[:customer][:tax_area_id] = '330612010'
+        params
+      end
+
       let(:expected_payload_output) do
         {
           :@transactionType=>"SALE",
