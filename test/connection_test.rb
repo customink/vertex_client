@@ -18,6 +18,7 @@ describe VertexClient::Connection do
 
   describe 'request' do
     it 'calls client with a vertex envelope payload' do
+      connection.config.stubs(:trusted_id).returns(:secret)
       expected_message = {
         login: {
           trusted_id: connection.config.trusted_id,

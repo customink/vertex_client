@@ -14,14 +14,14 @@ describe 'Integration' do
   it 'does a quotation' do
     VCR.use_cassette("quotation", :match_requests_on => []) do
       response = VertexClient.quotation(working_quote_params)
-      assert_equal response.total_tax, 1.52
+      assert_equal 1.52, response.total_tax
     end
   end
 
   it 'does an invoice' do
     VCR.use_cassette("invoice", :match_requests_on => []) do
       response = VertexClient.invoice(working_quote_params)
-      assert_equal response.total_tax, 1.52
+      assert_equal 1.52, response.total_tax
     end
   end
 
@@ -48,16 +48,16 @@ describe 'Integration' do
     it 'does a tax_exempt quote' do
       VCR.use_cassette('tax_exempt/quotation', :match_requests_on => []) do
         response = VertexClient.quotation(tax_exempt_params)
-        assert_equal response.total_tax, 0.0
-        assert_equal response.total, 50.0
+        assert_equal 0.0, response.total_tax
+        assert_equal 50.0, response.total
       end
     end
 
     it 'does a tax_exempt invoice' do
       VCR.use_cassette('tax_exempt/invoice', :match_requests_on => []) do
         response = VertexClient.invoice(tax_exempt_params)
-        assert_equal response.total_tax, 0.0
-        assert_equal response.total, 50.0
+        assert_equal 0.0, response.total_tax
+        assert_equal 50.0, response.total
       end
     end
 
@@ -66,8 +66,8 @@ describe 'Integration' do
       VCR.use_cassette('tax_exempt/distribute_tax', :match_requests_on => []) do
         tax_exempt_params[:line_items][0][:total_tax] = '0.00'
         response = VertexClient.distribute_tax(tax_exempt_params)
-        assert_equal response.total_tax, 0.0
-        assert_equal response.total, 50.0
+        assert_equal 0.0, response.total_tax
+        assert_equal 50.0, response.total
       end
     end
 
@@ -75,16 +75,16 @@ describe 'Integration' do
       it 'does a location_code quote' do
         VCR.use_cassette('location_code/quotation', :match_requests_on => []) do
           response = VertexClient.quotation(quotation_with_location_code_params)
-          assert_equal response.total_tax, 0.0
-          assert_equal response.total, 50.0
+          assert_equal 0.0, response.total_tax
+          assert_equal 50.0, response.total
         end
       end
 
       it 'does a location_code invoice' do
         VCR.use_cassette('location_code/invoice', :match_requests_on => []) do
           response = VertexClient.invoice(quotation_with_location_code_params)
-          assert_equal response.total_tax, 0.0
-          assert_equal response.total, 50.0
+          assert_equal 0.0, response.total_tax
+          assert_equal 50.0, response.total
         end
       end
 
@@ -92,8 +92,8 @@ describe 'Integration' do
         VCR.use_cassette('location_code/distribute_tax', :match_requests_on => []) do
           quotation_with_location_code_params[:line_items][0][:total_tax] = '0.00'
           response = VertexClient.distribute_tax(quotation_with_location_code_params)
-          assert_equal response.total_tax, 0.0
-          assert_equal response.total, 50.0
+          assert_equal 0.0, response.total_tax
+          assert_equal 50.0, response.total
         end
       end
     end
