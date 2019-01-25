@@ -1,28 +1,45 @@
 require 'vertex_client/version'
 require 'vertex_client/railtie' if defined?(Rails)
-
 require 'active_support/all'
 require 'savon'
 
 module VertexClient
+
+  autoload :Configuration,        'vertex_client/configuration'
+  autoload :Connection,           'vertex_client/connection'
+  autoload :RATES,                'vertex_client/rates'
+
   module Utils
     autoload :AdjustmentAllocator, 'vertex_client/utils/adjustment_allocator'
   end
 
-  autoload :Configuration,        'vertex_client/configuration'
-  autoload :Connection,           'vertex_client/connection'
-  autoload :DistributeTaxPayload, 'vertex_client/distribute_tax_payload'
-  autoload :Fallbacks,            'vertex_client/fallbacks'
-  autoload :FallbackResponse,     'vertex_client/fallback_response'
-  autoload :InvoicePayload,       'vertex_client/invoice_payload'
-  autoload :Payload,              'vertex_client/payload'
-  autoload :PayloadValidator,     'vertex_client/payload_validator'
-  autoload :Response,             'vertex_client/response'
-  autoload :ResponseLineItem,     'vertex_client/response_line_item'
-  autoload :QuotationPayload,     'vertex_client/quotation_payload'
-  autoload :TaxAreaPayload,       'vertex_client/tax_area_payload'
-  autoload :TaxAreaResponse,      'vertex_client/tax_area_response'
+  module Payload
+    autoload :Base,                 'vertex_client/payloads/base'
+    autoload :DistributeTax,        'vertex_client/payloads/distribute_tax'
+    autoload :Invoice,              'vertex_client/payloads/invoice'
+    autoload :Quotation,            'vertex_client/payloads/quotation'
+    autoload :QuotationFallback,    'vertex_client/payloads/quotation_fallback'
+    autoload :TaxArea,              'vertex_client/payloads/tax_area'
+  end
 
+  module Resource
+    autoload :Base,                 'vertex_client/resources/base'
+    autoload :DistributeTax,        'vertex_client/resources/distribute_tax'
+    autoload :Invoice,              'vertex_client/resources/invoice'
+    autoload :Quotation,            'vertex_client/resources/quotation'
+    autoload :TaxArea,              'vertex_client/resources/tax_area'
+  end
+
+  module Response
+    autoload :Base,                 'vertex_client/responses/base'
+    autoload :DistributeTax,        'vertex_client/responses/distribute_tax'
+    autoload :Invoice,              'vertex_client/responses/invoice'
+    autoload :LineItem,             'vertex_client/responses/line_item'
+    autoload :Quotation,            'vertex_client/responses/quotation'
+    autoload :QuotationFallback,    'vertex_client/responses/quotation_fallback'
+    autoload :TaxArea,              'vertex_client/responses/tax_area'
+    autoload :TaxAreaFallback,      'vertex_client/responses/tax_area_fallback'
+  end
 
   class << self
 
@@ -42,19 +59,19 @@ module VertexClient
     end
 
     def quotation(payload)
-      Connection.new(QuotationPayload.new(payload)).request
+      Resource::Quotation.new(payload).result
     end
 
     def invoice(payload)
-      Connection.new(InvoicePayload.new(payload)).request
+      Resource::Invoice.new(payload).result
     end
 
     def distribute_tax(payload)
-      Connection.new(DistributeTaxPayload.new(payload)).request
+      Resource::DistributeTax.new(payload).result
     end
 
     def tax_area(payload)
-      Connection.new(TaxAreaPayload.new(payload)).request
+      Resource::TaxArea.new(payload).result
     end
 
     def circuit

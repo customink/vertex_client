@@ -4,40 +4,34 @@ module VertexClient
     VERTEX_NAMESPACE = "urn:vertexinc:o-series:tps:7:0".freeze
     ERROR_MESSAGE = 'The Vertex API returned an error or is unavailable'.freeze
 
-    def initialize(payload)
-      @payload = payload
+    def initialize(endpoint)
+      @endpoint = endpoint
     end
 
-    def request
-      response = call_with_circuit_if_available do
+    def request(payload)
+      call_with_circuit_if_available do
         client.call(
           :vertex_envelope,
-          message: transform_payload
+          message: shell_with_auth.merge(payload)
         )
       end
-      handle_response(response)
     end
 
-    def transform_payload
-      payload_hash = shell_with_auth
-      transform_payload = @payload.transform
-      payload_hash[@payload.request_key] = transform_payload.output
-      payload_hash
+    def client
+      @client ||= Savon.client do |globals|
+        globals.endpoint clean_endpoint
+        globals.namespace VERTEX_NAMESPACE
+        globals.convert_request_keys_to :camelcase
+        globals.env_namespace :soapenv
+        globals.namespace_identifier :urn
+      end
+    end
+
+    def config
+      @config ||= VertexClient.configuration
     end
 
     private
-
-    # TODO Consider removing this conditional to make this more robust
-    def handle_response(response)
-      if response
-        return TaxAreaResponse.new(response, @payload.response_key) if @payload.is_a?(TaxAreaPayload)
-        Response.new(response.body, @payload.response_key)
-      elsif @payload.quotation? || @payload.is_a?(TaxAreaPayload)
-        FallbackResponse.new(@payload)
-      else
-        raise ServerError.new(ERROR_MESSAGE)
-      end
-    end
 
     def call_with_circuit_if_available
       if VertexClient.circuit
@@ -57,22 +51,8 @@ module VertexClient
       }
     end
 
-    def config
-      @config ||= VertexClient.configuration
-    end
-
-    def url
-      URI.join config.soap_api, @payload.endpoint
-    end
-
-    def client
-      @client ||= Savon.client do |globals|
-        globals.endpoint url
-        globals.namespace VERTEX_NAMESPACE
-        globals.convert_request_keys_to :camelcase
-        globals.env_namespace :soapenv
-        globals.namespace_identifier :urn
-      end
+    def clean_endpoint
+      URI.join(config.soap_api, @endpoint).to_s
     end
   end
 end
