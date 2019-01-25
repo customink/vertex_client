@@ -1,6 +1,11 @@
-require "test_helper"
+require 'test_helper'
+require 'circuitbox'
 
 describe VertexClient::Configuration do
+  after do
+    VertexClient.reconfigure!
+  end
+
   it 'has a trusted id' do
     VertexClient.configuration.trusted_id = 'trusted-id'
     assert_equal VertexClient.configuration.trusted_id, 'trusted-id'
@@ -28,11 +33,14 @@ describe VertexClient::Configuration do
     end
 
     it 'merges in defaults from CIRCUIT_CONFIG' do
-      VertexClient.configuration.circuit_config = {}
+      VertexClient.reconfigure! do |config|
+        config.circuit_config = { sleep_window: 300 }
+      end
+
       assert_equal VertexClient.circuit.service, 'vertex_client'
       config_defaults = VertexClient::Configuration::CIRCUIT_CONFIG.reject{|k,_| k == :logger }
       config_defaults.each_pair do |key, value|
-        assert_equal VertexClient.circuit.circuit_options[key], value
+        assert_equal value, VertexClient.circuit.circuit_options[key]
       end
     end
   end
