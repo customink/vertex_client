@@ -1,6 +1,6 @@
 require "test_helper"
 
-describe VertexClient::Connection do
+describe 'Integration' do
   include TestInput
 
   before do
