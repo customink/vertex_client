@@ -37,6 +37,17 @@ describe 'Integration' do
     end
   end
 
+  it 'does tax_area for results with multiple responses' do
+    VCR.use_cassette("tax_area_multiple", :match_requests_on => []) do
+      assert_equal "420130010", VertexClient.tax_area({
+        address_1: '126487 N Bridge Rd',
+        city: 'Aberdeen',
+        state: 'SD',
+        postal_code: '57401'
+      }).tax_area_id
+    end
+  end
+
   it 'uses circuit if it is available' do
     VertexClient.configuration.circuit_config = {}
     VCR.use_cassette("quotation", :match_requests_on => []) do
