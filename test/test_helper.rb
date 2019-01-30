@@ -1,4 +1,5 @@
 $LOAD_PATH.unshift File.expand_path("../../lib", __FILE__)
+require 'circuitbox'
 require "simplecov"
 require "dotenv/load"
 require "vertex_client"
