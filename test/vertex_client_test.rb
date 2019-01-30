@@ -1,5 +1,5 @@
 require "test_helper"
-require 'circuitbox'
+
 describe VertexClient do
 
   include TestInput

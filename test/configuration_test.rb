@@ -1,5 +1,4 @@
 require 'test_helper'
-require 'circuitbox'
 
 describe VertexClient::Configuration do
   after do
