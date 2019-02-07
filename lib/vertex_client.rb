@@ -35,6 +35,7 @@ module VertexClient
     autoload :DistributeTax,        'vertex_client/responses/distribute_tax'
     autoload :Invoice,              'vertex_client/responses/invoice'
     autoload :LineItem,             'vertex_client/responses/line_item'
+    autoload :LineItemProduct,      'vertex_client/responses/line_item_product'
     autoload :Quotation,            'vertex_client/responses/quotation'
     autoload :QuotationFallback,    'vertex_client/responses/quotation_fallback'
     autoload :TaxArea,              'vertex_client/responses/tax_area'

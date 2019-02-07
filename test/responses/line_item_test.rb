@@ -12,8 +12,8 @@ describe VertexClient::Response::LineItem do
 
   it 'initializes from the response hash' do
     item = VertexClient::Response::LineItem.new(response_line_item)
+    assert_kind_of VertexClient::Response::LineItemProduct, item.product
     assert_equal response_line_item[:total_tax].to_d, item.total_tax
-    assert_equal response_line_item[:product],        item.product
     assert_equal response_line_item[:quantity].to_f,  item.quantity
     assert_equal response_line_item[:price].to_d,     item.price
   end
