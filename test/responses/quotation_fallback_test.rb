@@ -34,10 +34,10 @@ describe VertexClient::Response::QuotationFallback do
 
   describe 'line_items' do
     it 'is a collection of Response::LineItem' do
-      assert_equal 2,       response.line_items.size
-      assert_equal '4600',  response.line_items.first.product
-      assert_equal 7,       response.line_items.first.quantity
-      assert_equal 35.5,    response.line_items.first.price.to_f
+      assert_equal 2,          response.line_items.size
+      assert_equal '4600',     response.line_items.first.product.product_code
+      assert_equal 7,          response.line_items.first.quantity
+      assert_equal 35.5,       response.line_items.first.price.to_f
     end
   end
 end

@@ -33,10 +33,6 @@ module VertexClient
         state = line_item[:customer][:destination][:main_division]
         tax_amount(price, state)
       end
-
-      def product_for_line_item(line_item)
-        line_item[:product][:content!]
-      end
     end
   end
 end

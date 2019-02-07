@@ -33,7 +33,7 @@ describe VertexClient::Response::Invoice do
   describe 'line_items' do
     it 'is a collection of Response::LineItem' do
       assert_equal 1,       response.line_items.size
-      assert_equal '4600',  response.line_items.first.product
+      assert_equal '4600',  response.line_items.first.product.product_code
       assert_equal 1,       response.line_items.first.quantity
       assert_equal 100.0,   response.line_items.first.price.to_f
     end
