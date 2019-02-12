@@ -38,6 +38,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "activesupport"
   spec.add_dependency "savon", ">= 2.11"
+  spec.add_development_dependency "awesome_print"
   spec.add_development_dependency "circuitbox"
   spec.add_development_dependency "bundler"
   spec.add_development_dependency "byebug"
