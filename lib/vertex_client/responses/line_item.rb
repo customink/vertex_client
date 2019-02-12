@@ -5,7 +5,7 @@ module VertexClient
       attr_reader :total_tax, :product, :quantity, :price
 
       def initialize(params={})
-        @product        = LineItemProduct.new(params[:product] || {})
+        @product        = params[:product]
         @quantity       = params[:quantity] ? params[:quantity].to_i : 0
         @price          = BigDecimal.new(params[:price] || 0)
         @total_tax      = BigDecimal.new(params[:total_tax] || 0)
