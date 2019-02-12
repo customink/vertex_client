@@ -15,6 +15,8 @@ describe 'Integration' do
     VCR.use_cassette("quotation", :match_requests_on => []) do
       response = VertexClient.quotation(working_quote_params)
       assert_equal 1.52, response.total_tax
+      assert_equal '4600', response.line_items.first.product.product_code
+      assert_equal '53103000', response.line_items.first.product.product_class
     end
   end
 

@@ -1,6 +1,8 @@
 require "test_helper"
 
 describe VertexClient::Response::Invoice do
+  include TestInput
+
   let(:vertex_quotation_response) do
     OpenStruct.new(body: {
       vertex_envelope: {
@@ -13,7 +15,7 @@ describe VertexClient::Response::Invoice do
               quantity: '1',
               extended_price: '100',
               total_tax: '6.0',
-              product: '4600'
+              product: fake_product_response
             }
           ]
         }
@@ -34,6 +36,7 @@ describe VertexClient::Response::Invoice do
     it 'is a collection of Response::LineItem' do
       assert_equal 1,       response.line_items.size
       assert_equal '4600',  response.line_items.first.product.product_code
+      assert_equal '1337',  response.line_items.first.product.product_class
       assert_equal 1,       response.line_items.first.quantity
       assert_equal 100.0,   response.line_items.first.price.to_f
     end

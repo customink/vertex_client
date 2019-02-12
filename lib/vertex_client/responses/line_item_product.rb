@@ -5,10 +5,12 @@ module VertexClient
       attr_reader :product_code, :product_class
 
       def initialize(params)
-        if params.is_a?(Hash)
-          @product_code   = params[:content!]
-        else
+        if params.is_a?(Nori::StringWithAttributes)
           @product_code   = params
+          @product_class  = params.attributes['productClass']
+        else
+          @product_code   = params[:content!]
+          @product_class  = params[:@productClass]
         end
       end
     end

@@ -1,6 +1,9 @@
 require "test_helper"
 
 describe VertexClient::Response::Quotation do
+
+ include TestInput
+
   let(:vertex_quotation_response) do
     OpenStruct.new(body: {
       vertex_envelope: {
@@ -13,7 +16,7 @@ describe VertexClient::Response::Quotation do
               quantity: '1',
               extended_price: '100',
               total_tax: '6.0',
-              product: '4600'
+              product: fake_product_response('4600', '1234')
             }
           ]
         }

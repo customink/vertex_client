@@ -1,10 +1,12 @@
 require "test_helper"
 
 describe VertexClient::Response::LineItem do
+  include TestInput
+
   let(:response_line_item) do
     {
       total_tax:  '6.0',
-      product:    '4600',
+      product:    fake_product_response,
       quantity:   '1',
       price:      '100'
     }
