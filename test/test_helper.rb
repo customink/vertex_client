@@ -204,6 +204,13 @@ module TestInput
           ]
         }
       end
+
+      def fake_product_response(product_code='4600', product_class='1337')
+        product = Nori::StringWithAttributes.new(product_code)
+        product.attributes = { 'productClass' => product_class }
+        product
+      end
+
     end
   end
 end

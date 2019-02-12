@@ -1,4 +1,4 @@
-require "test_helper"
+require 'test_helper'
 
 describe VertexClient::Payload::DistributeTax do
   include TestInput

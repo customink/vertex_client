@@ -1,4 +1,4 @@
-require "test_helper"
+require 'test_helper'
 
 describe VertexClient do
 
@@ -76,12 +76,12 @@ describe VertexClient do
           logger: FakeLogger.new
         }
 
-        # "Not Open" means that we are actively hitting the service.
+        # 'Not Open' means that we are actively hitting the service.
         VertexClient.configuration.trusted_id  = '💩'
         refute VertexClient.circuit.open?
 
         # Exhaust the configured volume threshold to open the circuit.
-        # "Open" means that we aren't going to connect to the service.
+        # 'Open' means that we aren't going to connect to the service.
         threads = []
         (VertexClient::Configuration::CIRCUIT_CONFIG[:volume_threshold] + 1).times do
           threads << Thread.new { VertexClient.quotation(working_quote_params) }

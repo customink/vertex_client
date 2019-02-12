@@ -1,4 +1,4 @@
-require "test_helper"
+require 'test_helper'
 
 describe VertexClient::Response::Base do
   class VertexClient::Response::MyClass < VertexClient::Response::Base; end
