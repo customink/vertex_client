@@ -17,7 +17,7 @@ module VertexClient
       def line_items
         @line_items ||= @body[:line_item].flatten.map do |line_item|
           LineItem.new(
-            product:        line_item[:product],
+            product:        product_for_line_item(line_item[:product]),
             quantity:       line_item[:quantity],
             price:          line_item[:extended_price],
             total_tax:      tax_for_line_item(line_item)
@@ -26,6 +26,20 @@ module VertexClient
       end
 
       private
+
+      def product_for_line_item(product)
+        if(product).is_a?(Nori::StringWithAttributes)
+          LineItemProduct.new(
+            product_code:   product.to_s,
+            product_class:  product.attributes['productClass'],
+          )
+        else
+          LineItemProduct.new(
+            product_code:   product['@product_code'],
+            product_class:  product['@product_class'],
+          )
+        end
+      end
 
       def tax_for_line_item(line_item)
         line_item[:total_tax]

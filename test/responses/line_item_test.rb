@@ -6,18 +6,18 @@ describe VertexClient::Response::LineItem do
   let(:response_line_item) do
     {
       total_tax:  '6.0',
-      product:    fake_product_response,
       quantity:   '1',
-      price:      '100'
+      price:      '100',
+      product:    'test'
     }
   end
 
-  it 'initializes from the response hash' do
+  it 'initializes from a hash' do
     item = VertexClient::Response::LineItem.new(response_line_item)
-    assert_kind_of VertexClient::Response::LineItemProduct, item.product
     assert_equal response_line_item[:total_tax].to_d, item.total_tax
     assert_equal response_line_item[:quantity].to_f,  item.quantity
     assert_equal response_line_item[:price].to_d,     item.price
+    assert_equal response_line_item[:product],        item.product
   end
 
   it 'is safe about assignment and casting of nil params' do

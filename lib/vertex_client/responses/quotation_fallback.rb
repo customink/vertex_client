@@ -20,6 +20,13 @@ module VertexClient
 
       private
 
+      def product_for_line_item(product)
+        LineItemProduct.new(
+          product_code:   product[:content!],
+          product_class:  product[:@productClass],
+        )
+      end
+
       def tax_amount(price, state)
         if RATES.has_key?(state)
           price * BigDecimal.new(RATES[state])
