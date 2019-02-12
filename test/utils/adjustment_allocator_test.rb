@@ -57,32 +57,32 @@ describe VertexClient::Utils::AdjustmentAllocator do
       assert_equal price_allocation, ratio_allocation
     end
 
-    it "handles an empty array of weights if the adjustment amount is 0" do
+    it 'handles an empty array of weights if the adjustment amount is 0' do
       assert_equal [], VertexClient::Utils::AdjustmentAllocator.new(0, []).allocate
     end
 
-    describe "allocating remainder pennies perfectly" do
+    describe 'allocating remainder pennies perfectly' do
       let(:one_penny)           { '0.01'.to_d }
       let(:two_pennies)         { '0.02'.to_d }
       let(:three_pennies)       { '0.03'.to_d }
 
       # on first pass, each one gets 0 pennies and has a remainder of $0.006.
       # 5-way tie on the remainder, so the last three will each get one
-      it "assigns remainder pennies, breaking ties by going with the last" do
+      it 'assigns remainder pennies, breaking ties by going with the last' do
         expected = [0, 0, one_penny, one_penny, one_penny]
         assert_equal expected, VertexClient::Utils::AdjustmentAllocator.new(three_pennies, [1.0, 1.0, 1.0, 1.0, 1.0]).allocate
       end
 
       # 2.0 weight wins for the first remainder penny.
       # Then, after 3-way second place tie for $0.004, the last one gets the penny
-      it "assigns remainder pennies, breaking second place ties" do
+      it 'assigns remainder pennies, breaking second place ties' do
        expected = [0, 0, one_penny, one_penny]
        assert_equal expected, VertexClient::Utils::AdjustmentAllocator.new(two_pennies, [1.0, 1.0, 2.0, 1.0]).allocate
       end
 
       # 6.0 gets a penny outright. Then all have remainder of $0.002
       # To break tie, we give the extra penny to the last.
-      it "assigns remainder pennies, regardless of pennies already assigned" do
+      it 'assigns remainder pennies, regardless of pennies already assigned' do
         expected = [0, 0, 0, 0, two_pennies]
         assert_equal expected, VertexClient::Utils::AdjustmentAllocator.new(two_pennies, [1.0, 1.0, 1.0, 1.0, 6.0]).allocate
       end

@@ -1,4 +1,4 @@
-require "test_helper"
+require 'test_helper'
 
 describe 'Integration' do
   include TestInput
@@ -12,7 +12,7 @@ describe 'Integration' do
   end
 
   it 'does a quotation' do
-    VCR.use_cassette("quotation", :match_requests_on => []) do
+    VCR.use_cassette('quotation', :match_requests_on => []) do
       response = VertexClient.quotation(working_quote_params)
       assert_equal 1.52, response.total_tax
       assert_equal '4600', response.line_items.first.product.product_code
@@ -21,27 +21,27 @@ describe 'Integration' do
   end
 
   it 'does an invoice' do
-    VCR.use_cassette("invoice", :match_requests_on => []) do
+    VCR.use_cassette('invoice', :match_requests_on => []) do
       response = VertexClient.invoice(working_quote_params)
       assert_equal 1.52, response.total_tax
     end
   end
 
   it 'does distribute_tax' do
-    VCR.use_cassette("distribute_tax", :match_requests_on => []) do
+    VCR.use_cassette('distribute_tax', :match_requests_on => []) do
       VertexClient.distribute_tax(distribute_tax_params)
     end
   end
 
   it 'does tax_area' do
-    VCR.use_cassette("tax_area", :match_requests_on => []) do
-      assert_equal "470590000", VertexClient.tax_area(tax_area_params).tax_area_id
+    VCR.use_cassette('tax_area', :match_requests_on => []) do
+      assert_equal '470590000', VertexClient.tax_area(tax_area_params).tax_area_id
     end
   end
 
   it 'does tax_area for results with multiple responses' do
-    VCR.use_cassette("tax_area_multiple", :match_requests_on => []) do
-      assert_equal "420130010", VertexClient.tax_area({
+    VCR.use_cassette('tax_area_multiple', :match_requests_on => []) do
+      assert_equal '420130010', VertexClient.tax_area({
         address_1: '126487 N Bridge Rd',
         city: 'Aberdeen',
         state: 'SD',
@@ -52,7 +52,7 @@ describe 'Integration' do
 
   it 'uses circuit if it is available' do
     VertexClient.configuration.circuit_config = {}
-    VCR.use_cassette("quotation", :match_requests_on => []) do
+    VCR.use_cassette('quotation', :match_requests_on => []) do
       VertexClient.quotation(working_quote_params)
     end
   end

@@ -1,7 +1,7 @@
 module VertexClient
   class Connection
 
-    VERTEX_NAMESPACE = "urn:vertexinc:o-series:tps:7:0".freeze
+    VERTEX_NAMESPACE = 'urn:vertexinc:o-series:tps:7:0'.freeze
     ERROR_MESSAGE = 'The Vertex API returned an error or is unavailable'.freeze
 
     def initialize(endpoint)

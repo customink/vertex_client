@@ -1,4 +1,4 @@
-require "test_helper"
+require 'test_helper'
 
 describe VertexClient::Resource::Base do
   class VertexClient::Resource::MyTest  < VertexClient::Resource::Base

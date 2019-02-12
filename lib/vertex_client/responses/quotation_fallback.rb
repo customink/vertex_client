@@ -24,7 +24,7 @@ module VertexClient
         if RATES.has_key?(state)
           price * BigDecimal.new(RATES[state])
         else
-          BigDecimal.new("0.0")
+          BigDecimal.new('0.0')
         end
       end
 

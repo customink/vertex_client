@@ -1,4 +1,4 @@
-require "test_helper"
+require 'test_helper'
 
 describe VertexClient::Response::TaxAreaFallback do
   it 'has a nil tax_area_id' do
