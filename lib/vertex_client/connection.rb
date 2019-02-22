@@ -37,11 +37,11 @@ module VertexClient
       if VertexClient.circuit
         VertexClient.circuit.run { yield }
       else
-        begin
+        # begin
           yield
-        rescue => _e
-          nil
-        end
+        # rescue => _e
+          # nil
+        # end
       end
     end
 
