@@ -5,7 +5,7 @@ module VertexClient
       SALE_TRANSACTION_TYPE = 'SALE'.freeze
 
       def validate!
-        raise VertexClient::ValidationError.new('customer requires a state or postal_code') if customer_missing_location?
+        raise VertexClient::ValidationError.new('customer requires a state and postal_code') if customer_missing_location?
       end
 
       def body
