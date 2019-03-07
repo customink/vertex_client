@@ -70,6 +70,12 @@ module TestInput
         }
       end
 
+      let (:single_line_item_quotation_params) do
+        params = working_quote_params.dup
+        params[:line_items] = [ working_quote_params[:line_items][1] ]
+        params
+      end
+
       let(:distribute_tax_params) do
         params = working_quote_params.dup
         line_item = params[:line_items][1]

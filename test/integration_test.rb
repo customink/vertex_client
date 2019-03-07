@@ -20,6 +20,13 @@ describe 'Integration' do
     end
   end
 
+  it 'does a quotation for a quote with a single line_item' do
+    VCR.use_cassette('single_line_item_quotation', :match_requests_on => []) do
+      response = VertexClient.quotation(single_line_item_quotation_params)
+      assert_equal 1.52, response.line_items.first.total_tax
+    end
+  end
+
   it 'does an invoice' do
     VCR.use_cassette('invoice', :match_requests_on => []) do
       response = VertexClient.invoice(working_quote_params)
