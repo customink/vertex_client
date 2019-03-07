@@ -32,6 +32,13 @@ describe VertexClient::Response::Quotation do
     resp
   end
 
+  let(:singular_line_item_response) do
+    resp = vertex_quotation_response.dup
+    line_items = resp.body[:vertex_envelope][:quotation_response][:line_item]
+    line_items = line_items.first
+    resp
+  end
+
   let(:response) { VertexClient::Response::Quotation.new(vertex_quotation_response) }
 
   it 'has attributes' do
@@ -56,6 +63,12 @@ describe VertexClient::Response::Quotation do
       alt_response = VertexClient::Response::Quotation.new(empty_product_response)
       assert_nil alt_response.line_items.first.product.product_code
       assert_equal 'my_awesome_class', alt_response.line_items.first.product.product_class
+    end
+
+    it 'works when body[:line_item] is a single object' do
+      si_response = VertexClient::Response::Quotation.new(singular_line_item_response)
+      assert_kind_of VertexClient::Response::LineItem, si_response.line_items.first
+      assert_kind_of VertexClient::Response::LineItemProduct, si_response.line_items.first.product
     end
   end
 end

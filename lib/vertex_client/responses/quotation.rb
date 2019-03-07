@@ -15,7 +15,7 @@ module VertexClient
       end
 
       def line_items
-        @line_items ||= @body[:line_item].flatten.map do |line_item|
+        @line_items ||= normalized_line_items.map do |line_item|
           LineItem.new(
             product:        product_for_line_item(line_item[:product]),
             quantity:       line_item[:quantity],
@@ -43,6 +43,10 @@ module VertexClient
 
       def tax_for_line_item(line_item)
         line_item[:total_tax]
+      end
+
+      def normalized_line_items
+        [ @body[:line_item] ].flatten
       end
     end
   end
