@@ -24,6 +24,8 @@ module VertexClient
         globals.convert_request_keys_to :camelcase
         globals.env_namespace :soapenv
         globals.namespace_identifier :urn
+        globals.open_timeout open_timeout if open_timeout
+        globals.read_timeout read_timeout if read_timeout
       end
     end
 
@@ -53,6 +55,14 @@ module VertexClient
 
     def clean_endpoint
       URI.join(config.soap_api, @endpoint).to_s
+    end
+
+    def read_timeout
+      config.read_timeout
+    end
+
+    def open_timeout
+      config.open_timeout
     end
   end
 end

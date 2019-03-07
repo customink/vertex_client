@@ -17,6 +17,16 @@ describe VertexClient::Configuration do
     VertexClient.reconfigure!
   end
 
+  it 'has a read_timeout options' do
+    VertexClient.configuration.read_timeout = 5
+    assert_equal 5, VertexClient.configuration.read_timeout
+  end
+
+  it 'has an open_timeout options' do
+    VertexClient.configuration.open_timeout = 5
+    assert_equal 5, VertexClient.configuration.open_timeout
+  end
+
   describe 'circuit_config' do
     before do
       VertexClient.reconfigure!
