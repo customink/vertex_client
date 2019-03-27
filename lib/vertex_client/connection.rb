@@ -30,11 +30,15 @@ module VertexClient
       end
     end
 
+    private
+
     def config
       @config ||= VertexClient.configuration
     end
 
-    private
+    def resource_config
+      config.resources[@resource_key] || {}
+    end
 
     def call_with_circuit_if_available
       if VertexClient.circuit
@@ -59,11 +63,11 @@ module VertexClient
     end
 
     def read_timeout
-      config.read_timeout
+      resource_config[:read_timeout] || config.read_timeout
     end
 
     def open_timeout
-      config.open_timeout
+      resource_config[:open_timeout] || config.open_timeout
     end
   end
 end
