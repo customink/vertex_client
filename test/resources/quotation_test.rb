@@ -12,4 +12,8 @@ describe VertexClient::Resource::Quotation do
   it 'has a fallback_response' do
     assert_kind_of VertexClient::Response::QuotationFallback, resource.fallback_response
   end
+
+  it 'has a config_key' do
+    assert_equal :quotation, resource.config_key
+  end
 end

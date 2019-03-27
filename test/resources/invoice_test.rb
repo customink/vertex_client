@@ -15,4 +15,8 @@ describe VertexClient::Resource::Invoice do
       resource.result
     end
   end
+
+  it 'has a config_key' do
+    assert_equal :invoice, resource.config_key
+  end
 end

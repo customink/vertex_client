@@ -4,8 +4,9 @@ module VertexClient
     VERTEX_NAMESPACE = 'urn:vertexinc:o-series:tps:7:0'.freeze
     ERROR_MESSAGE = 'The Vertex API returned an error or is unavailable'.freeze
 
-    def initialize(endpoint)
+    def initialize(endpoint, resource_key=nil)
       @endpoint = endpoint
+      @resource_key = resource_key
     end
 
     def request(payload)

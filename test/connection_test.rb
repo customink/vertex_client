@@ -1,9 +1,10 @@
 require 'test_helper'
 describe VertexClient::Connection do
-  let(:connection) { VertexClient::Connection.new('test') }
+  let(:connection) { VertexClient::Connection.new('test', :test) }
 
-  it 'initializes with an endpoint' do
+  it 'initializes with an endpoint and resource_key' do
     assert_equal 'test', connection.instance_variable_get(:@endpoint)
+    assert_equal :test, connection.instance_variable_get(:@resource_key)
   end
 
   describe 'client' do
