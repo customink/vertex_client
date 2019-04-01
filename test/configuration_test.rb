@@ -54,16 +54,16 @@ describe VertexClient::Configuration do
     end
   end
 
-  describe 'resources' do
+  describe 'resource_config' do
     it 'allows configuration of resources' do
       VertexClient.reconfigure! do |config|
-        config.resources = {
+        config.resource_config = {
           quotation:  { read_timeout: 1, open_timeout: 2 },
           invoice:    { read_timeout: 30, open_timeout: 35 }
         }
       end
-      assert_equal({ read_timeout: 1, open_timeout: 2 }, VertexClient.configuration.resources[:quotation])
-      assert_equal({ read_timeout: 30, open_timeout: 35 }, VertexClient.configuration.resources[:invoice])
+      assert_equal({ read_timeout: 1, open_timeout: 2 }, VertexClient.configuration.resource_config[:quotation])
+      assert_equal({ read_timeout: 30, open_timeout: 35 }, VertexClient.configuration.resource_config[:invoice])
     end
   end
 end

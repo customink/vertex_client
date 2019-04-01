@@ -32,7 +32,7 @@ describe VertexClient::Connection do
 
       it 'overrides global config with resource config if it is provided' do
         VertexClient.reconfigure! do |config|
-          config.resources = {
+          config.resource_config = {
             test: {
               open_timeout: 1,
               read_timeout: 2
@@ -69,7 +69,7 @@ describe VertexClient::Connection do
   describe 'resource_config' do
     before do
       VertexClient.reconfigure! do |config|
-        config.resources = {
+        config.resource_config = {
           test: {
             open_timeout: 1,
             read_timeout: 2
@@ -87,7 +87,7 @@ describe VertexClient::Connection do
         assert_equal 1, connection.send(:open_timeout)
         connection.instance_variable_set(:@config, nil)
         VertexClient.reconfigure! do |config|
-          config.resources = nil
+          config.resource_config = nil
           config.open_timeout = 5
         end
         assert_equal 5, connection.send(:open_timeout)
@@ -99,7 +99,7 @@ describe VertexClient::Connection do
         assert_equal 2, connection.send(:read_timeout)
         connection.instance_variable_set(:@config, nil)
         VertexClient.reconfigure! do |config|
-          config.resources = nil
+          config.resource_config = nil
           config.read_timeout = 5
         end
         assert_equal 5, connection.send(:read_timeout)

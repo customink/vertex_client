@@ -37,7 +37,7 @@ module VertexClient
     end
 
     def resource_config
-      config.resources[@resource_key] || {}
+      config.resource_config[@resource_key] || {}
     end
 
     def call_with_circuit_if_available

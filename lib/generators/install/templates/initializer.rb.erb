@@ -9,7 +9,7 @@ VertexClient.configure do |config|
   config.open_timeout = 10
 
   # Per-resource timeout options
-  config.resources = {
+  config.resource_config = {
     quotation: {
       read_timeout: 5,
       open_timeout: 5
