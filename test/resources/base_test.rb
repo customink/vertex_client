@@ -24,7 +24,7 @@ describe VertexClient::Resource::Base do
 
   describe 'connection' do
     it 'is a connection initialized with ENDPOINT' do
-      VertexClient::Connection.expects(:new).with(VertexClient::Resource::MyTest::ENDPOINT)
+      VertexClient::Connection.expects(:new).with(VertexClient::Resource::MyTest::ENDPOINT, :my_test)
       resource.send(:connection)
     end
   end

@@ -11,6 +11,10 @@ module VertexClient
         @result ||= (response ? formatted_response : fallback_response)
       end
 
+      def config_key
+        demodulized_class_name.underscore.to_sym
+      end
+
       private
 
       def response
@@ -18,7 +22,7 @@ module VertexClient
       end
 
       def connection
-        @connection ||= Connection.new(self.class::ENDPOINT)
+        @connection ||= Connection.new(self.class::ENDPOINT, config_key)
       end
 
       def formatted_response

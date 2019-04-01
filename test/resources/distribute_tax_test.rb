@@ -14,4 +14,8 @@ describe VertexClient::Resource::DistributeTax do
       resource.result
     end
   end
+
+  it 'has a config_key' do
+    assert_equal :distribute_tax, resource.config_key
+  end
 end

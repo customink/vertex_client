@@ -16,4 +16,8 @@ describe VertexClient::Resource::TaxArea do
   it 'has a fallback_response' do
     assert_kind_of VertexClient::Response::TaxAreaFallback, resource.fallback_response
   end
+
+  it 'has a config_key' do
+    assert_equal :tax_area, resource.config_key
+  end
 end

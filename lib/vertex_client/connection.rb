@@ -4,8 +4,9 @@ module VertexClient
     VERTEX_NAMESPACE = 'urn:vertexinc:o-series:tps:7:0'.freeze
     ERROR_MESSAGE = 'The Vertex API returned an error or is unavailable'.freeze
 
-    def initialize(endpoint)
+    def initialize(endpoint, resource_key=nil)
       @endpoint = endpoint
+      @resource_key = resource_key
     end
 
     def request(payload)
@@ -24,14 +25,20 @@ module VertexClient
         globals.convert_request_keys_to :camelcase
         globals.env_namespace :soapenv
         globals.namespace_identifier :urn
+        globals.open_timeout open_timeout if open_timeout.present?
+        globals.read_timeout read_timeout if read_timeout.present?
       end
     end
+
+    private
 
     def config
       @config ||= VertexClient.configuration
     end
 
-    private
+    def resource_config
+      config.resource_config[@resource_key] || {}
+    end
 
     def call_with_circuit_if_available
       if VertexClient.circuit
@@ -53,6 +60,14 @@ module VertexClient
 
     def clean_endpoint
       URI.join(config.soap_api, @endpoint).to_s
+    end
+
+    def read_timeout
+      resource_config[:read_timeout] || config.read_timeout
+    end
+
+    def open_timeout
+      resource_config[:open_timeout] || config.open_timeout
     end
   end
 end

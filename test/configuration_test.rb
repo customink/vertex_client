@@ -17,6 +17,16 @@ describe VertexClient::Configuration do
     VertexClient.reconfigure!
   end
 
+  it 'has a read_timeout options' do
+    VertexClient.configuration.read_timeout = 5
+    assert_equal 5, VertexClient.configuration.read_timeout
+  end
+
+  it 'has an open_timeout options' do
+    VertexClient.configuration.open_timeout = 5
+    assert_equal 5, VertexClient.configuration.open_timeout
+  end
+
   describe 'circuit_config' do
     before do
       VertexClient.reconfigure!
@@ -41,6 +51,19 @@ describe VertexClient::Configuration do
       config_defaults.each_pair do |key, value|
         assert_equal value, VertexClient.circuit.circuit_options[key]
       end
+    end
+  end
+
+  describe 'resource_config' do
+    it 'allows configuration of resources' do
+      VertexClient.reconfigure! do |config|
+        config.resource_config = {
+          quotation:  { read_timeout: 1, open_timeout: 2 },
+          invoice:    { read_timeout: 30, open_timeout: 35 }
+        }
+      end
+      assert_equal({ read_timeout: 1, open_timeout: 2 }, VertexClient.configuration.resource_config[:quotation])
+      assert_equal({ read_timeout: 30, open_timeout: 35 }, VertexClient.configuration.resource_config[:invoice])
     end
   end
 end
