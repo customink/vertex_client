@@ -4,28 +4,29 @@ VertexClient.configure do |config|
   config.trusted_id = ENV.fetch('VERTEX_TRUSTED_ID')
   config.soap_api = ENV.fetch('VERTEX_SOAP_API')
 
-  # Global timeout options passed to Savon
-  config.read_timeout = 10
-  config.open_timeout = 10
+  # Global timeout options passed to Savon.
+  # config.read_timeout = 10
+  # config.open_timeout = 10
 
   # Per-resource timeout options
+  # These take precedence over any timeouts specified above.
   config.resource_config = {
     quotation: {
-      read_timeout: 5,
-      open_timeout: 5
+      read_timeout: 7,
+      open_timeout: 7
     },
-    invoice: {
-      read_timeout: 300,
-      open_timeout: 300
-    },
-    distribute_tax: {
-      read_timeout: 300,
-      open_timeout: 300
-    },
-    tax_area: {
-      read_timeout: 5,
-      open_timeout: 5
-    }
+    # invoice: {
+    #   read_timeout: ...,
+    #   open_timeout: ...
+    # },
+    # distribute_tax: {
+    #   read_timeout: ...,
+    #   open_timeout: ...
+    # },
+    # tax_area: {
+    #   read_timeout: ...,
+    #   open_timeout: ...
+    # }
   }
 
   # Circuitbox configuration.
