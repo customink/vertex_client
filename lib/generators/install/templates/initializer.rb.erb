@@ -36,7 +36,8 @@ VertexClient.configure do |config|
   #   error_threshold: 50,
   #   logger: Rails.logger,
   #   exceptions: [
-  #     VertexClient::ServerError
+  #     VertexClient::ServerError,
+  #     Curl::Err::TimeoutError
   #   ]
   # }
 
