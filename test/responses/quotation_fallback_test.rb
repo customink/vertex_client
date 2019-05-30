@@ -22,13 +22,13 @@ describe VertexClient::Response::QuotationFallback do
 
   describe 'total_tax' do
     it 'is the sum of total_tax from line_items' do
-      assert_equal  7.0, response.total_tax.to_f
+      assert_equal  8.66, response.total_tax.to_f
     end
   end
 
   describe 'total' do
     it 'is the sum of subtotal and total_tax' do
-      assert_equal 142.5, response.total.to_f
+      assert_equal 144.16, response.total.to_f
     end
   end
 
