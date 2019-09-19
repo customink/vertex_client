@@ -29,14 +29,14 @@ module VertexClient
 
       def tax_amount(price, state)
         if RATES.has_key?(state)
-          price * BigDecimal.new(RATES[state])
+          price * BigDecimal(RATES[state])
         else
-          BigDecimal.new('0.0')
+          BigDecimal('0.0')
         end
       end
 
       def tax_for_line_item(line_item)
-        price = BigDecimal.new(line_item[:extended_price].to_s)
+        price = BigDecimal(line_item[:extended_price].to_s)
         state = line_item[:customer][:destination][:main_division]
         tax_amount(price, state)
       end
