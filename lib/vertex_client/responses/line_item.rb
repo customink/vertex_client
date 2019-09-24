@@ -7,8 +7,8 @@ module VertexClient
       def initialize(params={})
         @product        = params[:product]
         @quantity       = params[:quantity] ? params[:quantity].to_i : 0
-        @price          = BigDecimal.new(params[:price] || 0)
-        @total_tax      = BigDecimal.new(params[:total_tax] || 0)
+        @price          = BigDecimal(params[:price] || 0)
+        @total_tax      = BigDecimal(params[:total_tax] || 0)
       end
     end
   end

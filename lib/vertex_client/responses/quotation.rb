@@ -3,15 +3,15 @@ module VertexClient
     class Quotation < Base
 
       def subtotal
-        @subtotal ||= BigDecimal.new(@body[:sub_total])
+        @subtotal ||= BigDecimal(@body[:sub_total])
       end
 
       def total_tax
-        @total_tax ||= BigDecimal.new(@body[:total_tax])
+        @total_tax ||= BigDecimal(@body[:total_tax])
       end
 
       def total
-        @total ||= BigDecimal.new(@body[:total])
+        @total ||= BigDecimal(@body[:total])
       end
 
       def line_items
