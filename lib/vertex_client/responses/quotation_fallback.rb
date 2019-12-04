@@ -27,9 +27,11 @@ module VertexClient
         )
       end
 
-      def tax_amount(price, state)
-        if RATES.has_key?(state)
-          price * BigDecimal(RATES[state])
+      def tax_amount(price, country, state)
+        if state.present? && RATES['USA'].has_key?(state)
+          price * BigDecimal(RATES['USA'][state])
+        elsif country.present? && RATES['EU'].has_key?(country)
+          price * BigDecimal(RATES['EU'][country])
         else
           BigDecimal('0.0')
         end
@@ -38,7 +40,8 @@ module VertexClient
       def tax_for_line_item(line_item)
         price = BigDecimal(line_item[:extended_price].to_s)
         state = line_item[:customer][:destination][:main_division]
-        tax_amount(price, state)
+        country = line_item[:customer][:destination][:country]
+        tax_amount(price, country, state)
       end
     end
   end
