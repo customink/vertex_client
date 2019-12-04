@@ -36,7 +36,7 @@ module VertexClient
       end
 
       def customer_destination_present?(customer)
-        customer[:state].present? && customer[:postal_code].present?
+        (customer[:state].present? || customer[:country].present?) && customer[:postal_code].present?
       end
 
       def transform_line_item(line_item, number, defaults)
