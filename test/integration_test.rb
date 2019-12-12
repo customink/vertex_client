@@ -31,7 +31,7 @@ describe 'Integration' do
 
   describe 'for EU customer' do
     it 'does a quotation' do
-      VCR.use_cassette('quotation', :match_requests_on => []) do
+      VCR.use_cassette('eu_quotation', :match_requests_on => []) do
         response = VertexClient.quotation(working_eu_quote_params)
         assert_equal 12.54, response.total_tax
         assert_equal '4600', response.line_items.first.product.product_code
@@ -40,9 +40,9 @@ describe 'Integration' do
     end
 
     it 'does a quotation for a quote with a single line_item' do
-      VCR.use_cassette('single_line_item_quotation', :match_requests_on => []) do
+      VCR.use_cassette('single_line_item_eu_quotation', :match_requests_on => []) do
         response = VertexClient.quotation(single_line_item_eu_quotation_params)
-        assert_equal 7.46, response.line_items.first.total_tax
+        assert_equal 5.08, response.line_items.first.total_tax
       end
     end
   end
