@@ -118,7 +118,7 @@ module TestInput
 
       let (:single_line_item_eu_quotation_params) do
         params = working_eu_quote_params.dup
-        params[:line_items] = [ working_quote_params[:line_items][1] ]
+        params[:line_items] = [ working_eu_quote_params[:line_items][1] ]
         params
       end
 
