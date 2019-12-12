@@ -81,8 +81,54 @@ module TestInput
         }
       end
 
+      let(:working_eu_quote_params) do
+        {
+          document_number: 'test123',
+          date: '2018-11-15',
+          customer: {
+            address_1: 'Šaldova 425/12',
+            city: 'Prague',
+            postal_code: '18600',
+            country: 'CZ'
+          },
+          seller: {
+            company: 'CustomInk'
+          },
+          line_items: [
+            {
+              product_code: '4600',
+              product_class: '53103000',
+              quantity: 7,
+              price: '35.50',
+            },
+            {
+              product_code: '5300',
+              product_class: '53103000',
+              quantity: 4,
+              price: '25.40',
+              date: '2018-11-14',
+              seller: {
+                company: 'CustomInk'
+              },
+              customer: {
+                address_1: 'Dunajská 7495/14',
+                city: 'Bratislava',
+                postal_code: '81108',
+                country: 'SK'
+              }
+            }
+          ]
+        }
+      end
+
       let (:single_line_item_quotation_params) do
         params = working_quote_params.dup
+        params[:line_items] = [ working_quote_params[:line_items][1] ]
+        params
+      end
+
+      let (:single_line_item_eu_quotation_params) do
+        params = working_eu_quote_params.dup
         params[:line_items] = [ working_quote_params[:line_items][1] ]
         params
       end
