@@ -11,7 +11,7 @@ module VertexClient
       end
 
       def total_tax
-        @total_tax ||= line_items.sum(&:total_tax).floor(2)
+        @total_tax ||= line_items.sum(&:total_tax).round(2, :half_even)
       end
 
       def total
