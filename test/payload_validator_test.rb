@@ -4,9 +4,9 @@ describe 'payload validation' do
   include TestInput
 
   describe 'for incomplete location' do
-    let(:payload) { working_quote_params }
-
     describe 'for US customer' do
+      let(:payload) { working_quote_params }
+
       it 'raises an error when missing postal code' do
         payload[:customer].delete(:postal_code)
         assert_raises VertexClient::ValidationError do
@@ -20,16 +20,11 @@ describe 'payload validation' do
           VertexClient::Payload::Quotation.new(payload)
         end
       end
-
-      it 'raises an error when missing country' do
-        payload[:customer].delete(:country)
-        assert_raises VertexClient::ValidationError do
-          VertexClient::Payload::Quotation.new(payload)
-        end
-      end
     end
 
     describe 'for EU customer' do
+      let(:payload) { working_eu_quote_params }
+
       before(:each) do
         payload[:customer].delete(:state)
       end
@@ -44,12 +39,6 @@ describe 'payload validation' do
       it 'raises an error when missing country' do
         payload[:customer].delete(:country)
         assert_raises VertexClient::ValidationError do
-          VertexClient::Payload::Quotation.new(payload)
-        end
-      end
-
-      it 'does not raise when missing state' do
-        assert_nothing_raised VertexClient::ValidationError do
           VertexClient::Payload::Quotation.new(payload)
         end
       end

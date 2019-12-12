@@ -23,7 +23,7 @@ describe VertexClient::Response::QuotationFallback do
   describe 'total_tax' do
     describe 'for US customer' do
       it 'is the sum of total_tax from line_items' do
-        assert_equal  8.66, response.total_tax.to_f
+        assert_equal 8.66, response.total_tax.to_f
       end
     end
 
@@ -32,7 +32,7 @@ describe VertexClient::Response::QuotationFallback do
       let(:response) { VertexClient::Response::QuotationFallback.new(payload) }
 
       it 'is the sum of total_tax from line_items' do
-        assert_equal  27.46, response.total_tax.to_f
+        assert_equal 12.54, response.total_tax.to_f
       end
     end
   end

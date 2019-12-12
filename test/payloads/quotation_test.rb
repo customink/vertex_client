@@ -22,15 +22,8 @@ describe VertexClient::Payload::Quotation do
 
   describe 'validate!' do
     describe 'for US customer' do
-      it 'is happy if country, state and postal_code are present on customer' do
+      it 'is happy if state and postal_code are present on customer' do
         VertexClient::Payload::Quotation.new(working_quote_params).validate!
-      end
-
-      it 'raises if the customer is missing country' do
-        working_quote_params[:customer].delete(:country)
-        assert_raises VertexClient::ValidationError do
-          VertexClient::Payload::Quotation.new(working_quote_params).body
-        end
       end
 
       it 'raises if the customer is missing state' do
@@ -50,24 +43,24 @@ describe VertexClient::Payload::Quotation do
 
     describe 'for EU customer' do
       before(:each) do
-        working_quote_params[:customer].delete(:state)
+        working_eu_quote_params[:customer].delete(:state)
       end
 
       it 'is happy if country and postal_code are present on customer' do
-        VertexClient::Payload::Quotation.new(working_quote_params).validate!
+        VertexClient::Payload::Quotation.new(working_eu_quote_params).validate!
       end
 
       it 'raises if the customer is missing country' do
-        working_quote_params[:customer].delete(:country)
+        working_eu_quote_params[:customer].delete(:country)
         assert_raises VertexClient::ValidationError do
-          VertexClient::Payload::Quotation.new(working_quote_params).body
+          VertexClient::Payload::Quotation.new(working_eu_quote_params).body
         end
       end
 
       it 'raises if the customer is missing postal_code' do
-        working_quote_params[:customer].delete(:postal_code)
+        working_eu_quote_params[:customer].delete(:postal_code)
         assert_raises VertexClient::ValidationError do
-          VertexClient::Payload::Quotation.new(working_quote_params).body
+          VertexClient::Payload::Quotation.new(working_eu_quote_params).body
         end
       end
     end
