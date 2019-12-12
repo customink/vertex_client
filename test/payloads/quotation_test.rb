@@ -21,7 +21,7 @@ describe VertexClient::Payload::Quotation do
   end
 
   describe 'validate!' do
-    context 'for US customer' do
+    describe 'for US customer' do
       it 'is happy if country, state and postal_code are present on customer' do
         VertexClient::Payload::Quotation.new(working_quote_params).validate!
       end
@@ -48,7 +48,7 @@ describe VertexClient::Payload::Quotation do
       end
     end
 
-    context 'for EU customer' do
+    describe 'for EU customer' do
       before(:each) do
         working_quote_params[:customer].delete(:state)
       end

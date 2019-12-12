@@ -21,13 +21,13 @@ describe VertexClient::Response::QuotationFallback do
   end
 
   describe 'total_tax' do
-    context 'for US customer' do
+    describe 'for US customer' do
       it 'is the sum of total_tax from line_items' do
         assert_equal  8.66, response.total_tax.to_f
       end
     end
 
-    context 'for EU customer' do
+    describe 'for EU customer' do
       let(:payload) { VertexClient::Payload::QuotationFallback.new(working_eu_quote_params) }
       let(:response) { VertexClient::Response::QuotationFallback.new(payload) }
 

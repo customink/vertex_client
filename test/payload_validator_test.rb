@@ -3,7 +3,7 @@ require 'test_helper'
 describe 'payload validation' do
   include TestInput
 
-  context 'for incomplete location' do
+  describe 'for incomplete location' do
     let(:payload) { working_quote_params }
 
     describe 'for US customer' do
