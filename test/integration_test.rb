@@ -46,8 +46,7 @@ describe 'Integration' do
       end
     end
   end
-
-
+  
   it 'does an invoice' do
     VCR.use_cassette('invoice', :match_requests_on => []) do
       response = VertexClient.invoice(working_quote_params)
