@@ -14,7 +14,7 @@ The Vertex Client Ruby Gem provides an interface to integrate with _Vertex SMB_ 
 ```ruby
 response = VertexClient.quotation(
   # The top level transaction date for all line items.
-  date: '2018-11-15',
+  date: "2018-11-15",
   # The top level customer for all line items.
   customer: {
     code: "inky@customink.com",
@@ -22,12 +22,12 @@ response = VertexClient.quotation(
     address_2: "#300",
     city: "New York",
     state: "NY",
-    postal_code: '10005',
+    postal_code: "10005",
     # Optional tax_exempt status for customer
-    is_tax_exempt: true
+    is_tax_exempt: true,
 
     # Optional tax_area_id for customer location
-    tax_area_id: '330612010'
+    tax_area_id: "330612010"
   },
   # The top level seller for all line items.
   seller: {
@@ -38,18 +38,18 @@ response = VertexClient.quotation(
       # Internal product ID or code
       product_code: "4600",
       # Mapped product class, or "commodity code", in Vertex Cloud
-      product_class: "123456"
+      product_class: "123456",
       quantity: 7,
       # Total price of this line item
-      price: "35.50",
+      price: "35.50"
     },
     {
       product_code: "5200",
-      product_class: "123456"
+      product_class: "123456",
       quantity: 4,
       price: "25.40",
       # Optional transaction date override for a line item.
-      date: '2018-11-14',
+      date: "2018-11-14",
       # Optional seller override for a line item.
       seller: {
         company: "CustomInkStores"
@@ -60,7 +60,7 @@ response = VertexClient.quotation(
         address_1: "1600 Pennsylvania Ave NW",
         city: "Washington",
         state: "DC",
-        postal_code: '20500'
+        postal_code: "20500"
       }
     }
   ]
@@ -113,7 +113,7 @@ response = VertexClient.tax_area(
   address_2: "#300",
   city: "New York",
   state: "NY",
-  postal_code: '10005'
+  postal_code: "10005"
 )
 response.tax_area_id # => '330612010'
 ```
