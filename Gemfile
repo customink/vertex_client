@@ -1,8 +1,9 @@
-source "https://rubygems.org"
+# frozen_string_literal: true
 
-git_source(:github) {|repo_name| "https://github.com/#{repo_name}" }
+source 'https://rubygems.org'
 
-# Specify your gem's dependencies in vertex_client.gemspec
+git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
+
 gemspec
 
 group :test do

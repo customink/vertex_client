@@ -1,0 +1,100 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: "<VERTEX_SOAP_API>LookupTaxAreas70"
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0" encoding="UTF-8"?><soapenv:Envelope xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:urn="urn:vertexinc:o-series:tps:7:0"
+        xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"><soapenv:Body><urn:VertexEnvelope><Login><TrustedId><VERTEX_TRUSTED_ID></TrustedId></Login><TaxAreaRequest><TaxAreaLookup><PostalAddress
+        xsi:nil="true"/></TaxAreaLookup></TaxAreaRequest></urn:VertexEnvelope></soapenv:Body></soapenv:Envelope>
+    headers:
+      Soapaction:
+      - '"VertexEnvelope"'
+      Content-Type:
+      - text/xml;charset=UTF-8
+      Content-Length:
+      - '494'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Date:
+      - Fri, 06 Mar 2020 10:48:52 GMT
+      Content-Type:
+      - text/xml;charset=UTF-8
+      Content-Length:
+      - '5000'
+      Connection:
+      - keep-alive
+      Soapaction:
+      - '""'
+    body:
+      encoding: UTF-8
+      string: |-
+        <?xml version='1.0' encoding='UTF-8'?><soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"><soapenv:Header/><soapenv:Body><VertexEnvelope xmlns="urn:vertexinc:o-series:tps:7:0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><Login><TrustedId></TrustedId>
+        </Login>
+        <TaxAreaResponse><TaxAreaResult taxAreaId="10010000" confidenceIndicator="20"><Jurisdiction jurisdictionLevel="COUNTRY" effectiveDate="1900-01-01" expirationDate="9999-12-31" jurisdictionId="1">UNITED STATES</Jurisdiction>
+        <Jurisdiction jurisdictionLevel="STATE" effectiveDate="1900-01-01" expirationDate="9999-12-31" jurisdictionId="11">ALABAMA</Jurisdiction>
+        <Jurisdiction jurisdictionLevel="COUNTY" effectiveDate="1900-01-01" expirationDate="9999-12-31" jurisdictionId="12">AUTAUGA</Jurisdiction>
+        <Status lookupResult="BAD_REGION_FIELDS"/>
+        <Status lookupResult="CONFIDENCE_INDICATOR_SUPPRESSED"/>
+        <Status lookupResult="MAX_TAXAREAS_EXCEEDED"/>
+        <Status lookupResult="NORMAL"/>
+        <AddressCleansingResultMessage type="FAULT" code="E502">Input record entirely blank.</AddressCleansingResultMessage>
+        </TaxAreaResult>
+        <TaxAreaResult taxAreaId="10010870" confidenceIndicator="20"><Jurisdiction jurisdictionLevel="COUNTRY" effectiveDate="1900-01-01" expirationDate="9999-12-31" jurisdictionId="1">UNITED STATES</Jurisdiction>
+        <Jurisdiction jurisdictionLevel="STATE" effectiveDate="1900-01-01" expirationDate="9999-12-31" jurisdictionId="11">ALABAMA</Jurisdiction>
+        <Jurisdiction jurisdictionLevel="COUNTY" effectiveDate="1900-01-01" expirationDate="9999-12-31" jurisdictionId="12">AUTAUGA</Jurisdiction>
+        <Jurisdiction jurisdictionLevel="CITY" effectiveDate="1900-01-01" expirationDate="9999-12-31" jurisdictionId="77034">PRATTVILLE</Jurisdiction>
+        <Status lookupResult="BAD_REGION_FIELDS"/>
+        <Status lookupResult="CONFIDENCE_INDICATOR_SUPPRESSED"/>
+        <Status lookupResult="MAX_TAXAREAS_EXCEEDED"/>
+        <Status lookupResult="NORMAL"/>
+        <AddressCleansingResultMessage type="FAULT" code="E502">Input record entirely blank.</AddressCleansingResultMessage>
+        </TaxAreaResult>
+        <TaxAreaResult taxAreaId="10014143" confidenceIndicator="20"><Jurisdiction jurisdictionLevel="COUNTRY" effectiveDate="2014-07-01" expirationDate="9999-12-31" jurisdictionId="1">UNITED STATES</Jurisdiction>
+        <Jurisdiction jurisdictionLevel="STATE" effectiveDate="2014-07-01" expirationDate="9999-12-31" jurisdictionId="11">ALABAMA</Jurisdiction>
+        <Jurisdiction jurisdictionLevel="COUNTY" effectiveDate="2014-07-01" expirationDate="9999-12-31" jurisdictionId="12">AUTAUGA</Jurisdiction>
+        <Jurisdiction jurisdictionLevel="CITY" effectiveDate="2014-07-01" expirationDate="9999-12-31" jurisdictionId="322">MILLBROOK</Jurisdiction>
+        <Status lookupResult="BAD_REGION_FIELDS"/>
+        <Status lookupResult="CONFIDENCE_INDICATOR_SUPPRESSED"/>
+        <Status lookupResult="MAX_TAXAREAS_EXCEEDED"/>
+        <Status lookupResult="NORMAL"/>
+        <AddressCleansingResultMessage type="FAULT" code="E502">Input record entirely blank.</AddressCleansingResultMessage>
+        </TaxAreaResult>
+        <TaxAreaResult taxAreaId="10014151" confidenceIndicator="20"><Jurisdiction jurisdictionLevel="COUNTRY" effectiveDate="1900-01-01" expirationDate="9999-12-31" jurisdictionId="1">UNITED STATES</Jurisdiction>
+        <Jurisdiction jurisdictionLevel="STATE" effectiveDate="1900-01-01" expirationDate="9999-12-31" jurisdictionId="11">ALABAMA</Jurisdiction>
+        <Jurisdiction jurisdictionLevel="COUNTY" effectiveDate="1900-01-01" expirationDate="9999-12-31" jurisdictionId="12">AUTAUGA</Jurisdiction>
+        <Jurisdiction jurisdictionLevel="CITY" effectiveDate="1900-01-01" expirationDate="9999-12-31" jurisdictionId="14">AUTAUGAVILLE</Jurisdiction>
+        <Status lookupResult="BAD_REGION_FIELDS"/>
+        <Status lookupResult="CONFIDENCE_INDICATOR_SUPPRESSED"/>
+        <Status lookupResult="MAX_TAXAREAS_EXCEEDED"/>
+        <Status lookupResult="NORMAL"/>
+        <AddressCleansingResultMessage type="FAULT" code="E502">Input record entirely blank.</AddressCleansingResultMessage>
+        </TaxAreaResult>
+        <TaxAreaResult taxAreaId="10014152" confidenceIndicator="20"><Jurisdiction jurisdictionLevel="COUNTRY" effectiveDate="1900-01-01" expirationDate="9999-12-31" jurisdictionId="1">UNITED STATES</Jurisdiction>
+        <Jurisdiction jurisdictionLevel="STATE" effectiveDate="1900-01-01" expirationDate="9999-12-31" jurisdictionId="11">ALABAMA</Jurisdiction>
+        <Jurisdiction jurisdictionLevel="COUNTY" effectiveDate="1900-01-01" expirationDate="9999-12-31" jurisdictionId="12">AUTAUGA</Jurisdiction>
+        <Jurisdiction jurisdictionLevel="CITY" effectiveDate="1900-01-01" expirationDate="9999-12-31" jurisdictionId="15">BILLINGSLEY</Jurisdiction>
+        <Status lookupResult="BAD_REGION_FIELDS"/>
+        <Status lookupResult="CONFIDENCE_INDICATOR_SUPPRESSED"/>
+        <Status lookupResult="MAX_TAXAREAS_EXCEEDED"/>
+        <Status lookupResult="NORMAL"/>
+        <AddressCleansingResultMessage type="FAULT" code="E502">Input record entirely blank.</AddressCleansingResultMessage>
+        </TaxAreaResult>
+        </TaxAreaResponse>
+        <ApplicationData><ResponseTimeMS>380</ResponseTimeMS>
+        </ApplicationData>
+        </VertexEnvelope></soapenv:Body></soapenv:Envelope>
+    http_version: null
+  recorded_at: Fri, 06 Mar 2020 10:48:52 GMT
+recorded_with: VCR 5.1.0

@@ -1,8 +1,9 @@
+# frozen_string_literal: true
+
 require 'active_support'
 module VertexClient
-  module Response
+  module Responses
     class Base
-
       def initialize(vertex_response)
         @body = vertex_response.body[:vertex_envelope][response_key].with_indifferent_access
       end

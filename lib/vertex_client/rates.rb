@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module VertexClient
   RATES = {
     'AL' => '0.0914',

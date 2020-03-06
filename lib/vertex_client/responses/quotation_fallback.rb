@@ -1,7 +1,8 @@
-module VertexClient
-  module Response
-    class QuotationFallback < Quotation
+# frozen_string_literal: true
 
+module VertexClient
+  module Responses
+    class QuotationFallback < Quotation
       def initialize(payload)
         @body = payload.body
       end
@@ -22,13 +23,13 @@ module VertexClient
 
       def product_for_line_item(product)
         LineItemProduct.new(
-          product_code:   product[:content!],
-          product_class:  product[:@productClass],
+          product_code: product[:content!],
+          product_class: product[:@productClass]
         )
       end
 
       def tax_amount(price, state)
-        if RATES.has_key?(state)
+        if RATES.key?(state)
           price * BigDecimal(RATES[state])
         else
           BigDecimal('0.0')

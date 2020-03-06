@@ -1,9 +1,12 @@
-module VertexClient
-  module Payload
-    class TaxArea < Base
+# frozen_string_literal: true
 
+require_relative 'base'
+
+module VertexClient
+  module Payloads
+    class TaxArea < Base
       def validate!
-        raise VertexClient::ValidationError.new('At least give a value') if values_empty?
+        raise VertexClient::ValidationError, 'At least give a value' if values_empty?
       end
 
       def body

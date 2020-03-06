@@ -1,10 +1,11 @@
-module VertexClient
-  module Response
-    class LineItem
+# frozen_string_literal: true
 
+module VertexClient
+  module Responses
+    class LineItem
       attr_reader :total_tax, :product, :quantity, :price
 
-      def initialize(params={})
+      def initialize(params = {})
         @product        = params[:product]
         @quantity       = params[:quantity] ? params[:quantity].to_i : 0
         @price          = BigDecimal(params[:price] || 0)

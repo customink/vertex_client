@@ -1,8 +1,9 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
 
-require "bundler/setup"
-require "dotenv/load"
-require "vertex_client"
+require 'bundler/setup'
+require 'dotenv/load'
+require 'vertex_client'
 require 'byebug'
 require 'awesome_print'
 
@@ -13,5 +14,5 @@ require 'awesome_print'
 # require "pry"
 # Pry.start
 
-require "irb"
+require 'irb'
 IRB.start(__FILE__)

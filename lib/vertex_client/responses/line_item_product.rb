@@ -1,7 +1,8 @@
-module VertexClient
-  module Response
-    class LineItemProduct
+# frozen_string_literal: true
 
+module VertexClient
+  module Responses
+    class LineItemProduct
       attr_reader :product_code, :product_class
 
       def initialize(params)

@@ -2,12 +2,12 @@
 http_interactions:
 - request:
     method: post
-    uri: "{VERTEX_SOAP_API}"
+    uri: "<VERTEX_SOAP_API>CalculateTax70"
     body:
       encoding: UTF-8
       string: <?xml version="1.0" encoding="UTF-8"?><soapenv:Envelope xmlns:xsd="http://www.w3.org/2001/XMLSchema"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:urn="urn:vertexinc:o-series:tps:7:0"
-        xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"><soapenv:Body><urn:VertexEnvelope><Login><TrustedId>{VERTEX_TRUSTED_ID}</TrustedId></Login><InvoiceRequest
+        xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"><soapenv:Body><urn:VertexEnvelope><Login><TrustedId><VERTEX_TRUSTED_ID></TrustedId></Login><InvoiceRequest
         transactionType="SALE" documentNumber="location-code-1" documentDate="2018-11-30"><LineItem
         lineItemNumber="1" taxDate="2018-11-30" locationCode="store_25"><Customer><Destination><StreetAddress1>11
         Wall Street</StreetAddress1><City>New York</City><MainDivision>NY</MainDivision><PostalCode>10005</PostalCode></Destination></Customer><Seller><Company>CustomInkStores</Company></Seller><Product
@@ -31,23 +31,19 @@ http_interactions:
       message: ''
     headers:
       Date:
-      - Mon, 17 Dec 2018 19:19:49 GMT
+      - Fri, 06 Mar 2020 11:19:45 GMT
       Content-Type:
       - text/xml;charset=UTF-8
-      Transfer-Encoding:
-      - chunked
+      Content-Length:
+      - '2784'
       Connection:
       - keep-alive
-      Vary:
-      - Accept-Encoding
       Soapaction:
       - '""'
-      Server:
-      - ''
     body:
-      encoding: ASCII-8BIT
+      encoding: UTF-8
       string: |-
-        <?xml version="1.0" encoding="UTF-8"?><soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"><soapenv:Header></soapenv:Header><soapenv:Body><VertexEnvelope xmlns="urn:vertexinc:o-series:tps:7:0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><Login><TrustedId></TrustedId>
+        <?xml version='1.0' encoding='UTF-8'?><soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"><soapenv:Header/><soapenv:Body><VertexEnvelope xmlns="urn:vertexinc:o-series:tps:7:0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><Login><TrustedId></TrustedId>
         </Login>
         <InvoiceResponse documentNumber="location-code-1" documentDate="2018-11-30" transactionType="SALE"><SubTotal>50.0</SubTotal>
         <Total>50.0</Total>
@@ -90,9 +86,9 @@ http_interactions:
         </AssistedParameters>
         </LineItem>
         </InvoiceResponse>
-        <ApplicationData><ResponseTimeMS>19.7</ResponseTimeMS>
+        <ApplicationData><ResponseTimeMS>20.5</ResponseTimeMS>
         </ApplicationData>
         </VertexEnvelope></soapenv:Body></soapenv:Envelope>
-    http_version: 
-  recorded_at: Mon, 17 Dec 2018 19:19:49 GMT
-recorded_with: VCR 4.0.0
+    http_version: null
+  recorded_at: Fri, 06 Mar 2020 11:19:45 GMT
+recorded_with: VCR 5.1.0

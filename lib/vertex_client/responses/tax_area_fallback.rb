@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 module VertexClient
-  module Response
+  module Responses
     class TaxAreaFallback
       def tax_area_id
         nil

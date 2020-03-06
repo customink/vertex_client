@@ -1,5 +1,9 @@
+# frozen_string_literal: true
+
+require_relative 'base'
+
 module VertexClient
-  module Response
+  module Responses
     class DistributeTax < Base
       def subtotal
         @subtotal ||= BigDecimal(@body[:sub_total])

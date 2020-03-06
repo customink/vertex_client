@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module VertexClient
   class Railtie < Rails::Railtie
     generators do

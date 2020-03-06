@@ -6,7 +6,7 @@
 # CircleCI configuration, reducing the complexity of the entire block.
 # ---------------------------------------------------------------------------------------------------------------------
 docker_image: &docker_image
-  image: 322902370520.dkr.ecr.us-east-1.amazonaws.com/customink/base-ruby-ci:2.1-v2.1
+  image: 322902370520.dkr.ecr.us-east-1.amazonaws.com/customink/base-ruby-ci:2.6-v2.1
   aws_auth:
     aws_access_key_id: ${STAGING_AWS_ACCESS_KEY_ID}
     aws_secret_access_key: ${STAGING_AWS_SECRET_ACCESS_KEY}
@@ -67,6 +67,7 @@ jobs:
     steps:
       - checkout
       - bundle_install
+      - rubocop
       - minitest
       - store_test_results:
           path: test/reports/

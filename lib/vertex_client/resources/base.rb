@@ -1,8 +1,11 @@
-require 'active_support'
-module VertexClient
-  module Resource
-    class Base
+# frozen_string_literal: true
 
+require 'active_support'
+require_relative '../connection'
+
+module VertexClient
+  module Resources
+    class Base
       def initialize(params)
         @payload = payload_type.new(params)
       end
@@ -30,11 +33,11 @@ module VertexClient
       end
 
       def payload_type
-        Kernel.const_get("VertexClient::Payload::#{demodulized_class_name}")
+        Kernel.const_get("VertexClient::Payloads::#{demodulized_class_name}")
       end
 
       def response_type
-        Kernel.const_get("VertexClient::Response::#{demodulized_class_name}")
+        Kernel.const_get("VertexClient::Responses::#{demodulized_class_name}")
       end
 
       def demodulized_class_name

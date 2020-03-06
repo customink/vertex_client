@@ -1,0 +1,95 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: "<VERTEX_SOAP_API>CalculateTax70"
+    body:
+      encoding: UTF-8
+      string: '<?xml version="1.0" encoding="UTF-8"?><soapenv:Envelope xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:urn="urn:vertexinc:o-series:tps:7:0"
+        xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"><soapenv:Body><urn:VertexEnvelope><Login><TrustedId><VERTEX_TRUSTED_ID></TrustedId></Login><DistributeTaxRequest
+        transactionType="SALE" documentNumber="test123" documentDate="2018-11-15"><LineItem
+        lineItemNumber="1" taxDate="2018-11-14"><Customer><Destination><StreetAddress1>2910
+        District Ave #300</StreetAddress1><City>Fairfax</City><MainDivision>VA</MainDivision><PostalCode>22031</PostalCode></Destination></Customer><Seller><Company>CustomInk</Company></Seller><Product
+        productClass="53103000">5300</Product><Quantity>4</Quantity><ExtendedPrice>25.40</ExtendedPrice><InputTotalTax>5.00</InputTotalTax></LineItem></DistributeTaxRequest></urn:VertexEnvelope></soapenv:Body></soapenv:Envelope>'
+    headers:
+      Soapaction:
+      - '"VertexEnvelope"'
+      Content-Type:
+      - text/xml;charset=UTF-8
+      Content-Length:
+      - '948'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Date:
+      - Fri, 06 Mar 2020 11:36:47 GMT
+      Content-Type:
+      - text/xml;charset=UTF-8
+      Content-Length:
+      - '2595'
+      Connection:
+      - keep-alive
+      Soapaction:
+      - '""'
+    body:
+      encoding: UTF-8
+      string: |-
+        <?xml version='1.0' encoding='UTF-8'?><soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"><soapenv:Header/><soapenv:Body><VertexEnvelope xmlns="urn:vertexinc:o-series:tps:7:0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><Login><TrustedId></TrustedId>
+        </Login>
+        <DistributeTaxResponse documentNumber="test123" documentDate="2018-11-15" transactionType="SALE"><SubTotal>25.4</SubTotal>
+        <Total>30.4</Total>
+        <TotalTax>5.0</TotalTax>
+        <LineItem lineItemNumber="1" taxDate="2018-11-14"><Seller><Company>CustomInk</Company>
+        </Seller>
+        <Customer><Destination taxAreaId="470590000"><StreetAddress1>2910 District Ave #300</StreetAddress1>
+        <City>Fairfax</City>
+        <MainDivision>VA</MainDivision>
+        <PostalCode>22031</PostalCode>
+        </Destination>
+        </Customer>
+        <Product productClass="53103000">5300</Product>
+        <Quantity>4.0</Quantity>
+        <ExtendedPrice>25.4</ExtendedPrice>
+        <InputTotalTax>5.0</InputTotalTax>
+        <Taxes taxResult="TAXABLE" taxType="SALES" situs="DESTINATION" taxCollectedFromParty="BUYER" taxStructure="SINGLE_RATE"><Jurisdiction jurisdictionLevel="STATE" jurisdictionId="39067">VIRGINIA</Jurisdiction>
+        <CalculatedTax>3.59</CalculatedTax>
+        <EffectiveRate>0.043</EffectiveRate>
+        <Taxable>25.4</Taxable>
+        <Imposition impositionId="1">Retail Sales and Use Tax</Imposition>
+        <ImpositionType impositionTypeId="1">General Sales and Use Tax</ImpositionType>
+        <TaxRuleId>510815</TaxRuleId>
+        </Taxes>
+        <Taxes taxResult="TAXABLE" taxType="SALES" situs="DESTINATION" taxCollectedFromParty="BUYER" taxStructure="SINGLE_RATE"><Jurisdiction jurisdictionLevel="COUNTY" jurisdictionId="39378">FAIRFAX</Jurisdiction>
+        <CalculatedTax>0.82</CalculatedTax>
+        <EffectiveRate>0.01</EffectiveRate>
+        <Taxable>25.4</Taxable>
+        <Imposition impositionId="1">Local Sales and Use Tax</Imposition>
+        <ImpositionType impositionTypeId="1">General Sales and Use Tax</ImpositionType>
+        <TaxRuleId>23410</TaxRuleId>
+        </Taxes>
+        <Taxes taxResult="TAXABLE" taxType="SALES" situs="DESTINATION" taxCollectedFromParty="BUYER" taxStructure="SINGLE_RATE"><Jurisdiction jurisdictionLevel="DISTRICT" jurisdictionId="97100">REGIONAL TRANSPORTATION DISTRICT</Jurisdiction>
+        <CalculatedTax>0.59</CalculatedTax>
+        <EffectiveRate>0.007</EffectiveRate>
+        <Taxable>25.4</Taxable>
+        <Imposition impositionId="1">Local Sales and Use Tax</Imposition>
+        <ImpositionType impositionTypeId="1">General Sales and Use Tax</ImpositionType>
+        <TaxRuleId>510824</TaxRuleId>
+        </Taxes>
+        <TotalTax>5.0</TotalTax>
+        </LineItem>
+        </DistributeTaxResponse>
+        <ApplicationData><ResponseTimeMS>60.8</ResponseTimeMS>
+        </ApplicationData>
+        </VertexEnvelope></soapenv:Body></soapenv:Envelope>
+    http_version: null
+  recorded_at: Fri, 06 Mar 2020 11:36:47 GMT
+recorded_with: VCR 5.1.0
