@@ -1,0 +1,78 @@
+---
+# ---------------------------------------------------------------------------------------------------------------------
+# CircleCI Snippets
+#
+# Reusable snippets are defined below this section. These are yaml fragments that can injected into the standard
+# CircleCI configuration, reducing the complexity of the entire block.
+# ---------------------------------------------------------------------------------------------------------------------
+docker_image: &docker_image
+  image: 322902370520.dkr.ecr.us-east-1.amazonaws.com/customink/base-ruby-ci:2.1-v2.1
+  aws_auth:
+    aws_access_key_id: ${STAGING_AWS_ACCESS_KEY_ID}
+    aws_secret_access_key: ${STAGING_AWS_SECRET_ACCESS_KEY}
+
+# ---------------------------------------------------------------------------------------------------------------------
+# CircleCI Commands Configuration
+#
+# Commands are re-usable steps that can be shared across jobs. For example the installation of gems using bundler or
+# waiting on a database connection. By defining them inside the commands section, they can be invoked as any standard
+# command on the system, but will already be preconfigured. This allows us to keep the jobs definition small and clean
+# ---------------------------------------------------------------------------------------------------------------------
+version: 2.1
+commands:
+  bundle_install:
+    description: "Performs the bundler installation, relying on the CircleCI cache for performance"
+    steps:
+      - restore_cache:
+          keys:
+            - bundler-cache-{{ checksum "vertex_client.gemspec" }}
+      - run:
+          name: "Bundle Install"
+          command: bundle install --path=.bundle
+      - save_cache:
+          key: bundler-cache-{{ checksum "vertex_client.gemspec" }}
+          paths:
+            - .bundle
+  rubocop:
+    description: "Runs RuboCop with the correct configuration so the results can be parsed by CircleCI"
+    steps:
+      - run:
+          name: "RuboCop"
+          command: |
+            bundle exec rubocop --format junit --out tmp/test-results/rubocop/results.xml
+  minitest:
+    description: "Runs Minitest with the correct configuration so it runs in parallel and is configured for CircleCI"
+    steps:
+      - run:
+          name: "Minitest Test Suite"
+          command: |
+            cc-test-reporter before-build
+            bin/test
+            cc-test-reporter after-build
+# ---------------------------------------------------------------------------------------------------------------------
+# CircleCI Job Configuration
+#
+# This section defines all the available jobs that can be executed inside a Workflow.
+# Think of a Job as a batch of tasks that need to be performed to setup the environment and perform a specific task
+# such as running RSpec, uploading the test results to CodeClimate etc.
+# ---------------------------------------------------------------------------------------------------------------------
+jobs:
+  tests:
+    working_directory: ~/vertex_client
+    docker:
+      - <<: *docker_image
+        environment:
+          RAILS_ENV: test
+          CC_TEST_REPORTER_ID: 88a7fd75659a6698f28c8c4c6b60c20f902e26733691b2fe449a65474f22b618
+    steps:
+      - checkout
+      - bundle_install
+      - minitest
+      - store_test_results:
+          path: test/reports/
+workflows:
+  version: 2.1
+  vertex_client:
+    jobs:
+      - tests:
+          context: customink
