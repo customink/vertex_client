@@ -1,3 +1,12 @@
+# frozen_string_literal: true
+
+# SimpleCov configuration always goes first to ensure that we are generating correct code-coverage reports.
+# But we only use SimpleCov on the CI System
+if ENV.fetch('CI') { false }
+  require 'simplecov'
+  SimpleCov.start
+end
+
 $LOAD_PATH.unshift File.expand_path("../../lib", __FILE__)
 require 'circuitbox'
 require "simplecov"
@@ -7,6 +16,8 @@ require "minitest/autorun"
 require "vcr"
 require 'byebug'
 require "mocha/minitest"
+require 'minitest-ci' if ENV.fetch('CI') { false }
+
 SimpleCov.start
 
 VertexClient.configuration # make sure the client is configured
