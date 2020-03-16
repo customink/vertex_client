@@ -1,0 +1,36 @@
+---
+engines:
+  duplication:
+    enabled: true
+    config:
+      languages:
+        ruby:
+          mass_threshold: 40
+  fixme:
+    enabled: true
+  rubocop:
+    enabled: false
+ratings:
+  paths:
+    - "**.rb"
+    - "**.rake"
+exclude_paths:
+  - .circleci/
+  - .dependabot/
+  - bin/
+  - coverage/
+  - exe/
+  - test/
+  - tmp/
+  - .codeclimate.yml
+  - .env
+  - .gitignore
+  - .rubocop.yml
+  - .rubocop_todo.yml
+  - .ruby-version
+  - CHANGELOG.md
+  - CODE_OF_CONDUCT.md
+  - Gemfile.lock
+  - LICENSE.txt
+  - README.md
+  - vertex_client.gemspec
