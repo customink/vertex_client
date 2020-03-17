@@ -71,6 +71,29 @@ response.total     #=> Total price plus total tax
 response.subtotal  #=> Total price before tax
 ```
 
+####  Customer data
+You are required to specify a `state` or a `country`. The client will raise an error if none is specified.
+
+##### US address example
+```ruby
+ customer: {
+    ...
+    state: "NY",
+    # Optional, you don't have to explicitly specify a country once state is set
+    country: "US", 
+    ...
+  }
+```
+##### Non-US address example
+`state` is an optional attribute for non-US countries
+```ruby
+ customer: {
+    ...
+    country: "CZ", 
+    ...
+  }
+```
+
 ### Invoice
 
 Invoice is the same payload as quotation, but with one added identifier.
