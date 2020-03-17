@@ -1,0 +1,48 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: "{VERTEX_SOAP_API}CalculateTax70"
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0" encoding="UTF-8"?><soapenv:Envelope xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:urn="urn:vertexinc:o-series:tps:7:0"
+        xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"><soapenv:Body><urn:VertexEnvelope><Login><TrustedId>{VERTEX_TRUSTED_ID}</TrustedId></Login><QuotationRequest
+        transactionType="SALE"><LineItem lineItemNumber="1" taxDate="2018-11-14"><Customer><Destination><StreetAddress1>Dunajská
+        7495/14</StreetAddress1><City>Bratislava</City><PostalCode>81108</PostalCode><Country>SK</Country></Destination></Customer><Seller><Company>CustomInk</Company></Seller><Product
+        productClass="53103000">5300</Product><Quantity>4</Quantity><ExtendedPrice>25.40</ExtendedPrice></LineItem></QuotationRequest></urn:VertexEnvelope></soapenv:Body></soapenv:Envelope>
+    headers:
+      Soapaction:
+      - '"VertexEnvelope"'
+      Content-Type:
+      - text/xml;charset=UTF-8
+      Content-Length:
+      - '842'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Date:
+      - Tue, 17 Mar 2020 14:54:30 GMT
+      Content-Type:
+      - text/xml;charset=UTF-8
+      Content-Length:
+      - '1666'
+      Connection:
+      - keep-alive
+      Soapaction:
+      - '""'
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnPz48c29hcGVudjpFbnZlbG9wZSB4bWxuczpzb2FwZW52PSJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy9zb2FwL2VudmVsb3BlLyI+PHNvYXBlbnY6SGVhZGVyLz48c29hcGVudjpCb2R5PjxWZXJ0ZXhFbnZlbG9wZSB4bWxucz0idXJuOnZlcnRleGluYzpvLXNlcmllczp0cHM6NzowIiB4bWxuczp4c2k9Imh0dHA6Ly93d3cudzMub3JnLzIwMDEvWE1MU2NoZW1hLWluc3RhbmNlIj48TG9naW4+PFRydXN0ZWRJZD48L1RydXN0ZWRJZD4KPC9Mb2dpbj4KPFF1b3RhdGlvblJlc3BvbnNlIGRvY3VtZW50RGF0ZT0iMjAyMC0wMy0xNyIgdHJhbnNhY3Rpb25UeXBlPSJTQUxFIj48U3ViVG90YWw+MjUuNDwvU3ViVG90YWw+CjxUb3RhbD4zMC40ODwvVG90YWw+CjxUb3RhbFRheD41LjA4PC9Ub3RhbFRheD4KPExpbmVJdGVtIGxpbmVJdGVtTnVtYmVyPSIxIiB0YXhEYXRlPSIyMDE4LTExLTE0Ij48U2VsbGVyPjxDb21wYW55PkN1c3RvbUluazwvQ29tcGFueT4KPC9TZWxsZXI+CjxDdXN0b21lcj48RGVzdGluYXRpb24gdGF4QXJlYUlkPSI4MDcwMzAwMDAiPjxTdHJlZXRBZGRyZXNzMT5EdW5hanNrw6EgNzQ5NS8xNDwvU3RyZWV0QWRkcmVzczE+CjxDaXR5PkJyYXRpc2xhdmE8L0NpdHk+CjxQb3N0YWxDb2RlPjgxMTA4PC9Qb3N0YWxDb2RlPgo8Q291bnRyeT5TSzwvQ291bnRyeT4KPC9EZXN0aW5hdGlvbj4KPC9DdXN0b21lcj4KPFByb2R1Y3QgcHJvZHVjdENsYXNzPSI1MzEwMzAwMCI+NTMwMDwvUHJvZHVjdD4KPFF1YW50aXR5PjQuMDwvUXVhbnRpdHk+CjxGYWlyTWFya2V0VmFsdWU+MjUuNDwvRmFpck1hcmtldFZhbHVlPgo8RXh0ZW5kZWRQcmljZT4yNS40PC9FeHRlbmRlZFByaWNlPgo8VGF4ZXMgdGF4UmVzdWx0PSJUQVhBQkxFIiB0YXhUeXBlPSJWQVQiIHJhdGVDbGFzc2lmaWNhdGlvbj0iU3RhbmRhcmQgUmF0ZSIgc2l0dXM9IkRFU1RJTkFUSU9OIiBpbnB1dE91dHB1dFR5cGU9Ik9VVFBVVCIgdGF4Q29sbGVjdGVkRnJvbVBhcnR5PSJCVVlFUiIgdGF4U3RydWN0dXJlPSJTSU5HTEVfUkFURSI+PEp1cmlzZGljdGlvbiBqdXJpc2RpY3Rpb25MZXZlbD0iQ09VTlRSWSIganVyaXNkaWN0aW9uSWQ9Ijc4MzMxIj5TTE9WQUtJQTwvSnVyaXNkaWN0aW9uPgo8Q2FsY3VsYXRlZFRheD41LjA4PC9DYWxjdWxhdGVkVGF4Pgo8RWZmZWN0aXZlUmF0ZT4wLjI8L0VmZmVjdGl2ZVJhdGU+CjxUYXhhYmxlPjI1LjQ8L1RheGFibGU+CjxJbXBvc2l0aW9uIGltcG9zaXRpb25JZD0iMSI+VkFUPC9JbXBvc2l0aW9uPgo8SW1wb3NpdGlvblR5cGUgaW1wb3NpdGlvblR5cGVJZD0iMTkiPlZBVDwvSW1wb3NpdGlvblR5cGU+CjxUYXhSdWxlSWQ+MzQ4NTMyPC9UYXhSdWxlSWQ+CjxTZWxsZXJSZWdpc3RyYXRpb25JZD4xMjMxMjMxMjMxMjwvU2VsbGVyUmVnaXN0cmF0aW9uSWQ+CjxJbnZvaWNlVGV4dENvZGU+MjE8L0ludm9pY2VUZXh0Q29kZT4KPC9UYXhlcz4KPFRvdGFsVGF4PjUuMDg8L1RvdGFsVGF4Pgo8L0xpbmVJdGVtPgo8L1F1b3RhdGlvblJlc3BvbnNlPgo8QXBwbGljYXRpb25EYXRhPjxSZXNwb25zZVRpbWVNUz4xOC4xPC9SZXNwb25zZVRpbWVNUz4KPC9BcHBsaWNhdGlvbkRhdGE+CjwvVmVydGV4RW52ZWxvcGU+PC9zb2FwZW52OkJvZHk+PC9zb2FwZW52OkVudmVsb3BlPg==
+    http_version: 
+  recorded_at: Tue, 17 Mar 2020 14:54:30 GMT
+recorded_with: VCR 4.0.0
