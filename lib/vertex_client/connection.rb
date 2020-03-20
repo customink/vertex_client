@@ -27,6 +27,7 @@ module VertexClient
         globals.namespace_identifier :urn
         globals.open_timeout open_timeout if open_timeout.present?
         globals.read_timeout read_timeout if read_timeout.present?
+        globals.adapter = adapter if adapter
       end
     end
 
@@ -68,6 +69,10 @@ module VertexClient
 
     def open_timeout
       resource_config[:open_timeout] || config.open_timeout
+    end
+
+    def adapter
+      resource_config[:adapter] || config.adapter
     end
   end
 end
