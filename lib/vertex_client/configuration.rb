@@ -14,7 +14,7 @@ module VertexClient
     }.freeze
 
     attr_accessor :trusted_id, :soap_api, :circuit_config, :open_timeout,
-      :read_timeout, :resource_config
+      :read_timeout, :resource_config, :adapter
 
     def initialize
       @trusted_id = ENV['VERTEX_TRUSTED_ID']

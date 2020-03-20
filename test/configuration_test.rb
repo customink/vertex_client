@@ -27,6 +27,11 @@ describe VertexClient::Configuration do
     assert_equal 5, VertexClient.configuration.open_timeout
   end
 
+  it 'has an adapter option' do
+    VertexClient.configuration.adapter = :net_http
+    assert_equal :net_http, VertexClient.configuration.adapter
+  end
+
   describe 'circuit_config' do
     before do
       VertexClient.reconfigure!
