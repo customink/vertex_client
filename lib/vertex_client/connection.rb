@@ -19,7 +19,7 @@ module VertexClient
     end
 
     def client
-      @client ||= Savon.client(adapter: adapter) do |globals|
+      @client ||= Savon.client(global_options) do |globals|
         globals.endpoint clean_endpoint
         globals.namespace VERTEX_NAMESPACE
         globals.convert_request_keys_to :camelcase
@@ -70,8 +70,8 @@ module VertexClient
       resource_config[:open_timeout] || config.open_timeout
     end
 
-    def adapter
-      resource_config[:adapter] || config.adapter
+    def global_options
+      resource_config[:global_options] || config.global_options
     end
   end
 end

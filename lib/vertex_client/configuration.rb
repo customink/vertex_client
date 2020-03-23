@@ -13,12 +13,16 @@ module VertexClient
       ]
     }.freeze
 
+    attr_writer :global_options
     attr_accessor :trusted_id, :soap_api, :circuit_config, :open_timeout,
-      :read_timeout, :resource_config, :adapter
+      :read_timeout, :resource_config
 
     def initialize
       @trusted_id = ENV['VERTEX_TRUSTED_ID']
       @soap_api   = ENV['VERTEX_SOAP_API']
+      @global_options = {}
+      @open_timeout = 5
+      @read_timeout = 5
     end
 
     def circuit_config
@@ -35,6 +39,16 @@ module VertexClient
 
     def fallback_rates
       RATES
+    end
+
+    def global_options
+      global_options_defaults.merge(@global_options || {})
+    end
+
+    private
+
+    def global_options_defaults
+      { adapter: :net_http }
     end
   end
 end
