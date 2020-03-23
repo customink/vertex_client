@@ -17,19 +17,28 @@ describe VertexClient::Configuration do
     VertexClient.reconfigure!
   end
 
-  it 'has a read_timeout options' do
-    VertexClient.configuration.read_timeout = 5
+  it 'has a read_timeout default option and can be set' do
     assert_equal 5, VertexClient.configuration.read_timeout
+    VertexClient.configuration.read_timeout = 10
+    assert_equal 10, VertexClient.configuration.read_timeout
   end
 
-  it 'has an open_timeout options' do
-    VertexClient.configuration.open_timeout = 5
+  it 'has an open_timeout defalt option and can be set' do
     assert_equal 5, VertexClient.configuration.open_timeout
+    VertexClient.configuration.open_timeout = 10
+    assert_equal 10, VertexClient.configuration.open_timeout
   end
 
-  it 'has an adapter option' do
-    VertexClient.configuration.adapter = :net_http
-    assert_equal :net_http, VertexClient.configuration.adapter
+  describe 'global_options' do
+    it 'returns an empty has by default and can set a hash' do
+      assert_instance_of Hash, VertexClient.configuration.global_options
+      VertexClient.configuration.global_options = { foo: 'bar' }
+      assert_equal 'bar', VertexClient.configuration.global_options[:foo]
+    end
+
+    it 'defaults to net/http adapter' do
+      assert_equal :net_http, VertexClient.configuration.global_options[:adapter]
+    end
   end
 
   describe 'circuit_config' do
