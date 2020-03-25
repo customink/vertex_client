@@ -5,7 +5,7 @@ module VertexClient
       SALE_TRANSACTION_TYPE = 'SALE'.freeze
 
       def validate!
-        raise VertexClient::ValidationError.new('customer requires a state and postal_code') if customer_missing_location?
+        raise VertexClient::ValidationError.new('customer requires either state or country and postal_code') if customer_missing_location?
       end
 
       def body
@@ -36,7 +36,7 @@ module VertexClient
       end
 
       def customer_destination_present?(customer)
-        customer[:state].present? && customer[:postal_code].present?
+        (us_location_present?(customer) || other_location_present?(customer)) && customer[:postal_code].present?
       end
 
       def transform_line_item(line_item, number, defaults)
@@ -63,6 +63,14 @@ module VertexClient
           :'@productClass' => line_item[:product_class],
           :content! => line_item[:product_code]
         }
+      end
+
+      def us_location_present?(customer)
+        customer[:state].present?
+      end
+
+      def other_location_present?(customer)
+        customer[:country].present? && customer[:country] != 'US'
       end
     end
   end

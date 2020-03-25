@@ -21,21 +21,47 @@ describe VertexClient::Payload::Quotation do
   end
 
   describe 'validate!' do
-    it 'is happy if state and postal_code are present on customer' do
-      VertexClient::Payload::Quotation.new(working_quote_params).validate!
-    end
+    describe 'for US customer' do
+      it 'is happy if state and postal_code are present on customer' do
+        VertexClient::Payload::Quotation.new(working_quote_params).validate!
+      end
 
-    it 'raises if the customer is missing state' do
-      working_quote_params[:customer].delete(:state)
-      assert_raises VertexClient::ValidationError do
-        VertexClient::Payload::Quotation.new(working_quote_params).body
+      it 'raises if the customer is missing state' do
+        working_quote_params[:customer].delete(:state)
+        assert_raises VertexClient::ValidationError do
+          VertexClient::Payload::Quotation.new(working_quote_params).body
+        end
+      end
+
+      it 'raises if the customer is missing postal_code' do
+        working_quote_params[:customer].delete(:postal_code)
+        assert_raises VertexClient::ValidationError do
+          VertexClient::Payload::Quotation.new(working_quote_params).body
+        end
       end
     end
 
-    it 'raises if the customer is missing postal_code' do
-      working_quote_params[:customer].delete(:postal_code)
-      assert_raises VertexClient::ValidationError do
-        VertexClient::Payload::Quotation.new(working_quote_params).body
+    describe 'for EU customer' do
+      before(:each) do
+        working_eu_quote_params[:customer].delete(:state)
+      end
+
+      it 'is happy if country and postal_code are present on customer' do
+        VertexClient::Payload::Quotation.new(working_eu_quote_params).validate!
+      end
+
+      it 'raises if the customer is missing country' do
+        working_eu_quote_params[:customer].delete(:country)
+        assert_raises VertexClient::ValidationError do
+          VertexClient::Payload::Quotation.new(working_eu_quote_params).body
+        end
+      end
+
+      it 'raises if the customer is missing postal_code' do
+        working_eu_quote_params[:customer].delete(:postal_code)
+        assert_raises VertexClient::ValidationError do
+          VertexClient::Payload::Quotation.new(working_eu_quote_params).body
+        end
       end
     end
   end

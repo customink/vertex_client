@@ -11,7 +11,7 @@ module VertexClient
       end
 
       def total_tax
-        @total_tax ||= line_items.sum(&:total_tax).floor(2)
+        @total_tax ||= line_items.sum(&:total_tax).round(2, :half_even)
       end
 
       def total
@@ -27,9 +27,11 @@ module VertexClient
         )
       end
 
-      def tax_amount(price, state)
-        if RATES.has_key?(state)
-          price * BigDecimal(RATES[state])
+      def tax_amount(price, country, state)
+        if state.present? && RATES['US'].has_key?(state)
+          price * BigDecimal(RATES['US'][state])
+        elsif country.present? && RATES.has_key?(country)
+          price * BigDecimal(RATES[country])
         else
           BigDecimal('0.0')
         end
@@ -38,7 +40,8 @@ module VertexClient
       def tax_for_line_item(line_item)
         price = BigDecimal(line_item[:extended_price].to_s)
         state = line_item[:customer][:destination][:main_division]
-        tax_amount(price, state)
+        country = line_item[:customer][:destination][:country]
+        tax_amount(price, country, state)
       end
     end
   end

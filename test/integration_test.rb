@@ -11,22 +11,42 @@ describe 'Integration' do
     VertexClient.reconfigure!
   end
 
-  it 'does a quotation' do
-    VCR.use_cassette('quotation', :match_requests_on => []) do
-      response = VertexClient.quotation(working_quote_params)
-      assert_equal 1.52, response.total_tax
-      assert_equal '4600', response.line_items.first.product.product_code
-      assert_equal '53103000', response.line_items.first.product.product_class
+  describe 'for US customer' do
+    it 'does a quotation' do
+      VCR.use_cassette('quotation', :match_requests_on => []) do
+        response = VertexClient.quotation(working_quote_params)
+        assert_equal 1.52, response.total_tax
+        assert_equal '4600', response.line_items.first.product.product_code
+        assert_equal '53103000', response.line_items.first.product.product_class
+      end
+    end
+
+    it 'does a quotation for a quote with a single line_item' do
+      VCR.use_cassette('single_line_item_quotation', :match_requests_on => []) do
+        response = VertexClient.quotation(single_line_item_quotation_params)
+        assert_equal 1.52, response.line_items.first.total_tax
+      end
     end
   end
 
-  it 'does a quotation for a quote with a single line_item' do
-    VCR.use_cassette('single_line_item_quotation', :match_requests_on => []) do
-      response = VertexClient.quotation(single_line_item_quotation_params)
-      assert_equal 1.52, response.line_items.first.total_tax
+  describe 'for EU customer' do
+    it 'does a quotation' do
+      VCR.use_cassette('eu_quotation', :match_requests_on => []) do
+        response = VertexClient.quotation(working_eu_quote_params)
+        assert_equal 12.54, response.total_tax
+        assert_equal '4600', response.line_items.first.product.product_code
+        assert_equal '53103000', response.line_items.first.product.product_class
+      end
+    end
+
+    it 'does a quotation for a quote with a single line_item' do
+      VCR.use_cassette('single_line_item_eu_quotation', :match_requests_on => []) do
+        response = VertexClient.quotation(single_line_item_eu_quotation_params)
+        assert_equal 5.08, response.line_items.first.total_tax
+      end
     end
   end
-
+  
   it 'does an invoice' do
     VCR.use_cassette('invoice', :match_requests_on => []) do
       response = VertexClient.invoice(working_quote_params)
