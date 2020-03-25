@@ -2,6 +2,17 @@
 
 This file tracks all the changes (https://keepachangelog.com/en/1.0.0/) made to the client. This allows parsers such as Dependabot to provide a clean overview in pull requests.
 
+## [v1.0.0] - 2020-03-25
+
+### Changed
+
+- Dropped support for Ruby 2.4 and older, these are end-of-life
+- Set minimum Ruby version to 2.5
+
+### Removed
+
+- `$LOAD_PATH` mingling in the `.gemspec`. Bundler will handle that for us.
+
 ## [v0.9.1] - 2020-03-24
 
 #### Added
@@ -12,7 +23,6 @@ This file tracks all the changes (https://keepachangelog.com/en/1.0.0/) made to 
 #### Changed
 
 - Update quotation validation rules to require either `state` (case of US address) or `country` (other countries)
-
 
 ## [v0.9.0] - 2020-03-23
 
