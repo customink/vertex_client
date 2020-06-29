@@ -9,12 +9,13 @@ module VertexClient
       end
 
       def body
-        {
-          :'@transactionType' => SALE_TRANSACTION_TYPE,
-          line_item: params[:line_items].map.with_index do |line_item, index|
+        {}.tap do |data|
+          data[:'@transactionType'] = SALE_TRANSACTION_TYPE
+          data[:'@isTaxOnlyAdjustmentIndicator'] = true if params[:tax_only_adjustment]
+          data[:line_item] = params[:line_items].map.with_index do |line_item, index|
             transform_line_item(line_item, index, params)
           end
-        }
+        end
       end
 
       private

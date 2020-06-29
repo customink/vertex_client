@@ -1,7 +1,10 @@
 require 'test_helper'
+require_relative './tax_only_adjustment_examples'
 
 describe VertexClient::Payload::Invoice do
   include TestInput
+  extend VertexClient::Payload::TaxOnlyAdjustmentExamples
+
   let(:payload) do
     VertexClient::Payload::Invoice.new(working_quote_params)
   end
@@ -12,6 +15,8 @@ describe VertexClient::Payload::Invoice do
       :'@documentDate' => '2018-11-15'
     }), payload.body
   end
+
+  it_supports_tax_only_adjustments(:working_quote_params)
 
   it 'supports sending is_tax_exempt to customer' do
     working_quote_params[:customer][:is_tax_exempt] = true
