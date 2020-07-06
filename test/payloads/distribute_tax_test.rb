@@ -1,11 +1,15 @@
 require 'test_helper'
+require_relative './tax_only_adjustment_examples'
 
 describe VertexClient::Payload::DistributeTax do
   include TestInput
+  extend VertexClient::Payload::TaxOnlyAdjustmentExamples
 
   let(:payload) do
     VertexClient::Payload::DistributeTax.new(distribute_tax_params)
   end
+
+  it_supports_tax_only_adjustments(:distribute_tax_params)
 
   it 'includes input_total_tax for line_items' do
     assert_equal '5.00', payload.body[:line_item].first[:input_total_tax]
