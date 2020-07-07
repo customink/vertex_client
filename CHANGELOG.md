@@ -2,11 +2,15 @@
 
 This file tracks all the changes (https://keepachangelog.com/en/1.0.0/) made to the client. This allows parsers such as Dependabot to provide a clean overview in pull requests.
 
-## [v0.9.2] - 2020-07-06
+## [v0.9.2] - 2020-07-07
 
 #### Added
 
 - Quotation, Invoice and DistributeTax payloads now accept a `:tax_only_adjustment` param to make tax adjustments that need not be correlated with a total cost adjustment
+
+#### Changed
+
+- Fix a bug with fallback quotation responses where an empty set of line items would raise `ArgumentError`
 
 ## [v0.9.1] - 2020-03-24
 
