@@ -18,12 +18,22 @@ describe VertexClient::Response::QuotationFallback do
     it 'is the sum of price from line_items' do
       assert_equal 135.5, response.subtotal.to_f
     end
+
+    it 'handles empty quotes' do
+      working_quote_params[:line_items] = []
+      assert_equal 0.0, response.subtotal.to_f
+    end
   end
 
   describe 'total_tax' do
     describe 'for US customer' do
       it 'is the sum of total_tax from line_items' do
         assert_equal 8.66, response.total_tax.to_f
+      end
+
+      it 'handles empty quotes' do
+        working_quote_params[:line_items] = []
+        assert_equal 0.0, response.total_tax.to_f
       end
     end
 
