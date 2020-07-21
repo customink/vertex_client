@@ -19,6 +19,8 @@ module VertexClient
 
       def response
         @response ||= connection.request(@payload.transform)
+      rescue Savon::SOAPFault => e
+        raise @payload.map_to_validation_exception!(e)
       end
 
       def connection
