@@ -25,14 +25,19 @@ module VertexClient
       def transform_customer(customer)
         remove_nils({
           :@isTaxExempt =>  customer[:is_tax_exempt],
-          destination: remove_nils({
-            street_address_1: customer[:address_1],
-            street_address_2: customer[:address_2],
-            city:             customer[:city],
-            main_division:    customer[:state],
-            postal_code:      customer[:postal_code],
-            country:          customer[:country]
-          })
+          destination: transform_address(customer)
+        })
+      end
+
+      def transform_address(address)
+        return unless address
+        remove_nils({
+          street_address_1: address[:address_1],
+          street_address_2: address[:address_2],
+          city:             address[:city],
+          main_division:    address[:state],
+          postal_code:      address[:postal_code],
+          country:          address[:country]
         })
       end
 

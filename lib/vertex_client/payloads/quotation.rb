@@ -6,12 +6,14 @@ module VertexClient
 
       def validate!
         raise VertexClient::ValidationError.new('customer requires either state or country and postal_code') if customer_missing_location?
+        raise VertexClient::ValidationError.new('seller\'s physical_origin requires either state or country and postal_code') if sellers_physical_origin_missing_location?
       end
 
       def body
         {}.tap do |data|
           data[:'@transactionType'] = SALE_TRANSACTION_TYPE
           data[:'@isTaxOnlyAdjustmentIndicator'] = true if params[:tax_only_adjustment]
+          data[:'@deliveryTerm'] = params[:delivery_term] if params[:delivery_term]
           data[:line_item] = params[:line_items].map.with_index do |line_item, index|
             transform_line_item(line_item, index, params)
           end
@@ -21,23 +23,32 @@ module VertexClient
       private
 
       def customer_missing_location?
-        !customer_lines(params).all? { |customer| customer_destination_present?(customer) }
+        !customer_lines(params).all? { |customer| destination_present?(customer) }
+      end
+
+      def sellers_physical_origin_missing_location?
+        !sellers_physical_origin_lines(params).all? { |physical_origin| destination_present?(physical_origin) }
       end
 
       def transform_customer(customer_params)
         super(customer_params).tap do |customer|
           if customer_params[:tax_area_id].present?
-            customer[:destination] = { :@taxAreaId => customer_params[:tax_area_id]}
+            customer[:destination] = { :@taxAreaId => customer_params[:tax_area_id] }
           end
         end
       end
 
       def customer_lines(params)
-        [params[:customer], params[:line_items].map { |li| li[:customer]}].flatten.compact
+        [params[:customer], params[:line_items].map { |li| li[:customer] }].flatten.compact
       end
 
-      def customer_destination_present?(customer)
-        (us_location_present?(customer) || other_location_present?(customer)) && customer[:postal_code].present?
+      def sellers_physical_origin_lines(params)
+        [params[:line_items].map { |li| li.dig(:seller, :physical_origin) }].flatten.compact
+      end
+
+      # The hash argument is either customer or physical_origin object
+      def destination_present?(hash)
+        (us_location_present?(hash) || other_location_present?(hash)) && hash[:postal_code].present?
       end
 
       def transform_line_item(line_item, number, defaults)
@@ -54,9 +65,10 @@ module VertexClient
       end
 
       def transform_seller(seller)
-        {
-          company: seller[:company]
-        }
+        remove_nils({
+          company: seller[:company],
+          physical_origin: transform_address(seller[:physical_origin])
+        })
       end
 
       def transform_product(line_item)

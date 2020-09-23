@@ -15,6 +15,8 @@ The Vertex Client Ruby Gem provides an interface to integrate with _Vertex SMB_ 
 response = VertexClient.quotation(
   # The top level transaction date for all line items.
   date: "2018-11-15",
+  # Optional delivery term to specify correct pricing all line items.
+  delivery_term: "DAP",
   # The top level customer for all line items.
   customer: {
     code: "inky@customink.com",
@@ -31,7 +33,7 @@ response = VertexClient.quotation(
   },
   # The top level seller for all line items.
   seller: {
-    company: "CustomInk"
+    company: "CustomInk",
   },
   line_items: [
     {
@@ -62,6 +64,27 @@ response = VertexClient.quotation(
         state: "DC",
         postal_code: "20500"
       }
+    },
+    {
+      product_code: "5400",
+      product_class: "123456",
+      quantity: 2,
+      price: "35.40",
+      # Optional transaction date override for a line item.
+      date: "2018-11-14",
+      # Optional seller override for a line item.
+      seller: {
+        company: "CustomInkStores",
+        # Optional physical origin of a line item
+        physical_origin: {
+          address_1: "Prujezdna 320/62",
+          address_2: "",
+          city: "Praha",
+          state: "",
+          postal_code: "100 00",
+          country: "CZ"
+        }
+      }
     }
   ]
 )
@@ -71,7 +94,7 @@ response.total     #=> Total price plus total tax
 response.subtotal  #=> Total price before tax
 ```
 
-####  Customer data
+####  Location specific data (required for `:customer` and specified `:physical_origin` of `:seller` in `:line_items`)
 You are required to specify a `state` or a `country`. The client will raise an error if none is specified.
 
 ##### US address example
