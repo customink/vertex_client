@@ -43,7 +43,7 @@ module VertexClient
       end
 
       def sellers_physical_origin_lines(params)
-        [params[:line_items].map { |li| li.dig(:seller, :physical_origin) }].flatten.compact
+        [params[:line_items].map { |li| li[:seller] && li[:seller][:physical_origin] }].flatten.compact
       end
 
       # The hash argument is either customer or physical_origin object
