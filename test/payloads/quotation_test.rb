@@ -97,14 +97,14 @@ describe VertexClient::Payload::Quotation do
             VertexClient::Payload::Quotation.new(working_eu_quote_params).validate!
           end
           
-          it'raises if physical_origin is missing state' do
+          it 'raises if physical_origin is missing state' do
             working_eu_quote_params[:line_items][1][:seller][:physical_origin].delete(:state)
             assert_raises VertexClient::ValidationError do
               VertexClient::Payload::Quotation.new(working_eu_quote_params).body
             end
           end
 
-          it'raises if physical_origin is missing postal_code' do
+          it 'raises if physical_origin is missing postal_code' do
             working_eu_quote_params[:line_items][1][:seller][:physical_origin].delete(:postal_code)
             assert_raises VertexClient::ValidationError do
               VertexClient::Payload::Quotation.new(working_eu_quote_params).body
