@@ -2,6 +2,17 @@
 
 This file tracks all the changes (https://keepachangelog.com/en/1.0.0/) made to the client. This allows parsers such as Dependabot to provide a clean overview in pull requests.
 
+## [v0.10.0] - 2020-09-29
+
+#### Added
+
+- Quotation payload now accepts a `:delivery_term` param to specify delivery terms for quotation request
+- Allow optional `physical_origin` attribute of `seller` in line item to help with specific VAT calculation use cases
+
+#### Changed
+
+- Update quotation validation rules to require either `state` (case of US address) or `country` (other countries) for line items with `seller` overrides that also specify `physical_origin`
+
 ## [v0.9.2] - 2020-07-07
 
 #### Added
