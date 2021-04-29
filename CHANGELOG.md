@@ -2,6 +2,12 @@
 
 This file tracks all the changes (https://keepachangelog.com/en/1.0.0/) made to the client. This allows parsers such as Dependabot to provide a clean overview in pull requests.
 
+## [v0.10.1] - 2021-04-29
+
+#### Changed
+
+- Loosen quotation validation rules to only require `postal_code` for `US` based locations.
+
 ## [v0.10.0] - 2020-09-29
 
 #### Added

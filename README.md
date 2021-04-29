@@ -95,20 +95,22 @@ response.subtotal  #=> Total price before tax
 ```
 
 ####  Location specific data (required for `:customer` and specified `:physical_origin` of `:seller` in `:line_items`)
-You are required to specify a `state` or a `country`. The client will raise an error if none is specified.
+You are required to specify a `state` or a `country`. The client will raise an error if none is specified. 
+
+At the moment specifying state automatically implies `country` is `US`. For `US` locations `postal_code` is also required.
 
 ##### US address example
 ```ruby
  customer: {
     ...
     state: "NY",
-    # Optional, you don't have to explicitly specify a country once state is set
-    country: "US", 
+    postal_code: "10005",
+    country: "US", # Optional, you don't have to explicitly specify a country once state is set
     ...
   }
 ```
 ##### Non-US address example
-`state` is an optional attribute for non-US countries
+`state` and `postal_code` are optional attributes for non-US countries
 ```ruby
  customer: {
     ...
