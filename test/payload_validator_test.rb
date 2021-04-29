@@ -27,13 +27,7 @@ describe 'payload validation' do
 
       before(:each) do
         payload[:customer].delete(:state)
-      end
-
-      it 'raises an error when missing postal code' do
         payload[:customer].delete(:postal_code)
-        assert_raises VertexClient::ValidationError do
-          VertexClient::Payload::Quotation.new(payload)
-        end
       end
 
       it 'raises an error when missing country' do

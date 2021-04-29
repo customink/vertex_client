@@ -54,21 +54,15 @@ describe VertexClient::Payload::Quotation do
     describe 'for EU customer' do
       before(:each) do
         working_eu_quote_params[:customer].delete(:state)
+        working_eu_quote_params[:customer].delete(:postal_code)
       end
 
-      it 'is happy if country and postal_code are present on customer' do
+      it 'is happy if country is present on customer' do
         VertexClient::Payload::Quotation.new(working_eu_quote_params).validate!
       end
 
       it 'raises if the customer is missing country' do
         working_eu_quote_params[:customer].delete(:country)
-        assert_raises VertexClient::ValidationError do
-          VertexClient::Payload::Quotation.new(working_eu_quote_params).body
-        end
-      end
-
-      it 'raises if the customer is missing postal_code' do
-        working_eu_quote_params[:customer].delete(:postal_code)
         assert_raises VertexClient::ValidationError do
           VertexClient::Payload::Quotation.new(working_eu_quote_params).body
         end
@@ -117,24 +111,16 @@ describe VertexClient::Payload::Quotation do
             working_eu_quote_params[:line_items][1][:seller][:physical_origin] = {
               address_1: 'Prujezdna 320/62',
               city: 'Praha',
-              postal_code: '100 00',
               country: 'CZ'
             }
           end
 
-          it 'does not raise if country and postal_code are present' do
+          it 'does not raise if country is present' do
             VertexClient::Payload::Quotation.new(working_eu_quote_params).validate!
           end
 
           it 'raises if physical_origin is missing country' do
             working_eu_quote_params[:line_items][1][:seller][:physical_origin].delete(:country)
-            assert_raises VertexClient::ValidationError do
-              VertexClient::Payload::Quotation.new(working_eu_quote_params).body
-            end
-          end
-
-          it 'raises if physical_origin is missing postal_code' do
-            working_eu_quote_params[:line_items][1][:seller][:physical_origin].delete(:postal_code)
             assert_raises VertexClient::ValidationError do
               VertexClient::Payload::Quotation.new(working_eu_quote_params).body
             end

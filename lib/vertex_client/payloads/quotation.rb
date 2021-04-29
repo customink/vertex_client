@@ -48,7 +48,7 @@ module VertexClient
 
       # The hash argument is either customer or physical_origin object
       def destination_present?(hash)
-        (us_location_present?(hash) || other_location_present?(hash)) && hash[:postal_code].present?
+        us_location_present?(hash) || other_location_present?(hash)
       end
 
       def transform_line_item(line_item, number, defaults)
@@ -79,7 +79,7 @@ module VertexClient
       end
 
       def us_location_present?(customer)
-        customer[:state].present?
+        customer[:state].present? && customer[:postal_code].present?
       end
 
       def other_location_present?(customer)
