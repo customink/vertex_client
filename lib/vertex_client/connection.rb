@@ -10,6 +10,7 @@ module VertexClient
     end
 
     def request(payload)
+      @payload = payload
       call_with_circuit_if_available do
         client.call(
           :vertex_envelope,
@@ -19,7 +20,25 @@ module VertexClient
     end
 
     def client
-      @client ||= Savon.client(global_options) do |globals|
+      client_base.open_timeout = calculate_open_timeout
+      client_base.read_timeout = calculate_read_timeout
+      return client_base
+    end
+
+    private
+
+    def calculate_open_timeout
+      new_timeout = @payload["line_items"].count / 100
+      [open_timeout, new_timeout].max
+    end
+
+    def calculate_read_timeout
+      new_timeout = @payload["line_items"].count / 100
+      [read_timeout, new_timeout].max
+    end
+
+    def client_base
+      @client_base ||= Savon.client(global_options) do |globals|
         globals.endpoint clean_endpoint
         globals.namespace VERTEX_NAMESPACE
         globals.convert_request_keys_to :camelcase
@@ -29,8 +48,6 @@ module VertexClient
         globals.read_timeout read_timeout if read_timeout.present?
       end
     end
-
-    private
 
     def config
       @config ||= VertexClient.configuration
