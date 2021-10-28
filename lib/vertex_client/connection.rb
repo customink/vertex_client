@@ -31,8 +31,8 @@ module VertexClient
 
     def client_scaled_timeouts
       copy = Marshal::load(Marshal.dump(client_base))
-      copy.open_timeout scaled_timeout
-      copy.read_timeout scaled_timeout
+      copy.globals.open_timeout scaled_timeout
+      copy.globals.read_timeout scaled_timeout
       copy
     end
 
