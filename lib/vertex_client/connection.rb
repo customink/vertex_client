@@ -21,15 +21,20 @@ module VertexClient
 
     def client
       if config.scale_timeout?
-        client_copy = Marshal::load(Marshal.dump(client_base))
-        client_copy.open_timeout scaled_timeout
-        client_copy.read_timeout scaled_timeout
-        return client_copy
+        client_copy
+      else
+        client_base
       end
-      return client_base
     end
 
     private
+
+    def client_copy
+      copy = Marshal::load(Marshal.dump(client_base))
+      copy.open_timeout scaled_timeout
+      copy.read_timeout scaled_timeout
+      copy
+    end
 
     def scaled_timeout
       request_size / config.timeout_scaling_factor
