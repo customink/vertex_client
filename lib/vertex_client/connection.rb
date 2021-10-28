@@ -35,14 +35,6 @@ module VertexClient
       @client_scaled
     end
 
-    def scaled_timeout(default_timeout)
-      [request_size / timeout_scaling_factor, default_timeout].max
-    end
-
-    def request_size
-      payload["line_items"].count
-    end
-
     def client_unscaled
       @client_unscaled ||= base_client
     end
@@ -85,12 +77,20 @@ module VertexClient
       }
     end
 
+    def scaled_timeout(default_timeout)
+      [request_size / timeout_scaling_factor, default_timeout].max
+    end
+
     def scale_timeout?
       config.scale_timeout? && resource_config[:scale_timeout] != false
     end
 
     def timeout_scaling_factor
       resource_config[:timeout_scaling_factor] || config.timeout_scaling_factor
+    end
+
+    def request_size
+      payload["line_items"].count
     end
 
     def clean_endpoint
