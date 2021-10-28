@@ -15,7 +15,7 @@ module VertexClient
 
     attr_writer :global_options
     attr_accessor :trusted_id, :soap_api, :circuit_config, :open_timeout,
-      :read_timeout, :resource_config
+      :read_timeout, :resource_config, :scale_timeout?, :timeout_scaling_factor
 
     def initialize
       @trusted_id = ENV['VERTEX_TRUSTED_ID']
@@ -23,6 +23,8 @@ module VertexClient
       @global_options = {}
       @open_timeout = 5
       @read_timeout = 5
+      @scale_timeout = false
+      @timeout_scaling_factor = 10
     end
 
     def circuit_config
