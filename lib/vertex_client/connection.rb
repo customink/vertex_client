@@ -23,17 +23,13 @@ module VertexClient
     end
 
     def client
-      if scale_timeout?
-        client_scaled
-      else
-        client_base
-      end
+      scale_timeout? ? client_scaled : client_unscaled
     end
 
     private
 
     def client_scaled
-      @client_scaled = client_settings
+      @client_scaled = base_client
       @client_scaled.globals.open_timeout scaled_timeout(open_timeout)
       @client_scaled.globals.read_timeout scaled_timeout(read_timeout)
       @client_scaled
@@ -47,11 +43,11 @@ module VertexClient
       payload["line_items"].count
     end
 
-    def client_base
-      @client_base ||= client_settings
+    def client_unscaled
+      @client_unscaled ||= base_client
     end
 
-    def client_settings
+    def base_client
       Savon.client(global_options) do |globals|
         globals.endpoint clean_endpoint
         globals.namespace VERTEX_NAMESPACE
