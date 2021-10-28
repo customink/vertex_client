@@ -114,7 +114,6 @@ describe VertexClient::Connection do
         assert_equal(120, options[:open_timeout])
         assert_equal(120, options[:read_timeout])
       end
-
     end
   end
 

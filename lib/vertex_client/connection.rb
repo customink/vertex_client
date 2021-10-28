@@ -34,13 +34,13 @@ module VertexClient
 
     def client_scaled
       @client_scaled = client_settings
-      @client_scaled.globals.open_timeout scaled_timeout
-      @client_scaled.globals.read_timeout scaled_timeout
+      @client_scaled.globals.open_timeout scaled_timeout(open_timeout)
+      @client_scaled.globals.read_timeout scaled_timeout(read_timeout)
       @client_scaled
     end
 
-    def scaled_timeout
-      request_size / timeout_scaling_factor
+    def scaled_timeout(default_timeout)
+      [request_size / timeout_scaling_factor, default_timeout].max
     end
 
     def request_size
