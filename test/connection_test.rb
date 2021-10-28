@@ -44,6 +44,39 @@ describe VertexClient::Connection do
         assert_equal(2, options[:read_timeout])
       end
     end
+
+    describe 'if scaled timeouts are provided' do
+      before do
+        VertexClient.reconfigure! do |config|
+          config.open_timeout = 20
+          config.read_timeout = 15
+          config.scale_timeout = true
+          config.scaling_factor = 10
+        end
+      end
+
+      it 'passes global timeout configuration to the client' do
+        connection.payload = {"line_items": (0..600).to_a}
+        options = connection.client.globals.instance_variable_get(:@options)
+        assert_equal(60, options[:open_timeout])
+        assert_equal(60, options[:read_timeout])
+      end
+
+      it 'doesnt override scaled config with resource config if it is provided' do
+        VertexClient.reconfigure! do |config|
+          config.resource_config = {
+            test: {
+              open_timeout: 1,
+              read_timeout: 2
+            }
+          }
+        end
+        connection.payload = {"line_items": (0..600).to_a}
+        options = connection.client.globals.instance_variable_get(:@options)
+        assert_equal(60, options[:open_timeout])
+        assert_equal(60, options[:read_timeout])
+      end
+    end
   end
 
   describe 'request' do
