@@ -33,15 +33,10 @@ module VertexClient
     private
 
     def client_scaled
-      @client_scaled = Savon.client(global_options) do |globals|
-        globals.endpoint clean_endpoint
-        globals.namespace VERTEX_NAMESPACE
-        globals.convert_request_keys_to :camelcase
-        globals.env_namespace :soapenv
-        globals.namespace_identifier :urn
-        globals.open_timeout scaled_timeout
-        globals.read_timeout scaled_timeout
-      end
+      @client_scaled = client_settings
+      @client_scaled.globals.open_timeout scaled_timeout
+      @client_scaled.globals.read_timeout scaled_timeout
+      @client_scaled
     end
 
     def scaled_timeout
@@ -53,7 +48,11 @@ module VertexClient
     end
 
     def client_base
-      @client_base ||= Savon.client(global_options) do |globals|
+      @client_base ||= client_settings
+    end
+
+    def client_settings
+      Savon.client(global_options) do |globals|
         globals.endpoint clean_endpoint
         globals.namespace VERTEX_NAMESPACE
         globals.convert_request_keys_to :camelcase
