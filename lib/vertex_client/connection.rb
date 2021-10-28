@@ -23,7 +23,7 @@ module VertexClient
     end
 
     def client
-      if config.scale_timeout?
+      if config.scale_timeout? && resource_config[:scale_timeout] != false
         client_scaled
       else
         client_base
@@ -40,7 +40,7 @@ module VertexClient
     end
 
     def scaled_timeout
-      request_size / config.timeout_scaling_factor
+      request_size / timeout_scaling_factor
     end
 
     def request_size
@@ -87,6 +87,10 @@ module VertexClient
       {
         login: { trusted_id: @config.trusted_id }
       }
+    end
+
+    def timeout_scaling_factor
+      resource_config[:timeout_scaling_factor] || config.timeout_scaling_factor
     end
 
     def clean_endpoint

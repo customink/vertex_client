@@ -62,7 +62,7 @@ describe VertexClient::Connection do
         assert_equal(60, options[:read_timeout])
       end
 
-      it 'doesnt override scaled config with resource config if it is provided' do
+      it 'doesnt override scaled config with resource config if it is provided without scale_timeout: false' do
         VertexClient.reconfigure! do |config|
           config.resource_config = {
             test: {
@@ -78,6 +78,43 @@ describe VertexClient::Connection do
         assert_equal(60, options[:open_timeout])
         assert_equal(60, options[:read_timeout])
       end
+
+      it 'overrides scaled config with resource config if it is provided with scale_timeout: false' do
+        VertexClient.reconfigure! do |config|
+          config.resource_config = {
+            test: {
+              open_timeout: 1,
+              read_timeout: 2,
+              scale_timeout: false
+            }
+          }
+          config.scale_timeout = true
+          config.timeout_scaling_factor = 10
+        end
+        connection.payload["line_items"] = (0..600).to_a
+        options = connection.client.globals.instance_variable_get(:@options)
+        assert_equal(1, options[:open_timeout])
+        assert_equal(2, options[:read_timeout])
+      end
+
+      it 'allows a resource to set its own scaling factor' do
+        VertexClient.reconfigure! do |config|
+          config.resource_config = {
+            test: {
+              open_timeout: 1,
+              read_timeout: 2,
+              timeout_scaling_factor: 5 
+            }
+          }
+          config.scale_timeout = true
+          config.timeout_scaling_factor = 10
+        end
+        connection.payload["line_items"] = (0..600).to_a
+        options = connection.client.globals.instance_variable_get(:@options)
+        assert_equal(120, options[:open_timeout])
+        assert_equal(120, options[:read_timeout])
+      end
+
     end
   end
 
