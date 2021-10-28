@@ -4,9 +4,12 @@ module VertexClient
     VERTEX_NAMESPACE = 'urn:vertexinc:o-series:tps:7:0'.freeze
     ERROR_MESSAGE = 'The Vertex API returned an error or is unavailable'.freeze
 
+    attr_accessor :payload
+
     def initialize(endpoint, resource_key=nil)
       @endpoint = endpoint
       @resource_key = resource_key
+      @payload = {}
     end
 
     def request(payload)
@@ -21,7 +24,7 @@ module VertexClient
 
     def client
       if config.scale_timeout?
-        client_scaled_timeouts
+        client_scaled
       else
         client_base
       end
@@ -29,11 +32,16 @@ module VertexClient
 
     private
 
-    def client_scaled_timeouts
-      copy = Marshal::load(Marshal.dump(client_base))
-      copy.globals.open_timeout scaled_timeout
-      copy.globals.read_timeout scaled_timeout
-      copy
+    def client_scaled
+      @client_scaled = Savon.client(global_options) do |globals|
+        globals.endpoint clean_endpoint
+        globals.namespace VERTEX_NAMESPACE
+        globals.convert_request_keys_to :camelcase
+        globals.env_namespace :soapenv
+        globals.namespace_identifier :urn
+        globals.open_timeout scaled_timeout
+        globals.read_timeout scaled_timeout
+      end
     end
 
     def scaled_timeout
@@ -41,7 +49,7 @@ module VertexClient
     end
 
     def request_size
-      @payload["line_items"].count
+      payload["line_items"].count
     end
 
     def client_base

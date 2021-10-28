@@ -51,12 +51,12 @@ describe VertexClient::Connection do
           config.open_timeout = 20
           config.read_timeout = 15
           config.scale_timeout = true
-          config.scaling_factor = 10
+          config.timeout_scaling_factor = 10
         end
       end
 
       it 'passes global timeout configuration to the client' do
-        connection.payload = {:"line_items" => (0..600).to_a}
+        connection.payload["line_items"] = (0..600).to_a
         options = connection.client.globals.instance_variable_get(:@options)
         assert_equal(60, options[:open_timeout])
         assert_equal(60, options[:read_timeout])
@@ -70,8 +70,10 @@ describe VertexClient::Connection do
               read_timeout: 2
             }
           }
+          config.scale_timeout = true
+          config.timeout_scaling_factor = 10
         end
-        connection.payload = {:"line_items" => (0..600).to_a}
+        connection.payload["line_items"] = (0..600).to_a
         options = connection.client.globals.instance_variable_get(:@options)
         assert_equal(60, options[:open_timeout])
         assert_equal(60, options[:read_timeout])
