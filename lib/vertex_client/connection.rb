@@ -30,13 +30,16 @@ module VertexClient
 
     def client_scaled
       @client_scaled = base_client
-      @client_scaled.globals.open_timeout scaled_timeout(open_timeout)
-      @client_scaled.globals.read_timeout scaled_timeout(read_timeout)
+      @client_scaled.globals.open_timeout scaled_timeout(open_timeout) if open_timeout.present?
+      @client_scaled.globals.read_timeout scaled_timeout(read_timeout) if read_timeout.present?
       @client_scaled
     end
 
     def client_unscaled
       @client_unscaled ||= base_client
+      @client_unscaled.globals.open_timeout open_timeout if open_timeout.present?
+      @client_unscaled.globals.read_timeout read_timeout if read_timeout.present?
+      @client_unscaled
     end
 
     def base_client
@@ -46,8 +49,6 @@ module VertexClient
         globals.convert_request_keys_to :camelcase
         globals.env_namespace :soapenv
         globals.namespace_identifier :urn
-        globals.open_timeout open_timeout if open_timeout.present?
-        globals.read_timeout read_timeout if read_timeout.present?
       end
     end
 
