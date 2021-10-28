@@ -20,21 +20,23 @@ module VertexClient
     end
 
     def client
-      client_base.open_timeout = calculate_open_timeout
-      client_base.read_timeout = calculate_read_timeout
+      if config.scale_timeout?
+        client_copy = Marshal::load(Marshal.dump(client_base))
+        client_copy.open_timeout scaled_timeout
+        client_copy.read_timeout scaled_timeout
+        return client_copy
+      end
       return client_base
     end
 
     private
 
-    def calculate_open_timeout
-      new_timeout = @payload["line_items"].count / 100
-      [open_timeout, new_timeout].max
+    def scaled_timeout
+      request_size / config.timeout_scaling_factor
     end
 
-    def calculate_read_timeout
-      new_timeout = @payload["line_items"].count / 100
-      [read_timeout, new_timeout].max
+    def request_size
+      @payload["line_items"].count
     end
 
     def client_base
