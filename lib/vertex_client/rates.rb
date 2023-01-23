@@ -1,6 +1,8 @@
 module VertexClient
   RATES = {
     'US' => {
+      'AA' => '0.0',
+      'AE' => '0.0',
       'AL' => '0.0914',
       'AK' => '0.0',
       'AZ' => '0.0',
