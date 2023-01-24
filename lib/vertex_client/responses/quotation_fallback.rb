@@ -27,14 +27,25 @@ module VertexClient
         )
       end
 
+      # see lib/vertex_client/rates.rb for hard-coded fallback rates
       def tax_amount(price, country, state)
-        if state.present? && RATES['US'].has_key?(state)
+        if known_us_state?(state)
           price * BigDecimal(RATES['US'][state])
-        elsif country.present? && RATES.has_key?(country)
+        elsif known_non_us_country?(country)
           price * BigDecimal(RATES[country])
         else
           BigDecimal('0.0')
         end
+      end
+
+      # state is in the United States and we have an explicit fallback
+      def known_us_state?(state)
+        state.present? && RATES['US'].has_key?(state)
+      end
+
+      # we have an explicit fallback for the country
+      def known_non_us_country?(country)
+        country.present? && country != 'US' && RATES.has_key?(country)
       end
 
       def tax_for_line_item(line_item)
