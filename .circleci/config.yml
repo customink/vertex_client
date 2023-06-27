@@ -6,7 +6,7 @@
 # CircleCI configuration, reducing the complexity of the entire block.
 # ---------------------------------------------------------------------------------------------------------------------
 docker_image: &docker_image
-  image: 916869144969.dkr.ecr.us-east-1.amazonaws.com/customink/base-ruby-ci:2.1-v2.7
+  image: 916869144969.dkr.ecr.us-east-1.amazonaws.com/customink/ruby-mysql-ci:focal-3.1
   aws_auth:
     aws_access_key_id: ${PRODUCTION_AWS_ACCESS_KEY_ID}
     aws_secret_access_key: ${PRODUCTION_AWS_SECRET_ACCESS_KEY}
@@ -46,9 +46,9 @@ commands:
       - run:
           name: "Minitest Test Suite"
           command: |
-            cc-test-reporter before-build
+            # cc-test-reporter before-build
             bin/test
-            cc-test-reporter after-build
+            # cc-test-reporter after-build
 # ---------------------------------------------------------------------------------------------------------------------
 # CircleCI Job Configuration
 #
