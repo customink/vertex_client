@@ -6,7 +6,7 @@
 # CircleCI configuration, reducing the complexity of the entire block.
 # ---------------------------------------------------------------------------------------------------------------------
 docker_image: &docker_image
-  image: 916869144969.dkr.ecr.us-east-1.amazonaws.com/customink/base-ruby-ci:2.1-v2.7
+  # image: 916869144969.dkr.ecr.us-east-1.amazonaws.com/customink/base-ruby-ci:2.1-v2.7
   aws_auth:
     aws_access_key_id: ${PRODUCTION_AWS_ACCESS_KEY_ID}
     aws_secret_access_key: ${PRODUCTION_AWS_SECRET_ACCESS_KEY}
@@ -22,15 +22,18 @@ version: 2.1
 commands:
   bundle_install:
     description: "Performs the bundler installation, relying on the CircleCI cache for performance"
+    parameters:
+      ruby-version:
+        type: string
     steps:
       - restore_cache:
           keys:
-            - bundler-cache-{{ checksum "vertex_client.gemspec" }}
+            - bundler-cache-<< parameters.ruby-version >>-{{ checksum "vertex_client.gemspec" }}
       - run:
           name: "Bundle Install"
           command: bundle install --path=.bundle
       - save_cache:
-          key: bundler-cache-{{ checksum "vertex_client.gemspec" }}
+          key: bundler-cache-<< parameters.ruby-version >>-{{ checksum "vertex_client.gemspec" }}
           paths:
             - .bundle
   rubocop:
@@ -46,9 +49,9 @@ commands:
       - run:
           name: "Minitest Test Suite"
           command: |
-            cc-test-reporter before-build
+            # cc-test-reporter before-build
             bin/test
-            cc-test-reporter after-build
+            # cc-test-reporter after-build
 # ---------------------------------------------------------------------------------------------------------------------
 # CircleCI Job Configuration
 #
@@ -59,14 +62,19 @@ commands:
 jobs:
   tests:
     working_directory: ~/vertex_client
+    parameters:
+      ruby-version:
+        type: string
     docker:
       - <<: *docker_image
+        image: 916869144969.dkr.ecr.us-east-1.amazonaws.com/customink/ruby:focal-<< parameters.ruby-version >>
         environment:
           RAILS_ENV: test
           CC_TEST_REPORTER_ID: 88a7fd75659a6698f28c8c4c6b60c20f902e26733691b2fe449a65474f22b618
     steps:
       - checkout
-      - bundle_install
+      - bundle_install:
+          ruby-version: << parameters.ruby-version >>
       - minitest
       - store_test_results:
           path: test/reports/
@@ -75,4 +83,18 @@ workflows:
   vertex_client:
     jobs:
       - tests:
+          name: 'Ruby 2.6'
+          ruby-version: '2.6'
+          context: customink
+      - tests:
+          name: 'Ruby 2.7'
+          ruby-version: '2.7'
+          context: customink
+      - tests:
+          name: 'Ruby 3.0'
+          ruby-version: '3.0'
+          context: customink
+      - tests:
+          name: 'Ruby 3.1'
+          ruby-version: '3.1'
           context: customink
