@@ -42,7 +42,7 @@ module VertexClient
 
     def call_with_circuit_if_available
       if VertexClient.circuit
-        VertexClient.circuit.run { yield }
+        VertexClient.circuit.run(exception: false) { yield }
       else
         begin
           yield

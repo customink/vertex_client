@@ -77,10 +77,25 @@ module VertexClient
 
     def circuit
       return unless configuration.circuit_config && defined?(Circuitbox)
-      Circuitbox.circuit(
+
+      @circuit ||= Circuitbox.circuit(
         Configuration::CIRCUIT_NAME,
-        configuration.circuit_config
+        circuit_config_options
       )
+    end
+
+    private
+
+    def circuit_config_options
+      options = {}
+
+      configuration.circuit_config.keys.each do |key|
+        options[key] = Proc.new { configuration.circuit_config[key] } unless key.to_sym == :exceptions
+      end
+
+      options[:exceptions] = configuration.circuit_config[:exceptions]
+
+      options
     end
   end
 

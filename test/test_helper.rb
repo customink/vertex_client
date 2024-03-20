@@ -34,7 +34,6 @@ class FakeLogger
   end
 end
 
-
 module TestInput
   def self.included(base)
     base.class_eval do

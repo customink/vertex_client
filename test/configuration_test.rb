@@ -63,7 +63,8 @@ describe VertexClient::Configuration do
       assert_equal VertexClient.circuit.service, 'vertex_client'
       config_defaults = VertexClient::Configuration::CIRCUIT_CONFIG.reject{|k,_| k == :logger }
       config_defaults.each_pair do |key, value|
-        assert_equal value, VertexClient.circuit.circuit_options[key]
+        option = VertexClient.circuit.circuit_options[key]
+        assert_equal value, option.is_a?(Proc) ? option.call : option
       end
     end
   end
