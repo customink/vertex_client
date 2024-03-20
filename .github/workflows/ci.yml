@@ -45,6 +45,7 @@ jobs:
         with:
           ruby-version: ${{ matrix.ruby }}
           bundler-cache: true
+          cache-version: 2
       # Add or replace test runners here
       - name: Run tests
         run: bin/rake test
