@@ -76,7 +76,7 @@ describe VertexClient do
     end
 
     it 'opens the circuit' do
-      skip "This test is flaky and I can't figure out how it get it to not be flaky. Do we really need to test that the circuit opens?"
+      # skip "This test is flaky and I can't figure out how it get it to not be flaky. Do we really need to test that the circuit opens?"
       VCR.use_cassette('circuit_breaker', allow_playback_repeats: true, match_requests_on: []) do
 
         VertexClient.configuration.circuit_config = {}
