@@ -2,10 +2,10 @@
 
 # SimpleCov configuration always goes first to ensure that we are generating correct code-coverage reports.
 # But we only use SimpleCov on the CI System
-if ENV.fetch('CI') { false }
-  require 'simplecov'
-  SimpleCov.start
-end
+# if ENV.fetch('CI') { false }
+#   require 'simplecov'
+#   SimpleCov.start
+# end
 
 $LOAD_PATH.unshift File.expand_path("../../lib", __FILE__)
 require 'circuitbox'
