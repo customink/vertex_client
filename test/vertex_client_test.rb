@@ -44,7 +44,7 @@ describe VertexClient do
 
   describe 'circuit' do
     before do
-      if Circuitbox.method_defined?(:reset)
+      if Circuitbox.respond_to?(:reset)
         Circuitbox.reset
       else
         Circuitbox.configure { |config| config.default_circuit_store = Circuitbox::MemoryStore.new }
@@ -54,7 +54,7 @@ describe VertexClient do
     end
 
     after do
-      if Circuitbox.method_defined?(:reset)
+      if Circuitbox.respond_to?(:reset)
         Circuitbox.reset
       else
         Circuitbox.configure { |config| config.default_circuit_store = Circuitbox::MemoryStore.new }
