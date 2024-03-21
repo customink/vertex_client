@@ -7,30 +7,17 @@ jobs:
       matrix:
         ruby: ["2.5", "2.7", "3.0", "3.1", "3.2"]
         gemfile:
-          - rails_5_2
-          - rails_6
-          - rails_6_1
-          - rails_7
-          - rails_7_1
+          - circuitbox_1
+          - circuitbox_2
         exclude:
           - ruby: "3.2"
-            gemfile: "rails_6"
-          - ruby: "3.2"
-            gemfile: "rails_5_2"
+            gemfile: "circuitbox_1"
           - ruby: "3.1"
-            gemfile: "rails_6"
-          - ruby: "3.1"
-            gemfile: "rails_5_2"
+            gemfile: "circuitbox_1"
           - ruby: "3.0"
-            gemfile: "rails_6"
-          - ruby: "3.0"
-            gemfile: "rails_5_2"
-          - ruby: "2.7"
-            gemfile: "rails_5_2"
+            gemfile: "circuitbox_1"
           - ruby: "2.5"
-            gemfile: "rails_7_1"
-          - ruby: "2.5"
-            gemfile: "rails_7"
+            gemfile: "circuitbox_2"
 
     runs-on: ubuntu-22.04
     env: # $BUNDLE_GEMFILE must be set at the job level, so it is set for all steps
@@ -45,7 +32,7 @@ jobs:
         with:
           ruby-version: ${{ matrix.ruby }}
           bundler-cache: true
-          cache-version: 2
+          cache-version: 3
       # Add or replace test runners here
       - name: Run tests
         run: bin/rake test
