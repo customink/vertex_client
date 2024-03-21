@@ -88,12 +88,17 @@ module VertexClient
 
     def circuit_config_options
       options = {}
+      circuit_config = configuration.circuit_config
+      non_proc_options = [:exceptions, :logger, :cache, :circuit_store, :notifier]
 
-      configuration.circuit_config.keys.each do |key|
-        options[key] = Proc.new { configuration.circuit_config[key] } unless key.to_sym == :exceptions
+      # Circuitbox requires that configurable options be passed as procs.
+      circuit_config.keys.each do |key|
+        options[key] = Proc.new { circuit_config[key] } unless non_proc_options.include?(key.to_sym)
       end
 
-      options[:exceptions] = configuration.circuit_config[:exceptions]
+      non_proc_options.each do |key|
+        options[key] = circuit_config[key] if circuit_config[key]
+      end
 
       options
     end
