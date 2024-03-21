@@ -8,6 +8,13 @@ describe 'Integration' do
   end
 
   after do
+    # Reset Circuitbox
+    if Circuitbox.respond_to?(:reset)
+      Circuitbox.reset
+    else
+      Circuitbox.configure { |config| config.default_circuit_store = Circuitbox::MemoryStore.new }
+    end
+
     VertexClient.reconfigure!
   end
 
@@ -46,7 +53,7 @@ describe 'Integration' do
       end
     end
   end
-  
+
   it 'does an invoice' do
     VCR.use_cassette('invoice', :match_requests_on => []) do
       response = VertexClient.invoice(working_quote_params)
@@ -142,8 +149,9 @@ describe 'Integration' do
   it 'creates a fallback response for quotation when the circuit is open' do
     VertexClient.configuration.circuit_config = {}
     VertexClient.circuit.send(:open!)
-     assert_kind_of VertexClient::Response::QuotationFallback,
-      VertexClient.quotation(working_quote_params)
+    response = VertexClient.quotation(working_quote_params)
+    VertexClient.circuit.send(:close!)
+    assert_kind_of VertexClient::Response::QuotationFallback, response
   end
 
   it 'creates a fallback response for quotation when Vertex returns an error' do

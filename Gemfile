@@ -7,5 +7,4 @@ gemspec
 
 group :test do
   gem 'minitest-ci', require: false
-  gem 'simplecov', '< 0.18', require: false
 end

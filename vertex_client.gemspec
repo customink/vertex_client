@@ -38,6 +38,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "activesupport"
   spec.add_dependency "savon", ">= 2.11"
+  spec.add_development_dependency "appraisal"
   spec.add_development_dependency "awesome_print"
   spec.add_development_dependency "circuitbox"
   spec.add_development_dependency "bundler"
@@ -45,11 +46,8 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "dotenv"
   spec.add_development_dependency "minitest", "~> 5.0"
   spec.add_development_dependency "mocha"
-  spec.add_development_dependency "rake", "~> 10.0"
+  spec.add_development_dependency "rake"
   spec.add_development_dependency "rails"
-  spec.add_development_dependency "simplecov"
-  spec.add_development_dependency "vcr", "~> 4.0"
+  spec.add_development_dependency "vcr"
   spec.add_development_dependency "webmock"
-  spec.add_development_dependency "wwtd"
-
 end

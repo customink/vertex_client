@@ -44,12 +44,22 @@ describe VertexClient do
 
   describe 'circuit' do
     before do
-      Circuitbox.reset
+      if Circuitbox.respond_to?(:reset)
+        Circuitbox.reset
+      else
+        Circuitbox.configure { |config| config.default_circuit_store = Circuitbox::MemoryStore.new }
+      end
+
       VertexClient.reconfigure!
     end
 
     after do
-      Circuitbox.reset
+      if Circuitbox.respond_to?(:reset)
+        Circuitbox.reset
+      else
+        Circuitbox.configure { |config| config.default_circuit_store = Circuitbox::MemoryStore.new }
+      end
+
       VertexClient.reconfigure!
     end
 
@@ -62,19 +72,18 @@ describe VertexClient do
     end
 
     it 'can be configured from Configuration#circuit_config' do
-      logger = Logger.new(STDOUT)
       VertexClient.configure do |c|
-        c.circuit_config = { logger: logger }
+        c.circuit_config = { sleep_window: 1234 }
       end
-      assert_equal logger, VertexClient.circuit.circuit_options[:logger]
+
+      assert_equal 1234, VertexClient.circuit.circuit_options[:sleep_window].call
     end
 
     it 'opens the circuit' do
+      # skip "This test is flaky and I can't figure out how it get it to not be flaky. Do we really need to test that the circuit opens?"
       VCR.use_cassette('circuit_breaker', allow_playback_repeats: true, match_requests_on: []) do
 
-        VertexClient.configuration.circuit_config = {
-          logger: FakeLogger.new
-        }
+        VertexClient.configuration.circuit_config = {}
 
         # 'Not Open' means that we are actively hitting the service.
         VertexClient.configuration.trusted_id  = '💩'
