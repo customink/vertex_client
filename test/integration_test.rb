@@ -9,7 +9,12 @@ describe 'Integration' do
 
   after do
     # Reset Circuitbox
-    Circuitbox.configure { |config| config.default_circuit_store = Circuitbox::MemoryStore.new }
+    if Circuitbox.method_defined?(:reset)
+      Circuitbox.reset
+    else
+      Circuitbox.configure { |config| config.default_circuit_store = Circuitbox::MemoryStore.new }
+    end
+
     VertexClient.reconfigure!
   end
 
