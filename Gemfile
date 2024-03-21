@@ -6,7 +6,6 @@ git_source(:github) {|repo_name| "https://github.com/#{repo_name}" }
 gemspec
 
 group :test do
-  gem "nokogiri", "1.12.5" # Need old version to keep ruby 2.5 in the test matrix
   gem 'minitest-ci', require: false
   gem 'simplecov', '< 0.18', require: false
 end
