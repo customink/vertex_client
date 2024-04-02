@@ -3,6 +3,10 @@ require 'test_helper'
 describe 'payload validation' do
   include TestInput
 
+  after do
+    VertexClient.reconfigure!
+  end
+
   describe 'for incomplete location' do
     describe 'for US customer' do
       let(:payload) { working_quote_params }

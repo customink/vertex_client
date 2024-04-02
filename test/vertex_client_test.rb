@@ -1,8 +1,11 @@
 require 'test_helper'
 
 describe VertexClient do
-
   include TestInput
+
+  after do
+    VertexClient.reconfigure!
+  end
 
   it 'has a version number' do
     refute_nil ::VertexClient::VERSION
@@ -11,7 +14,6 @@ describe VertexClient do
   it 'can be configured with a block' do
     VertexClient.configure { |config| config.trusted_id = 'trusted-id' }
     assert_equal 'trusted-id', VertexClient.configuration.trusted_id
-    VertexClient.reconfigure!
   end
 
   it 'does a quotation' do
@@ -43,16 +45,6 @@ describe VertexClient do
   end
 
   describe 'circuit' do
-    before do
-      Circuitbox.reset
-      VertexClient.reconfigure!
-    end
-
-    after do
-      Circuitbox.reset
-      VertexClient.reconfigure!
-    end
-
     it 'only exists if circuit_config is provided to configuration' do
       VertexClient.configuration.circuit_config = nil
       assert_nil VertexClient.circuit
@@ -62,19 +54,19 @@ describe VertexClient do
     end
 
     it 'can be configured from Configuration#circuit_config' do
-      logger = Logger.new(STDOUT)
       VertexClient.configure do |c|
-        c.circuit_config = { logger: logger }
+        c.circuit_config = { sleep_window: 1234 }
       end
-      assert_equal logger, VertexClient.circuit.circuit_options[:logger]
+
+      assert_equal 1234, VertexClient.circuit.circuit_options[:sleep_window]
     end
 
     it 'opens the circuit' do
+      VertexClient.reconfigure!
+      # skip "This test is flaky and I can't figure out how it get it to not be flaky. Do we really need to test that the circuit opens?"
       VCR.use_cassette('circuit_breaker', allow_playback_repeats: true, match_requests_on: []) do
 
-        VertexClient.configuration.circuit_config = {
-          logger: FakeLogger.new
-        }
+        VertexClient.configuration.circuit_config = {}
 
         # 'Not Open' means that we are actively hitting the service.
         VertexClient.configuration.trusted_id  = '💩'

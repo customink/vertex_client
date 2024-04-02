@@ -3,10 +3,6 @@ require 'test_helper'
 describe 'Integration' do
   include TestInput
 
-  before do
-    VertexClient.reconfigure!
-  end
-
   after do
     VertexClient.reconfigure!
   end
@@ -46,7 +42,7 @@ describe 'Integration' do
       end
     end
   end
-  
+
   it 'does an invoice' do
     VCR.use_cassette('invoice', :match_requests_on => []) do
       response = VertexClient.invoice(working_quote_params)
@@ -78,7 +74,10 @@ describe 'Integration' do
   end
 
   it 'uses circuit if it is available' do
-    VertexClient.configuration.circuit_config = {}
+    VertexClient.reconfigure! do |config|
+      config.circuit_config = {}
+    end
+
     VCR.use_cassette('quotation', :match_requests_on => []) do
       VertexClient.quotation(working_quote_params)
     end
@@ -142,8 +141,9 @@ describe 'Integration' do
   it 'creates a fallback response for quotation when the circuit is open' do
     VertexClient.configuration.circuit_config = {}
     VertexClient.circuit.send(:open!)
-     assert_kind_of VertexClient::Response::QuotationFallback,
-      VertexClient.quotation(working_quote_params)
+    response = VertexClient.quotation(working_quote_params)
+    VertexClient.circuit.send(:close!)
+    assert_kind_of VertexClient::Response::QuotationFallback, response
   end
 
   it 'creates a fallback response for quotation when Vertex returns an error' do
@@ -159,6 +159,7 @@ describe 'Integration' do
     assert_raises VertexClient::ServerError do
       VertexClient.invoice(working_quote_params)
     end
+    VertexClient.circuit.send(:close!)
   end
 
   it 'raises if theres an error on invoice and the circuit is closed' do
