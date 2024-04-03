@@ -183,4 +183,35 @@ describe 'Integration' do
       end
     end
   end
+
+  it 'raises if the circuit is open on distribute tax' do
+    VertexClient.configuration.circuit_config = {}
+    VertexClient.circuit.send(:open!)
+    assert_raises VertexClient::ServerError do
+      VertexClient.distribute_tax(distribute_tax_params)
+    end
+    VertexClient.circuit.send(:close!)
+  end
+
+  it 'raises if theres an error on distribute tax and the circuit is closed' do
+    VertexClient.configuration.circuit_config = {}
+    resource = VertexClient::Resource::DistributeTax.new(distribute_tax_params)
+    raises_expection = proc { raise Savon::Error.new('something went wrong') }
+    resource.send(:connection).send(:client).stub(:call, raises_expection) do
+      assert_raises VertexClient::ServerError do
+        resource.result
+      end
+    end
+  end
+
+  it 'raises if theres an error on distribute tax and the circuit is missing' do
+    assert_nil VertexClient.circuit
+    resource = VertexClient::Resource::DistributeTax.new(distribute_tax_params)
+    raises_expection = proc { raise Savon::Error.new('something went wrong') }
+    resource.send(:connection).send(:client).stub(:call, raises_expection) do
+      assert_raises VertexClient::ServerError do
+        resource.result
+      end
+    end
+  end
 end
