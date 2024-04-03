@@ -2,11 +2,5 @@
 set -e
 cd "$(dirname "$0")/.."
 
-if [[ -z "$CI" ]]; then
-  # Bundle each ruby version
-  rm -rf Gemfile.lock
-  gem install wwtd
-  wwtd --only-bundle
-else
-  bundle --quiet
-fi
+bundle --quiet
+

@@ -3,10 +3,6 @@ require 'test_helper'
 describe 'Integration' do
   include TestInput
 
-  before do
-    VertexClient.reconfigure!
-  end
-
   after do
     VertexClient.reconfigure!
   end
@@ -46,7 +42,7 @@ describe 'Integration' do
       end
     end
   end
-  
+
   it 'does an invoice' do
     VCR.use_cassette('invoice', :match_requests_on => []) do
       response = VertexClient.invoice(working_quote_params)
@@ -78,7 +74,10 @@ describe 'Integration' do
   end
 
   it 'uses circuit if it is available' do
-    VertexClient.configuration.circuit_config = {}
+    VertexClient.reconfigure! do |config|
+      config.circuit_config = {}
+    end
+
     VCR.use_cassette('quotation', :match_requests_on => []) do
       VertexClient.quotation(working_quote_params)
     end
@@ -142,8 +141,9 @@ describe 'Integration' do
   it 'creates a fallback response for quotation when the circuit is open' do
     VertexClient.configuration.circuit_config = {}
     VertexClient.circuit.send(:open!)
-     assert_kind_of VertexClient::Response::QuotationFallback,
-      VertexClient.quotation(working_quote_params)
+    response = VertexClient.quotation(working_quote_params)
+    VertexClient.circuit.send(:close!)
+    assert_kind_of VertexClient::Response::QuotationFallback, response
   end
 
   it 'creates a fallback response for quotation when Vertex returns an error' do
@@ -159,6 +159,7 @@ describe 'Integration' do
     assert_raises VertexClient::ServerError do
       VertexClient.invoice(working_quote_params)
     end
+    VertexClient.circuit.send(:close!)
   end
 
   it 'raises if theres an error on invoice and the circuit is closed' do
@@ -175,6 +176,37 @@ describe 'Integration' do
   it 'raises if theres an error on invoice and the circuit is missing' do
     assert_nil VertexClient.circuit
     resource = VertexClient::Resource::Invoice.new( working_quote_params )
+    raises_expection = proc { raise Savon::Error.new('something went wrong') }
+    resource.send(:connection).send(:client).stub(:call, raises_expection) do
+      assert_raises VertexClient::ServerError do
+        resource.result
+      end
+    end
+  end
+
+  it 'raises if the circuit is open on distribute tax' do
+    VertexClient.configuration.circuit_config = {}
+    VertexClient.circuit.send(:open!)
+    assert_raises VertexClient::ServerError do
+      VertexClient.distribute_tax(distribute_tax_params)
+    end
+    VertexClient.circuit.send(:close!)
+  end
+
+  it 'raises if theres an error on distribute tax and the circuit is closed' do
+    VertexClient.configuration.circuit_config = {}
+    resource = VertexClient::Resource::DistributeTax.new(distribute_tax_params)
+    raises_expection = proc { raise Savon::Error.new('something went wrong') }
+    resource.send(:connection).send(:client).stub(:call, raises_expection) do
+      assert_raises VertexClient::ServerError do
+        resource.result
+      end
+    end
+  end
+
+  it 'raises if theres an error on distribute tax and the circuit is missing' do
+    assert_nil VertexClient.circuit
+    resource = VertexClient::Resource::DistributeTax.new(distribute_tax_params)
     raises_expection = proc { raise Savon::Error.new('something went wrong') }
     resource.send(:connection).send(:client).stub(:call, raises_expection) do
       assert_raises VertexClient::ServerError do

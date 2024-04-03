@@ -53,10 +53,12 @@ module VertexClient
     def reconfigure!
       @configuration = Configuration.new
       yield(@configuration) if block_given?
+      reconfigure_circuitbox
     end
 
     def configure
       yield(configuration)
+      reconfigure_circuitbox
     end
 
     def quotation(payload)
@@ -76,11 +78,38 @@ module VertexClient
     end
 
     def circuit
-      return unless configuration.circuit_config && defined?(Circuitbox)
+      return unless circuit_configured?
+
       Circuitbox.circuit(
         Configuration::CIRCUIT_NAME,
         configuration.circuit_config
       )
+    end
+
+    private
+
+    def reconfigure_circuitbox
+      return unless circuitbox_defined?
+
+      if Circuitbox.respond_to?(:reset)
+        Circuitbox.reset
+      else
+        Circuitbox.configure do |config|
+          config.default_circuit_store = configured_circuit_store
+        end
+      end
+    end
+
+    def configured_circuit_store
+      (configuration.circuit_config && configuration.circuit_config[:circuit_store]) || Circuitbox::MemoryStore.new
+    end
+
+    def circuit_configured?
+      configuration.circuit_config && circuitbox_defined?
+    end
+
+    def circuitbox_defined?
+      defined?(Circuitbox)
     end
   end
 

@@ -1,5 +1,9 @@
 require 'test_helper'
 describe VertexClient::Connection do
+  after do
+    VertexClient.reconfigure!
+  end
+
   let(:connection) { VertexClient::Connection.new('test', :test) }
 
   it 'initializes with an endpoint and resource_key' do
