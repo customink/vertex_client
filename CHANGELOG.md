@@ -2,6 +2,19 @@
 
 This file tracks all the changes (https://keepachangelog.com/en/1.0.0/) made to the client. This allows parsers such as Dependabot to provide a clean overview in pull requests.
 
+## [v0.11.0] - 2024-04-03
+
+#### Changed
+
+- BREAKING: There are breaking changes when updating to `circuitbox` v2.0.0, which may require changes to this gem's `circuit_config`.
+  - `logger` is deprecated. If needed, use `notifier` instead.
+  - `cache` has been renamed to `circuit_store`.
+  - Review the full list of changes in the [Circuitbox 2.0 Upgrade Guide](https://github.com/yammer/circuitbox/blob/main/docs/2.0-upgrade.md)
+
+#### Added
+
+- Adds compatibility with `circuitbox` v2.0.0 and retains compatibility with v1.1.1.
+
 ## [v0.10.1] - 2021-04-29
 
 #### Changed
@@ -40,7 +53,6 @@ This file tracks all the changes (https://keepachangelog.com/en/1.0.0/) made to 
 
 - Update quotation validation rules to require either `state` (case of US address) or `country` (other countries)
 
-
 ## [v0.9.0] - 2020-03-23
 
 #### Added
@@ -56,13 +68,11 @@ This file tracks all the changes (https://keepachangelog.com/en/1.0.0/) made to 
 
 - Adapter config in favor of Savon/HTTPI globals.
 
-
 ## [v0.8.0] - 2020-03-20
 
 #### Added
 
 - New HTTP adapter config.
-
 
 ## [v0.7.0]
 
