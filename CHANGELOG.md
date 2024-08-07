@@ -2,6 +2,13 @@
 
 This file tracks all the changes (https://keepachangelog.com/en/1.0.0/) made to the client. This allows parsers such as Dependabot to provide a clean overview in pull requests.
 
+## [v0.12.0] - 2024-08-07
+
+#### Added
+
+- Added `quotation!`, `invoice!`, `distribute_tax!`, `tax_area!` class methods to `VertexClient` that raise `Savon::SOAPFault` errors when errors are returned from the Vertex SOAP API
+  - Existing non-bang methods receive `nil` internally and return `fallback_response` defined in each resource
+
 ## [v0.11.0] - 2024-04-03
 
 #### Changed
