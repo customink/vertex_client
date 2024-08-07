@@ -3,6 +3,10 @@ require 'test_helper'
 describe VertexClient::Resource::Base do
   class VertexClient::Resource::MyTest  < VertexClient::Resource::Base
     ENDPOINT = 'MyEndPoint'.freeze
+
+    def fallback_response
+      { fall: :back }
+    end
   end
   class VertexClient::Payload::MyTest   < VertexClient::Payload::Base
     def validate!
@@ -51,11 +55,33 @@ describe VertexClient::Resource::Base do
     end
   end
 
+  describe 'result!' do
+    describe 'without exceptions' do
+      before do
+        resource.stubs(:response!).returns({ test: :ok })
+      end
+
+      it 'returns a formatted response' do
+        resource.expects(:formatted_response)
+        resource.result!
+      end
+    end
+
+    describe 'with exceptions' do
+      before do
+        resource.stubs(:response!).raises(StandardError)
+      end
+
+      it 'raises the exception' do
+        assert_raises(StandardError) { resource.result! }
+      end
+    end
+  end
+
   describe 'formatted_response' do
     it 'returns a new response of the proper type' do
-      resource.expects(:response).returns({test: :ok})
       VertexClient::Response::MyTest.expects(:new).with({test: :ok})
-      resource.send(:formatted_response)
+      resource.send(:formatted_response, {test: :ok})
     end
   end
 end

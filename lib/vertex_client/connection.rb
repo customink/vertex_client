@@ -11,10 +11,13 @@ module VertexClient
 
     def request(payload)
       call_with_circuit_if_available do
-        client.call(
-          :vertex_envelope,
-          message: shell_with_auth.merge(payload)
-        )
+        raw_request(payload)
+      end
+    end
+
+    def request!(payload)
+      call_with_circuit_if_available(raise_exceptions: true) do
+        raw_request(payload)
       end
     end
 
@@ -32,6 +35,13 @@ module VertexClient
 
     private
 
+    def raw_request(payload)
+      client.call(
+        :vertex_envelope,
+        message: shell_with_auth.merge(payload)
+      )
+    end
+
     def config
       @config ||= VertexClient.configuration
     end
@@ -40,14 +50,20 @@ module VertexClient
       config.resource_config[@resource_key] || {}
     end
 
-    def call_with_circuit_if_available
+    def call_with_circuit_if_available(raise_exceptions: false)
       if VertexClient.circuit
-        VertexClient.circuit.run(exception: false) { yield }
+        begin
+          VertexClient.circuit.run(exception: raise_exceptions) { yield }
+        rescue Circuitbox::ServiceFailureError => e
+          nil
+          raise e.original if raise_exceptions
+        end
       else
         begin
           yield
-        rescue => _e
+        rescue => e
           nil
+          raise e if raise_exceptions
         end
       end
     end
