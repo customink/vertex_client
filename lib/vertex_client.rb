@@ -65,16 +65,32 @@ module VertexClient
       Resource::Quotation.new(payload).result
     end
 
+    def quotation!(payload)
+      Resource::Quotation.new(payload).result!
+    end
+
     def invoice(payload)
       Resource::Invoice.new(payload).result
+    end
+
+    def invoice!(payload)
+      Resource::Invoice.new(payload).result!
     end
 
     def distribute_tax(payload)
       Resource::DistributeTax.new(payload).result
     end
 
+    def distribute_tax!(payload)
+      Resource::DistributeTax.new(payload).result!
+    end
+
     def tax_area(payload)
       Resource::TaxArea.new(payload).result
+    end
+
+    def tax_area!(payload)
+      Resource::TaxArea.new(payload).result!
     end
 
     def circuit
