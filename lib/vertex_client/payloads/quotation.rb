@@ -3,6 +3,7 @@ module VertexClient
     class Quotation < Base
 
       SALE_TRANSACTION_TYPE = 'SALE'.freeze
+      ROUND_AT_LINE_LEVEL_BOOLEAN = true.freeze
 
       def validate!
         raise VertexClient::ValidationError.new('customer requires either state or country and postal_code') if customer_missing_location?
@@ -12,6 +13,7 @@ module VertexClient
       def body
         {}.tap do |data|
           data[:'@transactionType'] = SALE_TRANSACTION_TYPE
+          date[:'@roundAtLineLevel'] = ROUND_AT_LINE_LEVEL_BOOLEAN
           data[:'@isTaxOnlyAdjustmentIndicator'] = true if params[:tax_only_adjustment]
           data[:'@deliveryTerm'] = params[:delivery_term] if params[:delivery_term]
           data[:line_item] = params[:line_items].map.with_index do |line_item, index|
