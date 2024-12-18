@@ -16,12 +16,13 @@ module VertexClient
 
       def line_items
         @line_items ||= normalized_line_items.map do |line_item|
-          LineItem.new(
+            LineItem.new(
             product:        product_for_line_item(line_item[:product]),
             quantity:       line_item[:quantity],
             price:          line_item[:extended_price],
-            total_tax:      tax_for_line_item(line_item)
-          )
+            total_tax:      tax_for_line_item(line_item),
+            flexible_code_field: line_item[:flexible_fields].try(:[], :flexible_code_field)
+            )
         end
       end
 
