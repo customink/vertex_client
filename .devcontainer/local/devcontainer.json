@@ -1,0 +1,14 @@
+{
+  "name": "vertex_client",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "vertex_client",
+  "workspaceFolder": "/workspaces/vertex_client",
+  "features": {
+    "ghcr.io/devcontainers-contrib/features/apt-get-packages:1": {
+      "packages": "vim,iputils-ping,iputils-tracepath,zsh,ssh,tmux"
+    },
+    "ghcr.io/devcontainers/features/common-utils": {
+      "upgradePackages": false
+    }
+  }
+}
