@@ -5,5 +5,5 @@ end
 
 appraise "circuitbox-2" do
   gem "circuitbox", "~> 2.0.0"
-  gem "rails", "~> 7.0.0"  # Or whichever Rails version is compatible with circuitbox 2.0
+  gem "rails", "~> 7.0.0", "< 7.1"  # Or whichever Rails version is compatible with circuitbox 2.0
 end
