@@ -37,6 +37,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_dependency "activesupport"
+  spec.add_dependency "rack", "~> 2.2"
   spec.add_dependency "savon", ">= 2.11"
   spec.add_development_dependency "appraisal"
   spec.add_development_dependency "awesome_print"
