@@ -1,3 +1,5 @@
+test build
+
 # VertexClient
 
 [![CircleCI](https://circleci.com/gh/customink/vertex_client.svg?style=svg&circle-token=ccfd7815662866d32b9173a55820d897b162220f)](https://circleci.com/gh/customink/vertex_client)
@@ -94,12 +96,14 @@ response.total     #=> Total price plus total tax
 response.subtotal  #=> Total price before tax
 ```
 
-####  Location specific data (required for `:customer` and specified `:physical_origin` of `:seller` in `:line_items`)
-You are required to specify a `state` or a `country`. The client will raise an error if none is specified. 
+#### Location specific data (required for `:customer` and specified `:physical_origin` of `:seller` in `:line_items`)
+
+You are required to specify a `state` or a `country`. The client will raise an error if none is specified.
 
 At the moment specifying state automatically implies `country` is `US`. For `US` locations `postal_code` is also required.
 
 ##### US address example
+
 ```ruby
  customer: {
     ...
@@ -109,12 +113,15 @@ At the moment specifying state automatically implies `country` is `US`. For `US`
     ...
   }
 ```
+
 ##### Non-US address example
+
 `state` and `postal_code` are optional attributes for non-US countries
+
 ```ruby
  customer: {
     ...
-    country: "CZ", 
+    country: "CZ",
     ...
   }
 ```
@@ -153,7 +160,8 @@ VertexClient.distribute_tax(
 ```
 
 ### Tax Area
-Look up the internal Vertex location identifier for a given address. Including  `tax_area_id` as part of the customer information in calls to `invoice` and `quotation` should improve performance, especially in situations where there are many destination addresses.
+
+Look up the internal Vertex location identifier for a given address. Including `tax_area_id` as part of the customer information in calls to `invoice` and `quotation` should improve performance, especially in situations where there are many destination addresses.
 
 ```ruby
 response = VertexClient.tax_area(
@@ -199,12 +207,14 @@ Or install it yourself as:
 Configure the client's connection to Vertex using environment variables or an initializer.
 
 ### Environment Variables
+
 The following environment variables are used to configure the client.
 
 ```
 VERTEX_TRUSTED_ID=your-trusted-id
 VERTEX_SOAP_API=https://connect.vertexsmb.com/vertex-ws/services/
 ```
+
 ### Initializer
 
 If you are using Rails, take advantage of the included generator:
@@ -212,7 +222,6 @@ If you are using Rails, take advantage of the included generator:
     $ bundle exec rails g vertex_client:install
 
 Otherwise reference our [initializer template](https://github.com/customink/vertex_client/blob/master/lib/generators/install/templates/initializer.rb.erb)
-
 
 ## Development
 
