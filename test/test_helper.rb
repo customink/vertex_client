@@ -9,6 +9,7 @@ require "vcr"
 require 'byebug'
 require "mocha/minitest"
 require 'minitest-ci' if ENV.fetch('CI') { false }
+require 'ostruct'
 
 VertexClient.configuration # make sure the client is configured
 

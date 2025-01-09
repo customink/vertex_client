@@ -2,6 +2,14 @@
 
 This file tracks all the changes (https://keepachangelog.com/en/1.0.0/) made to the client. This allows parsers such as Dependabot to provide a clean overview in pull requests.
 
+## [v0.11.1] - 2024-12-05
+
+#### Changed
+
+- Remove international quotation fallback rates to match Vertex level discontinuation of international sales tax collection
+- Adjust domestic quotation fallback rates to better match current Vertex rates
+- Fix GitHub Actions CI test failures (lock Rack version, require OpenStruct, use `underscore` instead of `snakecase`, use Checkout V4 instead of V3)
+
 ## [v0.11.0] - 2024-04-03
 
 #### Changed

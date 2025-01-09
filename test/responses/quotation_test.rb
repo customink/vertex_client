@@ -25,7 +25,7 @@ describe VertexClient::Response::Quotation do
   end
 
   let(:empty_product_response) do
-    parser = Nori.new(:convert_tags_to => lambda { |tag| tag.snakecase.to_sym })
+    parser = Nori.new(:convert_tags_to => lambda { |tag| tag.underscore.to_sym })
     lip = parser.parse('<product productClass="my_awesome_class" />')
     resp = vertex_quotation_response.dup
     resp.body[:vertex_envelope][:quotation_response][:line_item] = [lip]
