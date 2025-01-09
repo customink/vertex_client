@@ -1,0 +1,47 @@
+# Change whatever you need also you can run dev-lint to check some fundamentals are still working
+name: vertex_client
+services:
+  vertex_client:
+    build:
+      context: ../../
+      dockerfile: .devcontainer/local/Dockerfile
+    command: sleep infinity
+    dns:
+      - 172.24.0.250
+    volumes:
+      - ../..:/workspaces/vertex_client
+      - vertex_client-gems:/workspaces/vertex_client/.bundle
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /run/host-services/ssh-auth.sock:/run/host-services/ssh-auth.sock
+    environment:
+      # The .env(*) files in your project folder override these variables
+      # you can comment out the .env files, move the configuration here
+      # mount over the .env files in volume section, depends on what workflow
+      # you want
+      DEVSPACE: true # useful for disabling some stuff in bin/setup and bin/boostrap and similar init scripts
+      SSH_AUTH_SOCK: /run/host-services/ssh-auth.sock
+      BUNDLE_PATH: /workspaces/vertex_client/.bundle
+      GEM_PATH: /workspaces/vertex_client/.bundle/ruby/2.1.0/gems
+      GEM_HOME: /workspaces/vertex_client/.bundle/ruby/2.1.0/gems
+      DISPLAY: xserver:0
+    env_file:
+      - ${HOME}/.devcontainers.env
+    labels:
+      # See https://doc.traefik.io/traefik/routing/providers/docker/#tcp-routers
+      # See https://doc.traefik.io/traefik/routing/providers/docker/#services
+      - "traefik.http.routers.vertex_client-http.rule=Host(`vertex_client.customink.d3v`)"
+      - "traefik.http.routers.vertex_client-http.entrypoints=web"
+      - "traefik.http.routers.vertex_client-http.service=vertex_client-http"
+
+      - "traefik.http.routers.vertex_client-https.rule=Host(`vertex_client.customink.d3v`)"
+      - "traefik.http.routers.vertex_client-https.entrypoints=websecure"
+      - "traefik.http.routers.vertex_client-https.tls=true"
+      - "traefik.http.routers.vertex_client-https.service=vertex_client-http"
+
+      - "traefik.http.services.vertex_client-http.loadbalancer.server.port=3000"
+volumes:
+  vertex_client-gems:
+networks:
+  default:
+    external: true
+    name: devcontainers
