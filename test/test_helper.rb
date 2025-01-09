@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 $LOAD_PATH.unshift File.expand_path("../../lib", __FILE__)
+require 'ostruct'
+require 'active_support/core_ext/string/inflections'
 require 'circuitbox'
 require "dotenv/load"
 require "vertex_client"
