@@ -80,6 +80,28 @@ describe VertexClient::Response::QuotationFallback do
         assert_equal 0.0, response.total_tax.to_f
       end
     end
+
+    describe 'for a country with a state code that collides with a US state code' do
+      let(:params) do
+        working_quote_params.tap do |wqp|
+          wqp[:customer][:address_1] = 'Miguel Angel Blanco 2 4C'
+          wqp[:customer][:city] = 'Valladolid'
+          wqp[:customer][:state] = 'VA'
+          wqp[:customer][:postal_code] = '47014'
+          wqp[:customer][:country] = 'ES'
+          wqp[:line_items][1][:customer][:address_1] = 'Miguel Angel Blanco 2 4C'
+          wqp[:line_items][1][:customer][:city] = 'Valladolid'
+          wqp[:line_items][1][:customer][:state] = 'VA'
+          wqp[:line_items][1][:customer][:postal_code] = '47014'
+          wqp[:line_items][1][:customer][:country] = 'ES'
+        end
+      end
+      let(:payload) { VertexClient::Payload::QuotationFallback.new(params) }
+
+      it 'does not use the US rates' do
+        assert_equal 0.0, response.total_tax.to_f
+      end
+    end
   end
 
   describe 'total' do

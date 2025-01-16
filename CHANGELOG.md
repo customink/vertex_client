@@ -2,6 +2,12 @@
 
 This file tracks all the changes (https://keepachangelog.com/en/1.0.0/) made to the client. This allows parsers such as Dependabot to provide a clean overview in pull requests.
 
+## [v0.11.2] - 2025-01-16
+
+#### Changed
+
+- Take country code into account when determining applicable state tax rate in fallback quotation context.
+
 ## [v0.11.1] - 2024-12-05
 
 #### Changed
