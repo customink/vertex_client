@@ -1,6 +1,11 @@
 # VertexClient Changelog
 
 This file tracks all the changes (https://keepachangelog.com/en/1.0.0/) made to the client. This allows parsers such as Dependabot to provide a clean overview in pull requests.
+## [v0.11.3] - 2025-01-21
+
+#### Changed
+
+- Fix misalignment between v0.11.2 tag / release and current code state.
 
 ## [v0.11.2] - 2025-01-16
 
