@@ -128,6 +128,10 @@ VertexClient.invoice(
   # Vertex's Document Number is a unique referencial identifier for this invoice.
   document_number: "unique-identifier-1a43b",
 
+  # Optional posting date for controlling the Vertex tax reporting period (e.g. ship date).
+  # Defaults to documentDate when omitted.
+  posting_date: "2018-11-16",
+
   # ... All of the of the payload from quotation here ...
 )
 
