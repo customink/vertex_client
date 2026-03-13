@@ -11,10 +11,12 @@ module VertexClient
       end
 
       def body
-        super.merge({
-           :'@documentNumber' => params[:document_number],
-           :'@documentDate'   => params[:date]
-         })
+        b = super.merge({
+          :'@documentNumber' => params[:document_number],
+          :'@documentDate'   => params[:date]
+        })
+        b[:'@postingDate'] = params[:posting_date] if params[:posting_date].present?
+        b
       end
 
       def document_number_missing?

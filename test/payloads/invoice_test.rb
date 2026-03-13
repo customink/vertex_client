@@ -16,6 +16,16 @@ describe VertexClient::Payload::Invoice do
     }), payload.body
   end
 
+  it 'includes @postingDate in body when posting_date is provided' do
+    working_quote_params[:posting_date] = '2026-03-12'
+    payload = VertexClient::Payload::Invoice.new(working_quote_params)
+    assert_equal '2026-03-12', payload.body[:'@postingDate']
+  end
+
+  it 'omits @postingDate from body when posting_date is not provided' do
+    assert_nil payload.body[:'@postingDate']
+  end
+
   it_supports_tax_only_adjustments(:working_quote_params)
 
   it 'supports sending is_tax_exempt to customer' do

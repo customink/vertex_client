@@ -1,6 +1,12 @@
 # VertexClient Changelog
 
 This file tracks all the changes (https://keepachangelog.com/en/1.0.0/) made to the client. This allows parsers such as Dependabot to provide a clean overview in pull requests.
+## [v0.12.0] - 2026-03-12
+
+#### Added
+
+- Add optional `posting_date` parameter to Invoice payload. When provided, sets `@postingDate` on the `InvoiceRequest` element for Vertex tax reporting period control. Omitting `posting_date` preserves existing behavior (no `@postingDate` attribute sent).
+
 ## [v0.11.3] - 2025-01-21
 
 #### Changed
