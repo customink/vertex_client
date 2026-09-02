@@ -1,6 +1,6 @@
 name: vertex_client
 
-owner: tailor-made # team definitions at https://app.opslevel.com/teams
+owner: purchase # team definitions at https://app.opslevel.com/teams
 
 purpose: # multiple choice
   # - do_not_track # demo testing personal - will not be tracked in catalog
